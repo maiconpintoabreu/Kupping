@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClassesComponent } from './classes/classes.component';
 import { StudentsComponent } from './students/students.component';
 import { AdminComponent } from './admin/admin.component';
+import { FormStudentsComponent } from './students/form-students.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +27,9 @@ export const adminRoutes: Routes = [
         children: [
           { path: '', component: DashboardComponent },
           { path: 'classes', component: ClassesComponent },
-          { path: 'students', component: StudentsComponent }
+          { path: 'students', component: StudentsComponent },
+          { path: 'students/detail/:id', component: FormStudentsComponent },
+          { path: 'students/new', component: FormStudentsComponent }
         ]
       }
     ]

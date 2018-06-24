@@ -13,6 +13,7 @@ import { DanceStyleComponent } from './dance-style/dance-style.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
 import { AgmCoreModule } from '@agm/core';
 import { AdminComponent } from './admin/admin.component';
+import { FormStudentsComponent } from './students/form-students.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminComponent } from './admin/admin.component';
     ClassesComponent,
     DanceStyleComponent,
     DashboardItemComponent,
-    AdminComponent
+    AdminComponent,
+    FormStudentsComponent
   ],
   imports: [
     BrowserModule,
