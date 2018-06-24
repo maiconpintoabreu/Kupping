@@ -10,6 +10,7 @@ import { StudentsComponent } from './students/students.component';
 import { ClassesComponent } from './classes/classes.component';
 import { DanceStyleComponent } from './dance-style/dance-style.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { DashboardItemComponent } from './dashboard-item/dashboard-item.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
