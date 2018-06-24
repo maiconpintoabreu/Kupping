@@ -1,0 +1,67 @@
+<div class="container">
+  <h1 *ngIf="!isDetail">New Class</h1>
+  <h1 *ngIf="isDetail">Class</h1>
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name"
+              required
+              [(ngModel)]="model.name" name="name"
+              #name="ngModel">
+      <div [hidden]="name.valid || name.pristine"
+            class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="danceStyle">Dance Style</label>
+      <input type="text" class="form-control" id="danceStyle"
+              required [disabled]="isDetail"
+              [(ngModel)]="model.danceStyle.id" name="danceStyle"
+              #danceStyle="ngModel">
+      <div [hidden]="danceStyle.valid || danceStyle.pristine"
+            class="alert alert-danger">
+        Dance Style is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="text" class="form-control" id="date"
+              required
+              [(ngModel)]="model.date" name="date"
+              #date="ngModel">
+      <div [hidden]="date.valid || date.pristine"
+            class="alert alert-danger">
+        Date is required
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Day of born</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of model.students" [routerLink]="['./detail', student.id]">
+          <th scope="row">{{ student.id }}</th>
+          <td>{{ student.name }}</td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.bornday }}</td>
+          <td>
+            <a 
+              (click)="deleteStudent(student.id);$event.stopPropagation()">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">Submit</button>
+    <button type="button" class="btn btn-default" [routerLink]="['../']" *ngIf="!isDetail">Back</button>
+    <button type="button" class="btn btn-default" [routerLink]="['../../']" *ngIf="isDetail">Back</button>
+  </form>
+</div>

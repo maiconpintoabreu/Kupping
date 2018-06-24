@@ -1,3 +1,28 @@
-<p>
-  classes works!
-</p>
+<button type="button" class="btn btn-default" [routerLink]="['./new']">New Class</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Dance Style</th>
+      <th>Date</th>
+      <th>Students</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let class of classes" [routerLink]="['./detail', student.id]">
+      <th scope="row">{{ class.id }}</th>
+      <td>{{ class.name }}</td>
+      <td>{{ class.danceStyle }}</td>
+      <td>{{ class.date }}</td>
+      <td>{{ class.students?.length }}</td>
+      <td>
+        <a 
+          (click)="deleteClass(class.id);$event.stopPropagation()">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
