@@ -1,0 +1,10 @@
+<nav>
+  <ul class="nav nav-tabs">
+      <li role="presentation" routerLinkActive="active"><a routerLink="./" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a></li>
+    <li role="presentation" routerLinkActive="active"><a routerLink="./classes" routerLinkActive="active">Classes</a></li>
+    <li role="presentation" routerLinkActive="active"><a routerLink="./students" routerLinkActive="active">Students</a></li>
+    <li role="presentation"><a href="#" (click)="logout()">Logout</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

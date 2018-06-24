@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -11,6 +12,7 @@ import { ClassesComponent } from './classes/classes.component';
 import { DanceStyleComponent } from './dance-style/dance-style.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
 import { AgmCoreModule } from '@agm/core';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { AgmCoreModule } from '@agm/core';
     StudentsComponent,
     ClassesComponent,
     DanceStyleComponent,
-    DashboardItemComponent
+    DashboardItemComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o'
     })
