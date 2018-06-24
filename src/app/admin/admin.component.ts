@@ -12,4 +12,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
   }
 
+  logout() :void {
+    //this.authService.logout();
+  }
 }
