@@ -27,7 +27,7 @@ export class FormClassesComponent implements OnInit {
         //});
 
         //TODO: remove MOCK
-        this.model = {name:"Class 1",id:"1",danceStyle:new DanceStyle(),date:"01/01/2018",students:null};
+        this.model = {name:"Class 1",id:"1",danceStyle:new DanceStyle(),place:"Dublin",students:null,time:"19:00"};
       }else{
         this.initClass();
       }

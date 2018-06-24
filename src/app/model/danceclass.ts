@@ -4,7 +4,8 @@ import { DanceStyle } from "./dancestyle";
 export class DanceClass{
     id: string;
     name: string;
-    date: string;
+    place: string;
+    time: string;
     students: Student[];
     danceStyle: DanceStyle = new DanceStyle();
 }
