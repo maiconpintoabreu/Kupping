@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Student } from '../model/student';
+import { StudentService } from '../services/student.service';
 
 @Component({
   selector: 'app-students',
@@ -11,23 +12,21 @@ import { Student } from '../model/student';
 export class FormStudentsComponent implements OnInit {
   isDetail:boolean = false;
   model:Student;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private studentService: StudentService, private router: Router) { }
 
   ngOnInit() {
+    this.initStudent();
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
       if(this.isDetail){
-        //this.userService.getUser(params.get('id')).subscribe(res=>{
-        //  console.log(res);
-          //this.model = res;
-        //},err=>{
-        //  console.log(err);
-        //});
-
-        //TODO: remove MOCK
-        this.model = {name:"Maicon Silva Pinto de Abreu Santana",email:"maiconspas@gmail.com",bornday:"14/05/1987",id:"1"};
+        this.studentService.getStudent(params.get('id')).subscribe(res=>{
+          console.log(res);
+          this.model = res;
+        },err=>{
+          console.log(err);
+        });
       }else{
-        this.initStudent();
+        
       }
     }); 
   }
@@ -36,9 +35,18 @@ export class FormStudentsComponent implements OnInit {
   }
   onSubmit(): void{
     if(this.isDetail){
-      //edit
+      this.studentService.updateStudent(this.model).subscribe(res=>{
+        alert("Updated");
+      },err=>{
+        console.log(err);
+      });
     }else{
-      //create
+      this.studentService.addStudent(this.model).subscribe(res=>{
+        alert("Created");
+        this.router.navigate(["/admin/students"]);
+      },err=>{
+        console.log(err);
+      });
     }
   }
 }

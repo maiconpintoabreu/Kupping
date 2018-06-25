@@ -15,6 +15,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
+import { StudentService } from './services/student.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,13 @@ import { FormClassesComponent } from './classes/form-classes.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o'
     })
   ],
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

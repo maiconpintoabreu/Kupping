@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../model/student';
+import { StudentService } from '../services/student.service';
 
 @Component({
   selector: 'app-students',
@@ -9,25 +10,25 @@ import { Student } from '../model/student';
 export class StudentsComponent implements OnInit {
 
   students: Student[];
-  constructor() { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit() {
     this.getStudents();
   }
   
   getStudents() : void {
-    //this.userService.getUsers().subscribe(res=>{
-    //  this.users = res;
-    //});
+    this.studentService.getStudents().subscribe(res=>{
+      this.students = res;
+    });
     console.log("List Students");
   }
   deleteStudent(id: string) : void {
     console.log("Delete: "+id);
-    //this.userService.deleteUser(id).subscribe(res=>{
-    //  this.getUsers();
-    //},
-    //err=>{
-    //  console.log(err);
-    //});
+    this.studentService.deleteStudent(id).subscribe(res=>{
+      this.getStudents();
+    },
+    err=>{
+      console.log(err);
+    });
   }
 }
