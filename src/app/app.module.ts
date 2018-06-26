@@ -17,6 +17,7 @@ import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
 import { StudentService } from './services/student.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CloseMenu } from './directives/close-menu';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardItemComponent,
     AdminComponent,
     FormStudentsComponent,
-    FormClassesComponent
+    FormClassesComponent,
+    CloseMenu
   ],
   imports: [
     BrowserModule,
