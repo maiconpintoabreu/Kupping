@@ -28,7 +28,7 @@
       <label for="place">Place</label>
       <input type="text" class="form-control" id="place"
               required
-              [(ngModel)]="model.place" name="place"
+              [(ngModel)]="model.place.description" name="place"
               #place="ngModel">
       <div [hidden]="place.valid || place.pristine"
             class="alert alert-danger">
