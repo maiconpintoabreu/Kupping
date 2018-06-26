@@ -30,6 +30,14 @@ export class HomeComponent implements OnInit {
         });
       },err=>{
         this.position= {coords:{latitude:53.3487119,longitude:-6.2581781,accuracy:0,altitude:0,altitudeAccuracy:0,heading:0,speed:0},timestamp:1};
+        
+        this.danceClassService.getDanceClasses().subscribe(res=>{
+          res.forEach(element => {
+            this.selectedPlaces.push(element.place);
+          });
+        },err=>{
+
+        });
       });
     }
   }
