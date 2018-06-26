@@ -1,10 +1,25 @@
-<nav>
-  <ul class="nav nav-tabs">
-      <li role="presentation" routerLinkActive="active"><a routerLink="./" routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a></li>
-    <li role="presentation" routerLinkActive="active"><a routerLink="./classes" routerLinkActive="active">Classes</a></li>
-    <li role="presentation" routerLinkActive="active"><a routerLink="./students" routerLinkActive="active">Students</a></li>
-    <li role="presentation"><a href="#" (click)="logout()">Logout</a></li>
-  </ul>
+<nav  class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="assets/logo.png" alt="Kupping" height="50">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse" data-toggle="collapse" data-target="#navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li role="presentation" routerLinkActive="active"><a routerLink="./" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">Dashboard</a></li>
+            <li role="presentation" routerLinkActive="active"><a routerLink="./classes" routerLinkActive="active">Classes</a></li>
+            <li role="presentation" routerLinkActive="active"><a routerLink="./students" routerLinkActive="active">Students</a></li>
+            <li role="presentation"><a href="#" (click)="logout()">Logout</a></li>
+          </ul>
+      </div>
+    </div>
 </nav>
 <router-outlet></router-outlet>

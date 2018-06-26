@@ -1,0 +1,6 @@
+.navbar-brand{
+    padding: 0;
+}
+.router-outlet {
+    padding-top: 100px;
+}
