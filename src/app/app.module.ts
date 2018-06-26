@@ -40,7 +40,8 @@ import { CloseMenu } from './directives/close-menu';
     HttpClientModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o'
+      apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
+      libraries: ["places"] 
     })
   ],
   providers: [StudentService],

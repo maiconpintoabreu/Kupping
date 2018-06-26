@@ -19,5 +19,5 @@ export class DanceClassService {
         headers: headers
     };
     return this.http.get<DanceClass[]>(this.URL, httpOptions);
-}
+  }
 }

@@ -1,2 +1,7 @@
 <agm-map
-[zoom]="3"></agm-map>
+[latitude]="position.coords.latitude"
+[longitude]="position.coords.longitude"
+[zoom]="6">
+
+<agm-marker *ngFor="let place of selectedPlaces" [latitude]="place.lat" [longitude]="place.lng"></agm-marker>
+</agm-map>
