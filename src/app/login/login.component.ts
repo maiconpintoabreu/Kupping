@@ -8,7 +8,7 @@ import { slideInDownAnimation } from '../animations';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   animations: [ slideInDownAnimation ]
-]
+
 })
 export class LoginComponent implements OnInit {
 
