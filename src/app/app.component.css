@@ -2,5 +2,7 @@
     padding: 0;
 }
 .router-outlet {
-    padding-top: 100px;
+    padding-top: 50px;
+    height: 100vh;
+    width: 100hv;
 }

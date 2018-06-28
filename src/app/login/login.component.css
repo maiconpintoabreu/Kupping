@@ -1,0 +1,27 @@
+.fog {
+    position: fixed;
+    overflow: hidden;
+    margin-top: 50px;
+    background-color: gray;
+    opacity:0.9;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+}
+.model-on-map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20em;
+    width: 30em;
+    padding: 2em;
+    background-color: white;
+    border-radius: 4%;
+}
+@media(max-width: 900px){
+    .model-on-map {
+        height: 20em;
+        width: 20em;
+    }
+}
