@@ -6,3 +6,10 @@
     height: 100vh;
     width: 100hv;
 }
+.navbar-brand>img {
+    height: 70px;
+}
+.navbar-toggle {
+    background-color: blue;
+    background-image: none;
+}

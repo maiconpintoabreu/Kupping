@@ -28,6 +28,7 @@
 }
 @media(max-width: 900px){
     .model-on-map {
+        top: 60%;
         height: 20em;
         width: 20em;
     }

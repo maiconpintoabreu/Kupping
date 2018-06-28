@@ -2,14 +2,13 @@
   <nav id="menu" *ngIf="publicMenu" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
+        <button type="button" routerLinkActive="active" class="btn btn-primary navbar-toggle collapsed" routerLink="/home/login">Sign in</button>
         <a class="navbar-brand" routerLink="/home">
-          <img alt="Brand" src="assets/logo.png" alt="Kupping" height="50">
+          <img alt="Brand" src="assets/logo.png" alt="Kupping">
         </a>
       </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li role="presentation" routerLinkActive="active"><a routerLink="/home/login">Login</a></li>
-        </ul>
+      <div class="navbar-form form-inline navbar-btn navbar-right hidden-xs">
+        <button type="button" routerLinkActive="active" class="btn btn-primary navbar-btn" routerLink="/home/login">Sign in</button>
       </div>
     </div>
   </nav>
