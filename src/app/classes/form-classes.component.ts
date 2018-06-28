@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { DanceClass } from '../model/danceclass';
 import { DanceStyle } from '../model/dancestyle';
 import { Student } from '../model/student';
+import { DanceClassService } from '../services/dance-class.service';
 
 @Component({
   selector: 'app-classes',
@@ -13,7 +14,7 @@ import { Student } from '../model/student';
 export class FormClassesComponent implements OnInit {
   isDetail:boolean = false;
   model:DanceClass;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private danceClassService: DanceClassService, private router: Router) { }
 
   ngOnInit() {
     this.model = {name:"",id:"",danceStyle:new DanceStyle(),place:{description:"",lat:0,lng:0},students:null,time:"19:00"};
@@ -21,14 +22,12 @@ export class FormClassesComponent implements OnInit {
       this.isDetail = params.has("id");
       if(this.isDetail){
         this.model = {name:"Class 1",id:"1",danceStyle:new DanceStyle(),place:{description:"Dublin",lat:0,lng:0},students:null,time:"19:00"};
-        //this.userService.getUser(params.get('id')).subscribe(res=>{
-        //  console.log(res);
-          //this.model = res;
-        //},err=>{
-        //  console.log(err);
-        //});
-
-        //TODO: remove MOCK
+        this.danceClassService.getDanceClass(params.get('id')).subscribe(res=>{
+          console.log(res);
+          this.model = res;
+        },err=>{
+          console.log(err);
+        });
       }else{
         this.initClass();
       }
@@ -39,9 +38,18 @@ export class FormClassesComponent implements OnInit {
   }
   onSubmit(): void{
     if(this.isDetail){
-      //edit
+      this.danceClassService.updateDanceClass(this.model).subscribe(res=>{
+        alert("Updated");
+      },err=>{
+        console.log(err);
+      });
     }else{
-      //create
+      this.danceClassService.addDanceClass(this.model).subscribe(res=>{
+        alert("Created");
+        this.router.navigate(["/admin/classes"]);
+      },err=>{
+        console.log(err);
+      });
     }
   }
 }

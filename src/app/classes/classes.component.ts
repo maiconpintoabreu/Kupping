@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DanceClass } from '../model/danceclass';
+import { DanceClassService } from '../services/dance-class.service';
 
 @Component({
   selector: 'app-classes',
@@ -9,26 +10,26 @@ import { DanceClass } from '../model/danceclass';
 export class ClassesComponent implements OnInit {
 
   classes: DanceClass[];
-  constructor() { }
+  constructor(private danceClassService: DanceClassService) { }
 
   ngOnInit() {
     this.getClasses();
   }
   
   getClasses() : void {
-    //this.userService.getUsers().subscribe(res=>{
-    //  this.users = res;
-    //});
+    this.danceClassService.getDanceClasses().subscribe(res=>{
+      this.classes = res;
+    });
     console.log("List Classes");
   }
   deleteClass(id: string) : void {
     console.log("Delete: "+id);
-    //this.userService.deleteUser(id).subscribe(res=>{
-    //  this.getUsers();
-    //},
-    //err=>{
-    //  console.log(err);
-    //});
+    this.danceClassService.deleteDanceClass(id).subscribe(res=>{
+      this.getClasses();
+    },
+    err=>{
+      console.log(err);
+    });
   }
 
 }
