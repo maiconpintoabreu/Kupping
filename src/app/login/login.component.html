@@ -1,17 +1,20 @@
-<div class="fog">
+<div class="fog" routerLink="/home/">
 </div>
 <div class="model-on-map">
     <div class="container-fuild">
-    <form ng-submit="loginSubmit()">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input id="username" name="username" class="form-control" [(ngModel)]="login.username" placeholder="Username: admin">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" name="username" class="form-control" [(ngModel)]="login.password" placeholder="Password: admin">
-        </div>
-        <button (click)="loginSubmit()" class="btn btn-default">Login</button>
-    </form>
+        <a  routerLink="/home/"  class="close-login">
+            <span class="glyphicon glyphicon-remove-circle"aria-hidden="true"></span>
+        </a>
+        <form ng-submit="loginSubmit()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" class="form-control" [(ngModel)]="login.username" placeholder="Username: admin">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="username" class="form-control" [(ngModel)]="login.password" placeholder="Password: admin">
+            </div>
+            <button (click)="loginSubmit()" class="btn btn-default">Login</button>
+        </form>
     </div>
 </div>

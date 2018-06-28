@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-
+import {} from 'jasmine';
 import { DanceClassService } from './dance-class.service';
 
 describe('DanceClassService', () => {

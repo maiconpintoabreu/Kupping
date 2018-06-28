@@ -8,6 +8,13 @@
     width: 100vw;
     top: 0;
 }
+.close-login {
+    color: red;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 20px;
+}
 .model-on-map {
     position: absolute;
     top: 50%;
