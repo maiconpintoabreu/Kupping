@@ -5,7 +5,7 @@
       <th>#</th>
       <th>Name</th>
       <th>Email</th>
-      <th>Day of born</th>
+      <th>Date of birth</th>
       <th></th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
       <th scope="row">{{ student.id }}</th>
       <td>{{ student.name }}</td>
       <td>{{ student.email }}</td>
-      <td>{{ student.bornday }}</td>
+      <td>{{ student.dateOfBirth }}</td>
       <td>
         <a 
           (click)="deleteStudent(student.id);$event.stopPropagation()">

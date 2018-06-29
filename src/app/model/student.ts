@@ -2,5 +2,5 @@ export class Student{
     id:string;
     name:string;
     email:string;
-    bornday:string;
+    dateOfBirth:string;
 }
