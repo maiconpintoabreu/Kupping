@@ -1,26 +1,47 @@
-<button type="button" class="btn btn-default" [routerLink]="['./new']">New Student</button>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Date of birth</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students" [routerLink]="['./detail', student.id]">
-      <th scope="row">{{ student.id }}</th>
-      <td>{{ student.name }}</td>
-      <td>{{ student.email }}</td>
-      <td>{{ student.dateOfBirth }}</td>
-      <td>
-        <a 
-          (click)="deleteStudent(student.id);$event.stopPropagation()">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <button type="button" class="btn btn-default" [routerLink]="['./new']">New Student</button>
+</div>
+<div class="row">
+  <table class="table table-striped hidden-xs">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students" [routerLink]="['./detail', student.id]">
+        <th scope="row">{{ student.id }}</th>
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.dateOfBirth }}</td>
+        <td>
+          <a 
+            (click)="deleteStudent(student.id);$event.stopPropagation()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="hidden-sm hidden-md hidden-lg">
+    <ul class="list-group" *ngFor="let student of students" [routerLink]="['./detail', student.id]">
+      <li class="list-group-item">
+        <span class="badge">
+          <a 
+            (click)="deleteStudent(student.id);$event.stopPropagation()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </a>
+        </span>
+        <span class="header-grid">#</span>
+        <span class="value-grid">{{ student.id }}</span>
+      </li>
+      <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ student.name }}</span></li>
+      <li class="list-group-item"><span class="header-grid">Email</span><span class="value-grid">{{ student.email }}</span></li>
+      <li class="list-group-item"><span class="header-grid">Date of birth</span><span class="value-grid">{{ student.dateOfBirth }}</span></li>
+    </ul>
+  </div>
+</div>

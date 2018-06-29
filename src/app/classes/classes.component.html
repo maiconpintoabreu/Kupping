@@ -29,8 +29,17 @@
   </table>
 </div>
 <div class="hidden-sm hidden-md hidden-lg">
-  <ul class="list-group" *ngFor="let class of classes" [routerLink]="['./detail', class.id]">
-    <li class="list-group-item"><span class="header-grid">#</span><span class="value-grid">{{ class.id }}</span></li>
+  <ul class="list-group" *ngFor="let class of classes" [routerLink]="['./detail', class.id]" >
+    <li class="list-group-item">
+      <span class="badge">
+        <a 
+          (click)="deleteClass(class.id);$event.stopPropagation()">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </a>
+      </span>
+      <span class="header-grid">#</span>
+      <span class="value-grid">{{ class.id }}</span>
+    </li>
     <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ class.name }}</span></li>
     <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.id }}</span></li>
     <li class="list-group-item"><span class="header-grid">Place</span><span class="value-grid">{{ class.place.description }}</span></li>
