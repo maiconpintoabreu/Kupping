@@ -5,6 +5,7 @@ import { DanceClass } from '../model/danceclass';
 import { DanceStyle } from '../model/dancestyle';
 import { Student } from '../model/student';
 import { DanceClassService } from '../services/dance-class.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-classes',
@@ -14,9 +15,15 @@ import { DanceClassService } from '../services/dance-class.service';
 export class FormClassesComponent implements OnInit {
   isDetail:boolean = false;
   model:DanceClass;
-  constructor(private route: ActivatedRoute, private danceClassService: DanceClassService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private danceClassService: DanceClassService, 
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit() {
+    this.initClass();
     this.model = {name:"",id:"",danceStyle:new DanceStyle(),place:{description:"",lat:0,lng:0},students:null,time:"19:00"};
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
@@ -29,12 +36,14 @@ export class FormClassesComponent implements OnInit {
           console.log(err);
         });
       }else{
-        this.initClass();
       }
     }); 
   }
   initClass(): void{
     this.model = new DanceClass();
+  }
+  goBack(): void {
+    this.location.back();
   }
   onSubmit(): void{
     if(this.isDetail){

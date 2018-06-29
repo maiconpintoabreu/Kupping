@@ -45,7 +45,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of model.students" [routerLink]="['./detail', student.id]">
+        <tr *ngFor="let student of model.students" [routerLink]="['../../../students/detail/', student.id]">
           <th scope="row">{{ student.id }}</th>
           <td>{{ student.name }}</td>
           <td>{{ student.email }}</td>
@@ -54,7 +54,6 @@
       </tbody>
     </table>
     <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">Submit</button>
-    <button type="button" class="btn btn-default" [routerLink]="['../']" *ngIf="!isDetail">Back</button>
-    <button type="button" class="btn btn-default" [routerLink]="['../../']" *ngIf="isDetail">Back</button>
+    <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
   </form>
 </div>

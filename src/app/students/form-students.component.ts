@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Student } from '../model/student';
 import { StudentService } from '../services/student.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-students',
@@ -12,7 +13,12 @@ import { StudentService } from '../services/student.service';
 export class FormStudentsComponent implements OnInit {
   isDetail:boolean = false;
   model:Student;
-  constructor(private route: ActivatedRoute, private studentService: StudentService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private studentService: StudentService, 
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit() {
     this.initStudent();
@@ -32,6 +38,9 @@ export class FormStudentsComponent implements OnInit {
   }
   initStudent(): void{
     this.model = new Student();
+  }
+  goBack(): void {
+    this.location.back();
   }
   onSubmit(): void{
     if(this.isDetail){

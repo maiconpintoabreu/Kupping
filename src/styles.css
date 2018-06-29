@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+.header-grid{
+    width: 33.33333333%;
+    display: inline-block;
+}
+.value-grid{
+    width: 66.66666667%;
+}
