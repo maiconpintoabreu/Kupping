@@ -25,12 +25,12 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="bornday">Day of born</label>
-      <input type="text" class="form-control" id="bornday"
+      <label for="dateOfBirth">Day of born</label>
+      <input type="text" class="form-control" id="dateOfBirth"
               required
-              [(ngModel)]="model.bornday" name="bornday"
-              #bornday="ngModel">
-      <div [hidden]="bornday.valid || bornday.pristine"
+              [(ngModel)]="model.dateOfBirth" name="dateOfBirth"
+              #dateOfBirth="ngModel">
+      <div [hidden]="dateOfBirth.valid || dateOfBirth.pristine"
             class="alert alert-danger">
         Day of born is required
       </div>
