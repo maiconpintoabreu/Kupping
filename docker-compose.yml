@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    frontend:
+        build: .
+        ports:
+            - 80:80
+    mongo:
+        image: mongo:4.0.1
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=kuppinguserusuario
+            - MONGO_INITDB_ROOT_PASSWORD=123asd123z
+        volumes:
+            - "./backend/data:/data"
+    backend:
+        build: backend/.
+        restart: always
+        environment:
+            docker: "true"
+        ports:
+            - "8080:80"
+        volumes:
+            - "./backend/.:/backend-kupping"
+  
+    

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DanceClass } from '../model/danceclass';
-import { DanceClassService } from '../services/dance-class.service';
+import { DanceClassService } from '../services/private/dance-class.service';
 
 @Component({
   selector: 'app-classes',

@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators';
 import { DanceClass } from '../model/danceclass';
 import { DanceStyle } from '../model/dancestyle';
 import { Student } from '../model/student';
-import { DanceClassService } from '../services/dance-class.service';
+import { DanceClassService } from '../services/private/dance-class.service';
 import { Location } from '@angular/common';
 
 @Component({

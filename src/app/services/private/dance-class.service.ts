@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Student } from '../model/student';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DanceClass } from '../../model/danceclass';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
+export class DanceClassService {
 
-  private  URL:string = "http://maiconspas.ddns.net/rest/student";
+  private  URL:string = "http://localhost:8080/private/danceclass";
   constructor(private http: HttpClient) { }
   
-  getStudents() : Observable<Student[]>{
+  getDanceClasses() : Observable<DanceClass[]>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
     const httpOptions = {
         headers: headers
     };
-    return this.http.get<Student[]>(this.URL, httpOptions);
+    return this.http.get<DanceClass[]>(this.URL, httpOptions);
   }
-  addStudent(model:Student) : Observable<Student>{
+  addDanceClass(model:DanceClass) : Observable<DanceClass>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
     const httpOptions = {
         headers: headers
     };
-    return this.http.post<Student>(this.URL,model, httpOptions);
+    return this.http.post<DanceClass>(this.URL,model, httpOptions);
   }
-  updateStudent(model:Student) : Observable<Student>{
+  updateDanceClass(model:DanceClass) : Observable<DanceClass>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
     const httpOptions = {
         headers: headers
     };
-    return this.http.put<Student>(this.URL+"/"+model.id,model, httpOptions);
+    return this.http.put<DanceClass>(this.URL+"/"+model.id,model, httpOptions);
   }
-  deleteStudent(id:string) : Observable<Object>{
+  deleteDanceClass(id:string) : Observable<Object>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
@@ -47,13 +47,13 @@ export class StudentService {
     };
     return this.http.delete(this.URL+"/"+id, httpOptions);
   }
-  getStudent(id: string) : Observable<Student>{
+  getDanceClass(id: string) : Observable<DanceClass>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
     const httpOptions = {
         headers: headers
     };
-    return this.http.get<Student>(this.URL+"/"+id, httpOptions);
+    return this.http.get<DanceClass>(this.URL+"/"+id, httpOptions);
   }
 }

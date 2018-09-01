@@ -16,7 +16,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
-import { StudentService } from './services/student.service';
+import { StudentService } from './services/private/student.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CloseMenu } from './directives/close-menu';
 

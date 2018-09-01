@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Student } from '../model/student';
-import { StudentService } from '../services/student.service';
+import { StudentService } from '../services/private/student.service';
 import { Location } from '@angular/common';
 
 @Component({
