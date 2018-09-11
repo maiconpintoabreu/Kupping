@@ -1,0 +1,28 @@
+<div class="fog" routerLink="/home/">
+</div>
+<div class="model-on-map">
+    <div class="container-fuild">
+        <a  routerLink="/home/"  class="close-model">
+            <span class="glyphicon glyphicon-remove-circle"aria-hidden="true"></span>
+        </a>
+        <form ng-submit="signupSubmit()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" class="form-control" [(ngModel)]="signup.username" placeholder="Username:">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" class="form-control" [(ngModel)]="signup.email" placeholder="Email:">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="username" type="password" class="form-control" [(ngModel)]="signup.password" placeholder="Password:">
+            </div>
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input id="company" name="username" class="form-control" [(ngModel)]="signup.company" placeholder="Company:">
+            </div>
+            <button (click)="signupSubmit()" class="btn btn-default">Sign up</button>
+        </form>
+    </div>
+</div>

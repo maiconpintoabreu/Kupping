@@ -5,7 +5,13 @@ exports.getDanceClasses = function (req, res) {
         res.status(200).send(danceClasses || []);
      });
 };
+exports.getPrivateDanceClasses = function (req, res) {
+    DanceClass.find({}, function(err, danceClasses) {
+        res.status(200).send(danceClasses || []);
+     });
+};
 exports.insertDanceClass = function (req, res) {
+    console.log(req.body);
     const danceClass = new DanceClass({
         user: "test",
         name: "test",

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentsComponent } from './students/students.component';
 import { ClassesComponent } from './classes/classes.component';
@@ -25,6 +26,7 @@ import { CloseMenu } from './directives/close-menu';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    SignupComponent,
     DashboardComponent,
     StudentsComponent,
     ClassesComponent,

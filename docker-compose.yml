@@ -10,8 +10,11 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=kuppinguserusuario
             - MONGO_INITDB_ROOT_PASSWORD=123asd123z
+            - MONGO_INITDB_DATABASE=kupping
         volumes:
             - "./backend/data:/data"
+        ports:
+            - 27017:27017
     backend:
         build: backend/.
         restart: always

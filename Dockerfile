@@ -15,6 +15,5 @@ RUN npm install
 RUN ng build --prod
 RUN rm -rf /var/www/*
 RUN mv dist/kupping-frontend/* /var/www
-RUN nginx -t
 
 CMD ["nginx","-g", "daemon off;"]
