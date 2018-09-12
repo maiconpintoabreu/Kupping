@@ -11,15 +11,11 @@ exports.getPrivateDanceClasses = function (req, res) {
      });
 };
 exports.insertDanceClass = function (req, res) {
-    console.log(req.body);
     const danceClass = new DanceClass({
-        user: "test",
-        name: "test",
-        place: "test",
-        students: ["test"],
-        danceStyle: "test",
-        dateCreated: new Date().getDate(),
-        dateModified: new Date().getDate(),
+        user: req.body.user,
+        name: req.body.name,
+        place: req.body.place,
+        danceStyle: req.body.danceStyle
     });
     danceClass.save(function (err, results) {
         if(err) {

@@ -13,7 +13,7 @@ import { StudentsComponent } from './students/students.component';
 import { ClassesComponent } from './classes/classes.component';
 import { DanceStyleComponent } from './dance-style/dance-style.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
-import { AgmCoreModule } from '@agm/core';
+//import { AgmCoreModule } from '@agm/core';
 import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
@@ -43,10 +43,10 @@ import { CloseMenu } from './directives/close-menu';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
-      libraries: ["places"] 
-    })
+    //AgmCoreModule.forRoot({
+    //  apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
+    //  libraries: ["places"] 
+    //})
   ],
   providers: [StudentService],
   bootstrap: [AppComponent]

@@ -11,8 +11,8 @@ exports.insertUser = function (req, res) {
         username: req.body.username,
         password: req.body.password,
         company: req.body.company,
-        dateCreated: new Date().getDate(),
-        dateModified: new Date().getDate(),
+        dateCreated: new Date(),
+        dateModified: new Date(),
     });
     user.save(function (err, results) {
         if(err) {

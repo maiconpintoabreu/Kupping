@@ -31,5 +31,4 @@ export class ClassesComponent implements OnInit {
       console.log(err);
     });
   }
-
 }
