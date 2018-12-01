@@ -8,6 +8,7 @@ import { DanceClassService } from '../services/private/dance-class.service';
 import { Location } from '@angular/common';
 import {  } from '@types/googlemaps';
 import { NgModel } from '@angular/forms';
+import { DanceStyleService } from '../services/private/dance-style.service';
 
 @Component({
   selector: 'app-classes',
@@ -18,14 +19,23 @@ export class FormClassesComponent implements OnInit {
   isDetail:boolean = false;
   model:DanceClass;
   bound:google.maps.LatLngBounds;
+  danceStyles:Array<DanceStyle>;
   private service = new google.maps.places.AutocompleteService();
   constructor(
     private route: ActivatedRoute, 
     private danceClassService: DanceClassService, 
     private router: Router,
-    private location: Location
+    private location: Location,
+    private danceStyleService: DanceStyleService
   ) { 
-    
+    this.danceStyleService.getDanceStyles().subscribe(res=>{
+      this.danceStyles = res;
+      if(this.model){
+        this.model.danceStyle = this.danceStyles[0];
+      }
+    },err =>{
+      alert("Solve this first!!!");
+    });
   }
 
   ngOnInit() {

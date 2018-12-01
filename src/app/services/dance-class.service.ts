@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DanceClass } from '../model/danceclass';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DanceClassService {
 
-  private  URL:string = "http://localhost:8080/public/danceclass";
+  private  URL:string = environment.backend+"public/danceclass";
   constructor(private http: HttpClient) { }
   
   getDanceClasses() : Observable<DanceClass[]>{

@@ -5,6 +5,8 @@ services:
         build: .
         ports:
             - 80:80
+        depends_on: 
+            - backend
     mongo:
         image: mongo:4.0.1
         environment:

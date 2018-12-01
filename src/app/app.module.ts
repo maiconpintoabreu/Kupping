@@ -20,6 +20,8 @@ import { FormClassesComponent } from './classes/form-classes.component';
 import { StudentService } from './services/private/student.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CloseMenu } from './directives/close-menu';
+import { DanceStyleService } from './services/private/dance-style.service';
+import { DanceClassService } from './services/dance-class.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,7 @@ import { CloseMenu } from './directives/close-menu';
     //  libraries: ["places"] 
     //})
   ],
-  providers: [StudentService],
+  providers: [StudentService,DanceStyleService,DanceClassService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

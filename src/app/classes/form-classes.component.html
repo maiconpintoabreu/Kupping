@@ -15,10 +15,12 @@
     </div>
     <div class="form-group">
       <label for="danceStyle">Dance Style</label>
-      <input type="text" class="form-control" id="danceStyle"
+      <select class="form-control" id="danceStyle"
               required [disabled]="isDetail"
               [(ngModel)]="model.danceStyle.id" name="danceStyle"
               #danceStyle="ngModel">
+        <option *ngFor="let danceStyle of danceStyles">{{danceStyle.id}}</option>
+      </select>
       <div [hidden]="danceStyle.valid || danceStyle.pristine"
             class="alert alert-danger">
         Dance Style is required

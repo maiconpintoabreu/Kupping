@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../../model/student';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  private  URL:string = "/rest/student";
+  private  URL:string = environment.backend+"private/student";
   constructor(private http: HttpClient) { }
   
   getStudents() : Observable<Student[]>{
