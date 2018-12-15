@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DanceClassService } from '../services/dance-class.service';
 import { DanceClass } from '../model/danceclass';
 import { Place } from '../model/place';
-import {  } from '@types/googlemaps';
 
 @Component({
   selector: 'app-home',

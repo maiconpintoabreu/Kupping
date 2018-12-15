@@ -37,7 +37,7 @@ export class StudentService {
     const httpOptions = {
         headers: headers
     };
-    return this.http.put<Student>(this.URL+"/"+model.id,model, httpOptions);
+    return this.http.put<Student>(this.URL+"/"+model._id,model, httpOptions);
   }
   deleteStudent(id:string) : Observable<Object>{
     let headers = new HttpHeaders();

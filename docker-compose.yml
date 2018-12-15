@@ -22,6 +22,9 @@ services:
         restart: always
         environment:
             docker: "true"
+            PORT: 80
+            MONGO: "mongo"
+            AUTH: "kuppinguserusuario:123asd123z@";
         ports:
             - "8080:80"
         volumes:

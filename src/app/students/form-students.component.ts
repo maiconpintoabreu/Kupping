@@ -26,7 +26,6 @@ export class FormStudentsComponent implements OnInit {
       this.isDetail = params.has("id");
       if(this.isDetail){
         this.studentService.getStudent(params.get('id')).subscribe(res=>{
-          console.log(res);
           this.model = res;
         },err=>{
           console.log(err);

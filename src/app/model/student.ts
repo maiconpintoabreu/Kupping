@@ -1,6 +1,6 @@
 export class Student{
-    id:string;
+    _id:string;
     name:string;
     email:string;
-    dateOfBirth:string;
+    dateOfBirth?:string;
 }

@@ -8,19 +8,19 @@
         <th>#</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Date of birth</th>
+        <!-- <th>Date of birth</th> -->
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let student of students" [routerLink]="['./detail', student.id]">
-        <th scope="row">{{ student.id }}</th>
+      <tr *ngFor="let student of students" [routerLink]="['./detail', student._id]">
+        <th scope="row">{{ student._id }}</th>
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>
-        <td>{{ student.dateOfBirth }}</td>
+        <!-- <td>{{ student.dateOfBirth }}</td> -->
         <td>
           <a 
-            (click)="deleteStudent(student.id);$event.stopPropagation()">
+            (click)="deleteStudent(student._id);$event.stopPropagation()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </a>
         </td>
@@ -28,16 +28,16 @@
     </tbody>
   </table>
   <div class="hidden-sm hidden-md hidden-lg">
-    <ul class="list-group" *ngFor="let student of students" [routerLink]="['./detail', student.id]">
+    <ul class="list-group" *ngFor="let student of students" [routerLink]="['./detail', student._id]">
       <li class="list-group-item">
         <span class="badge">
           <a 
-            (click)="deleteStudent(student.id);$event.stopPropagation()">
+            (click)="deleteStudent(student._id);$event.stopPropagation()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </a>
         </span>
         <span class="header-grid">#</span>
-        <span class="value-grid">{{ student.id }}</span>
+        <span class="value-grid">{{ student._id }}</span>
       </li>
       <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ student.name }}</span></li>
       <li class="list-group-item"><span class="header-grid">Email</span><span class="value-grid">{{ student.email }}</span></li>
