@@ -10,6 +10,11 @@ exports.getPrivateDanceClasses = function (req, res) {
         res.status(200).send(danceClasses || []);
      });
 };
+exports.getPrivateDanceClass = function (req, res) {
+    DanceClass.findById(req.params.id, function(err, danceClass) {
+        res.status(200).send(danceClass || {});
+     });
+};
 exports.insertDanceClass = function (req, res) {
     const danceClass = new DanceClass({
         user: req.body.user,
@@ -24,4 +29,33 @@ exports.insertDanceClass = function (req, res) {
         }
         res.status(200).send(results);
       });
+};
+exports.deleteDanceClass = function (req, res) {
+    DanceClass.deleteOne({_id:req.params.id}, function(err){
+        if(err){
+            res.status(500).send(err.message);
+        }else{
+            res.status(200).send(JSON.stringify({"text":"DanceClass Deleted"}));
+        }
+    });
+};
+exports.updateDanceClass = function (req, res) {
+    DanceClass.findById(req.params.id, function(err, danceClass) {
+        if(err){
+            res.status(500).send(err.message);
+        }else{
+            if(!danceClass){
+                res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
+            }else{
+                danceClass.name = req.body.name;
+                danceClass.place = req.body.place;
+                DanceClass.updateOne({"_id":req.params.id},danceClass,function(err2){
+                    if(err2){
+                        res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
+                    }
+                });
+                res.status(200).send(JSON.stringify({"text":"DanceClass Updated"}));
+            }
+        }
+     });
 };

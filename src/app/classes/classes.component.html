@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let class of classes" [routerLink]="['./detail', class.id]">
+      <tr *ngFor="let class of classes" [routerLink]="['./detail', class._id]">
         <th scope="row">{{ class.id }}</th>
         <td>{{ class.name }}</td>
         <td>{{ class.danceStyle.id }}</td>

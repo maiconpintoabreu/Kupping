@@ -45,6 +45,9 @@ function listen(){
     app.post('/public/user', userController.insertUser);
     
     app.get('/private/danceclass', danceClassController.getPrivateDanceClasses);
+    app.get('/private/danceclass/:id', danceClassController.getPrivateDanceClass);
+    app.put('/private/danceclass/:id', danceClassController.updateDanceClass);
+    app.delete('/private/danceclass/:id', danceClassController.deleteDanceClass);
     app.get('/private/dancestyle', danceStyleController.getPrivateDanceStyles);
     app.post('/private/danceclass', danceClassController.insertDanceClass);
     app.post('/private/student', studentControler.insertStudent);
@@ -54,4 +57,5 @@ function listen(){
     app.delete('/private/student/:id', studentControler.deleteStudent);
     http.createServer(app).listen(port);
     console.log("Listening port: "+port);
+    danceStyleController.start();
 }

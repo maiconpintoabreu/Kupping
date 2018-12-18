@@ -53,6 +53,8 @@ export class FormClassesComponent implements OnInit {
         this.danceClassService.getDanceClass(params.get('id')).subscribe(res=>{
           console.log(res);
           this.model = res;
+          this.model.id = res["_id"];
+          this.model.danceStyle =  this.danceStyles.find(x=>x._id == ""+res.danceStyle);
         },err=>{
           console.log(err);
         });
