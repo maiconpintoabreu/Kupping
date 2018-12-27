@@ -5,6 +5,11 @@
 export const environment = {
   production: false,
   backend: "http://localhost:8082/",
+  AuthConfig : {
+    clientID:"maiconspas",
+    domain: 'localhost',
+    callbackURL: this.backend + "callback"
+  }
 };
 
 /*

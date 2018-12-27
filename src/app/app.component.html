@@ -1,22 +1,36 @@
 <div class="" closeMenu>
-  <nav id="menu" *ngIf="publicMenu" class="navbar navbar-default navbar-fixed-top">
+  <nav
+    id="menu"
+    *ngIf="publicMenu"
+    class="navbar navbar-default navbar-fixed-top"
+  >
     <div class="container">
       <div class="navbar-header">
-        <button type="button" routerLinkActive="active" class="btn btn-primary navbar-toggle collapsed" routerLink="/home/login">Sign in</button>
         <a class="navbar-brand" routerLink="/home">
-          <img alt="Brand" src="assets/logo.png" alt="Kupping">
+          <img alt="Brand" src="assets/logo.png" alt="Kupping" />
         </a>
       </div>
-      <div class="navbar-form form-inline navbar-btn navbar-right hidden-xs">
-        <button type="button" routerLinkActive="active" title="Login" class="btn btn-primary navbar-btn" routerLink="/home/login">Sign in</button>
+      <div class="navbar-form form-inline navbar-btn navbar-right">
+        <button
+          type="button"
+          routerLinkActive="active"
+          title="New User"
+          class="btn btn-primary navbar-btn"
+          routerLink="/home/signup">Sign up</button>
+        <button
+          class="btn btn-primary navbar-btn"
+          *ngIf="!auth.isAuthenticated()"
+          routerLink="/home/login">Log In</button>
+
+        <button
+          class="btn btn-primary navbar-btn "
+          *ngIf="auth.isAuthenticated()"
+          (click)="auth.logout()">Log Out</button>
       </div>
-      <div class="navbar-form form-inline navbar-btn navbar-right hidden-xs">
-        <button type="button" routerLinkActive="active" title="New User" class="btn btn-primary navbar-btn" routerLink="/home/signup">Sign up</button>
-      </div>
+      <div class="navbar-form form-inline navbar-btn navbar-right"></div>
     </div>
   </nav>
   <div class="router-outlet">
     <router-outlet class="router-outlet"></router-outlet>
   </div>
 </div>
-

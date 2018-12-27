@@ -22,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CloseMenu } from './directives/close-menu';
 import { DanceStyleService } from './services/private/dance-style.service';
 import { DanceClassService } from './services/dance-class.service';
+import { AuthService } from './services/auth/auth.service';
+import { CallbackComponent } from './callback/callback.component';
+import { Auth } from './services/auth/auth';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { DanceClassService } from './services/dance-class.service';
     AdminComponent,
     FormStudentsComponent,
     FormClassesComponent,
+    CallbackComponent,
     CloseMenu
   ],
   imports: [
@@ -50,7 +54,12 @@ import { DanceClassService } from './services/dance-class.service';
     //  libraries: ["places"] 
     //})
   ],
-  providers: [StudentService,DanceStyleService,DanceClassService],
+  providers: [
+    StudentService,
+    DanceStyleService,
+    DanceClassService,
+    AuthService,
+    Auth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

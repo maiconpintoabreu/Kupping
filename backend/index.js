@@ -4,6 +4,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var helmet = require('helmet');
+const authRouter = require("./auth-route");
 
 
 const danceClassController = require('./controllers/danceclass.controller');
@@ -40,7 +41,7 @@ mongoose.connection.on('error', console.log)
     .once('open', listen);
 
 function listen(){
-
+    app.use(authRouter);
     app.get('/public/danceclass', danceClassController.getDanceClasses);
     app.post('/public/user', userController.insertUser);
     

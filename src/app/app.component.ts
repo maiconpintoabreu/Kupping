@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
 
 
 
@@ -11,7 +12,8 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'app';
   publicMenu:boolean = true;
-  constructor(private router: Router){
+  constructor(private router: Router, private auth: AuthService){
+    auth.handleAuthentication();
     router.events.subscribe((val) => {
         // see also 
         if(val instanceof NavigationEnd){
@@ -24,8 +26,10 @@ export class AppComponent implements OnInit {
         }
     });
   }
-
   ngOnInit() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.auth.renewSession();
+    }
   }
 
 }
