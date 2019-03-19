@@ -5,12 +5,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var helmet = require('helmet');
 const authRouter = require("./auth-route");
+const router = require("./router");
 
 
-const danceClassController = require('./controllers/danceclass.controller');
-const danceStyleController = require('./controllers/dancestyle.controller');
-const userController = require('./controllers/user.controller');
-const studentControler = require('./controllers/student.controller');
 
 const app = express();
 app.use(helmet());
@@ -42,21 +39,7 @@ mongoose.connection.on('error', console.log)
 
 function listen(){
     app.use(authRouter);
-    app.get('/public/danceclass', danceClassController.getDanceClasses);
-    app.post('/public/user', userController.insertUser);
-    
-    app.get('/private/danceclass', danceClassController.getPrivateDanceClasses);
-    app.get('/private/danceclass/:id', danceClassController.getPrivateDanceClass);
-    app.put('/private/danceclass/:id', danceClassController.updateDanceClass);
-    app.delete('/private/danceclass/:id', danceClassController.deleteDanceClass);
-    app.get('/private/dancestyle', danceStyleController.getPrivateDanceStyles);
-    app.post('/private/danceclass', danceClassController.insertDanceClass);
-    app.post('/private/student', studentControler.insertStudent);
-    app.get('/private/student', studentControler.getStudentes);
-    app.get('/private/student/:id', studentControler.getStudent);
-    app.put('/private/student/:id', studentControler.updateStudent);
-    app.delete('/private/student/:id', studentControler.deleteStudent);
+    app.use(router);
     http.createServer(app).listen(port);
     console.log("Listening port: "+port);
-    danceStyleController.start();
 }

@@ -4,6 +4,6 @@ export const environment = {
   AuthConfig : {
     clientID:"maiconspas",
     domain: 'localhost',
-    callbackURL: this.backend + "callback"
+    callbackURL: "/rest/" + "callback"
   }
 };

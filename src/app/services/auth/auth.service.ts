@@ -26,11 +26,11 @@ export class AuthService {
   }
 
   public login(credentials: Login): void {
-    this.auth.authorize(credentials);
+    this.auth.login(credentials);
   }
 
   public handleAuthentication(): void {
-    this.auth.parseHash().subscribe(
+    this.auth.parseHash(null).subscribe(
       authResult => {
         if (authResult && authResult.accessToken && authResult.idToken) {
           this.setSession(authResult);
