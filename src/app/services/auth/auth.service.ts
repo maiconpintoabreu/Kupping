@@ -1,94 +1,42 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { environment } from "src/environments/environment";
-import { Login } from "src/app/model/login";
-import { Auth } from "./auth";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-@Injectable()
-export class AuthService {
-  private _idToken: string;
-  private _accessToken: string;
-  private _expiresAt: number;
+import { AuthResult } from '../../model/authResult';
+import { environment } from '../../../environments/environment';
 
+@Injectable({ providedIn: 'root' })
+export class AuthenticationService {
+    private currentAuthSubject: BehaviorSubject<AuthResult>;
+    public currentUser: Observable<AuthResult>;
 
-  constructor(public router: Router, private auth: Auth) {
-    this._idToken = "";
-    this._accessToken = "";
-    this._expiresAt = 0;
-  }
+    constructor(private http: HttpClient) {
+        this.currentAuthSubject = new BehaviorSubject<AuthResult>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUser = this.currentAuthSubject.asObservable();
+    }
 
-  get accessToken(): string {
-    return this._accessToken;
-  }
+    public get currentAuthValue(): AuthResult {
+        return this.currentAuthSubject.value;
+    }
 
-  get idToken(): string {
-    return this._idToken;
-  }
+    login(username: string, password: string) {
+        return this.http.post<any>( environment.backend+'auth/login', { username, password })
+            .pipe(map(authResult => {
+                // login successful if there's a jwt token in the response
+                if (authResult && authResult.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(authResult));
+                    this.currentAuthSubject.next(authResult);
+                }
 
-  public login(credentials: Login): void {
-    this.auth.login(credentials);
-  }
+                return authResult;
+            }));
+    }
 
-  public handleAuthentication(): void {
-    this.auth.parseHash(null).subscribe(
-      authResult => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          this.setSession(authResult);
-          this.router.navigate(["/admin"]);
-        }
-      },
-      err => {
-        if (err) {
-          this.router.navigate(["/home"]);
-          console.log(err);
-          alert(`Error: ${err.error}. Check the console for further details.`);
-        }
-      }
-    );
-  }
-
-  private setSession(authResult): void {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem("isLoggedIn", "true");
-    // Set the time that the access token will expire at
-    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    this._accessToken = authResult.accessToken;
-    this._idToken = authResult.idToken;
-    this._expiresAt = expiresAt;
-  }
-
-  public renewSession(): void {
-    this.auth.checkSession({}).subscribe(
-      authResult => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          this.setSession(authResult);
-        }
-      },
-      err => {
-        if (err) {
-          alert(
-            `Could not get a new token (${err.error}: ${err.errorDescription}).`
-          );
-          this.logout();
-        }
-      }
-    );
-  }
-
-  public logout(): void {
-    // Remove tokens and expiry time
-    this._accessToken = "";
-    this._idToken = "";
-    this._expiresAt = 0;
-    // Remove isLoggedIn flag from localStorage
-    localStorage.removeItem("isLoggedIn");
-    // Go back to the home route
-    this.router.navigate(["/"]);
-  }
-
-  public isAuthenticated(): boolean {
-    // Check whether the current time is past the
-    // access token's expiry time
-    return new Date().getTime() < this._expiresAt;
-  }
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+        this.currentAuthSubject.next(null);
+    }
 }

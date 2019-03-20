@@ -7,6 +7,7 @@ exports.getUsers = function (req, res) {
      });
 };
 exports.login = function (req, res) {
+    console.log("Login...",req.body.username);
     User.findOne({"username":req.body.username}, function(err, user) {
         if(err)
         {
@@ -18,7 +19,7 @@ exports.login = function (req, res) {
                 const token = jwt.sign({
                     data: user
                 }, 'maiconsantana', { expiresIn: '24h' });
-                res.status(200).send(token);
+                res.status(200).json({token:token});
             }else{
                 res.status(401).send("Username or Password Invalid");
             }

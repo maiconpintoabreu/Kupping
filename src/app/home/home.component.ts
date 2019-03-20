@@ -9,18 +9,18 @@ import { Place } from '../model/place';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit { 
-  @ViewChild('gmap') gmapElement: any;
-  map: google.maps.Map;
+  // @ViewChild('gmap') gmapElement: any;
+  // map: google.maps.Map;
   position: Position;
   danceClassPoints: DanceClass;
   selectedPlaces: Place[] = [];
   private loadMapLatLng = function(position){
     var mapProp = {
-      center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+      // center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
       zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      // mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    // this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
   }
   constructor(private danceClassService: DanceClassService) {
 

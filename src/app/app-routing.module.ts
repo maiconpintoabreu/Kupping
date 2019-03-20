@@ -10,6 +10,7 @@ import { StudentsComponent } from './students/students.component';
 import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
+import { AuthGuard } from './services/guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +33,7 @@ export const adminRoutes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

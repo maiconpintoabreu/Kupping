@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -18,13 +18,14 @@ import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
 import { StudentService } from './services/private/student.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CloseMenu } from './directives/close-menu';
 import { DanceStyleService } from './services/private/dance-style.service';
 import { DanceClassService } from './services/dance-class.service';
-import { AuthService } from './services/auth/auth.service';
+import { AuthenticationService } from './services/auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
-import { Auth } from './services/auth/auth';
+import { JwtInterceptor } from './services/auth/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,9 +46,10 @@ import { Auth } from './services/auth/auth';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     //AgmCoreModule.forRoot({
     //  apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
@@ -58,8 +60,10 @@ import { Auth } from './services/auth/auth';
     StudentService,
     DanceStyleService,
     DanceClassService,
-    AuthService,
-    Auth],
+    AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

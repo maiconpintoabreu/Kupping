@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
 
-  private  URL:string = environment.backend+"public/signin";
+  private  URL:string = environment.backend+"auth/signin";
   constructor(private http: HttpClient) { }
   
   addUser(model:User) : Observable<User>{

@@ -19,13 +19,13 @@
           routerLink="/home/signup">Sign up</button>
         <button
           class="btn btn-primary navbar-btn"
-          *ngIf="!auth.isAuthenticated()"
+          *ngIf="!currentAuth"
           routerLink="/home/login">Log In</button>
 
         <button
           class="btn btn-primary navbar-btn "
-          *ngIf="auth.isAuthenticated()"
-          (click)="auth.logout()">Log Out</button>
+          *ngIf="currentAuth"
+          (click)="logout()">Log Out</button>
       </div>
       <div class="navbar-form form-inline navbar-btn navbar-right"></div>
     </div>

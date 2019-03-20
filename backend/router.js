@@ -5,31 +5,36 @@ const studentControler = require('./controllers/student.controller');
 const danceClassController = require('./controllers/danceclass.controller');
 const danceStyleController = require('./controllers/dancestyle.controller');
 
-app.get('/public/danceclass', danceClassController.getDanceClasses);
-app.post('/public/user', checkLogin, userController.insertUser);
+router.get('/public/danceclass', danceClassController.getDanceClasses);
+router.post('/public/user', checkLogin, userController.insertUser);
 
-app.get('/private/danceclass', checkLogin, danceClassController.getPrivateDanceClasses);
-app.get('/private/danceclass/:id', checkLogin, danceClassController.getPrivateDanceClass);
-app.put('/private/danceclass/:id', checkLogin, danceClassController.updateDanceClass);
-app.delete('/private/danceclass/:id', checkLogin, danceClassController.deleteDanceClass);
-app.get('/private/dancestyle', checkLogin, danceStyleController.getPrivateDanceStyles);
-app.post('/private/danceclass', checkLogin, danceClassController.insertDanceClass);
-app.post('/private/student', checkLogin, studentControler.insertStudent);
-app.get('/private/student', checkLogin, studentControler.getStudentes);
-app.get('/private/student/:id', checkLogin, studentControler.getStudent);
-app.put('/private/student/:id', checkLogin, studentControler.updateStudent);
-app.delete('/private/student/:id', checkLogin, studentControler.deleteStudent);
+router.get('/private/danceclass', checkLogin, danceClassController.getPrivateDanceClasses);
+router.get('/private/danceclass/:id', checkLogin, danceClassController.getPrivateDanceClass);
+router.put('/private/danceclass/:id', checkLogin, danceClassController.updateDanceClass);
+router.delete('/private/danceclass/:id', checkLogin, danceClassController.deleteDanceClass);
+router.get('/private/dancestyle', checkLogin, danceStyleController.getPrivateDanceStyles);
+router.post('/private/danceclass', checkLogin, danceClassController.insertDanceClass);
+router.post('/private/student', checkLogin, studentControler.insertStudent);
+router.get('/private/student', checkLogin, studentControler.getStudentes);
+router.get('/private/student/:id', checkLogin, studentControler.getStudent);
+router.put('/private/student/:id', checkLogin, studentControler.updateStudent);
+router.delete('/private/student/:id', checkLogin, studentControler.deleteStudent);
 danceStyleController.start();
 
 module.exports = router;
 
 function checkLogin(req,res,next) {
-    jwt.verify(token, 'maiconsantana', function(err, decoded) {
-        if(err){
-            res.status(401).send(err);
-        }else{
-            req.client = decoded;
-            return next();
-        }
-      });
+    if(req.headers.authorization){
+        jwt.verify(req.headers.authorization.replace("Bearer ",""), 'maiconsantana', function(err, decoded) {
+            console.log(decoded);
+            if(err){
+                res.status(401).send(err);
+            }else{
+                req.client = decoded;
+                return next();
+            }
+        });
+    }else{
+        res.status(400).send("Token Required");
+    }
 }
