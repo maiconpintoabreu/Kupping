@@ -13,15 +13,15 @@ exports.login = function (req, res) {
         {
             res.status(500).send(err);
         }else if(!user){
-            res.status(404).send("Username not found");
+            res.status(400).send("Username or Password Invalid");
         }else{
             if(user.password === req.body.password && req.body.password.length > 3){
                 const token = jwt.sign({
-                    data: user
+                    data: {id:user._id}
                 }, 'maiconsantana', { expiresIn: '24h' });
                 res.status(200).json({token:token});
             }else{
-                res.status(401).send("Username or Password Invalid");
+                res.status(400).send("Username or Password Invalid");
             }
         }
      });
@@ -41,7 +41,7 @@ exports.insertUser = function (req, res) {
             res.status(500).send(err);
         }else{
             const token = jwt.sign({
-                data: results
+                data: {id:results._id}
             }, 'maiconsantana', { expiresIn: '24h' });
             res.status(200).send(token);
         }
