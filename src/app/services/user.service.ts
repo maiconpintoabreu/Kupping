@@ -12,12 +12,12 @@ export class UserService {
   private  URL:string = environment.backend+"auth/signin";
   constructor(private http: HttpClient) { }
   
-  addUser(model:User) : Observable<User>{
+  addUser(model:User) : Observable<String>{
     let headers = new HttpHeaders();
     //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
     const httpOptions = {
         headers: headers
     };
-    return this.http.post<User>(this.URL,model, httpOptions);
+    return this.http.post<String>(this.URL,model, httpOptions);
   }
 }

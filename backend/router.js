@@ -25,13 +25,17 @@ module.exports = router;
 
 function checkLogin(req,res,next) {
     if(req.headers.authorization){
-        jwt.verify(req.headers.authorization.replace("Bearer ",""), 'maiconsantana', function(err, decoded) {
+        jwt.verify(req.headers.authorization.replace("Bearer ",""), 'maicon££santanaABwinfqubw123££££££€!!!', function(err, decoded) {
             console.log(decoded);
             if(err){
                 res.status(401).send(err);
             }else{
-                req.client = decoded;
-                return next();
+                if(decoded.data.id){
+                    req.client = decoded.data;
+                    return next();
+                }else{
+                    res.status(401).send("Token not valid");
+                }
             }
         });
     }else{

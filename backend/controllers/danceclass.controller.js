@@ -1,17 +1,16 @@
 const DanceClass = require('../models/danceclass.model');
-var mongoose = require('mongoose');
 exports.getDanceClasses = function (req, res) {
-    DanceClass.find({}, function(err, danceClasses) {
+    DanceClass.find({user: req.client.id}, function(err, danceClasses) {
         res.status(200).send(danceClasses || []);
      });
 };
 exports.getPrivateDanceClasses = function (req, res) {
-    DanceClass.find({}, function(err, danceClasses) {
+    DanceClass.find({user: req.client.id}, function(err, danceClasses) {
         res.status(200).send(danceClasses || []);
      });
 };
 exports.getPrivateDanceClass = function (req, res) {
-    DanceClass.findById(req.params.id, function(err, danceClass) {
+    DanceClass.findOne({_id:req.params.id,user:req.client.id}, function(err, danceClass) {
         res.status(200).send(danceClass || {});
      });
 };
@@ -20,7 +19,8 @@ exports.insertDanceClass = function (req, res) {
         user: req.body.user,
         name: req.body.name,
         place: req.body.place,
-        danceStyle: req.body.danceStyle
+        danceStyle: req.body.danceStyle,
+        user: req.client.id,
     });
     danceClass.save(function (err, results) {
         if(err) {

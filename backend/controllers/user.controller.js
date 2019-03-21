@@ -1,5 +1,4 @@
 const User = require('../models/user.model');
-var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 exports.getUsers = function (req, res) {
     User.find({}, function(err, Users) {
@@ -15,14 +14,16 @@ exports.login = function (req, res) {
         }else if(!user){
             res.status(400).send("Username or Password Invalid");
         }else{
-            if(user.password === req.body.password && req.body.password.length > 3){
+
+            user.comparePassword(req.body.password, function(err, isMatch) {
+                if (err){ res.status(400).send("Username or Password Invalid");}else{
+                console.log('Password123:', isMatch); // -&gt; Password123: true
                 const token = jwt.sign({
                     data: {id:user._id}
-                }, 'maiconsantana', { expiresIn: '24h' });
+                }, 'maicon££santanaABwinfqubw123££££££€!!!', { expiresIn: '24h' });
                 res.status(200).json({token:token});
-            }else{
-                res.status(400).send("Username or Password Invalid");
             }
+        });
         }
      });
 };
@@ -35,15 +36,23 @@ exports.insertUser = function (req, res) {
         dateCreated: new Date(),
         dateModified: new Date(),
     });
-    user.save(function (err, results) {
-        if(err) {
-            console.log(err);
-            res.status(500).send(err);
+    user.findOne({_id:user._id}).then(resUser=>{
+        if(!resUser){
+            user.save(function (err, results) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send(err);
+                }else{
+                    const token = jwt.sign({
+                        data: {id:results._id}
+                    }, 'maicon££santanaABwinfqubw123££££££€!!!', { expiresIn: '24h' });
+                    res.status(200).json({token:token});
+                }
+            });
         }else{
-            const token = jwt.sign({
-                data: {id:results._id}
-            }, 'maiconsantana', { expiresIn: '24h' });
-            res.status(200).send(token);
+            res.status(403).json({error:"User already exists"});
         }
+    }).catch(errUser=>{
+        res.status(500).json({error:errUser.message});
     });
 };

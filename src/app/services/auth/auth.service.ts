@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AuthResult } from '../../model/authResult';
 import { environment } from '../../../environments/environment';
+import { User } from 'src/app/model/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -18,6 +19,16 @@ export class AuthenticationService {
 
     public get currentAuthValue(): AuthResult {
         return this.currentAuthSubject.value;
+    }
+    signup(user: User) {
+
+        return this.http.post<any>(environment.backend+'auth/signup',user).pipe(map(authResult=>{
+            if (authResult && authResult.token) {
+                localStorage.setItem('currentUser', JSON.stringify(authResult));
+                this.currentAuthSubject.next(authResult);
+            }
+            return authResult;
+        }));
     }
 
     login(username: string, password: string) {

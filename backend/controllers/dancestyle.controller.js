@@ -1,5 +1,4 @@
 const DanceStyle = require('../models/dancestyle.model');
-var mongoose = require('mongoose');
 exports.getPrivateDanceStyles = function (req, res) {
     DanceStyle.find({}, function(err, danceStyle) {
         res.status(200).send(danceStyle || []);

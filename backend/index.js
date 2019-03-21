@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 const port = process.env.PORT || 8082;
 const mongoUrl = process.env.MONGO || "localhost";
-const authValue = process.env.AUTH || "";
+const authValue = process.env.AUTH || "kuppinguserusuario:123asd123z@";
 function connect () {
     return mongoose.connect('mongodb://'+authValue+mongoUrl+':27017/kupping',{
     //return mongoose.connect('mongodb://localhost:27017/kupping',{
