@@ -16,8 +16,7 @@ exports.login = function (req, res) {
         }else{
 
             user.comparePassword(req.body.password, function(err, isMatch) {
-                if (err){ res.status(400).send("Username or Password Invalid");}else{
-                console.log('Password123:', isMatch); // -&gt; Password123: true
+                if (err || !isMatch){ res.status(400).send("Username or Password Invalid");}else{
                 const token = jwt.sign({
                     data: {id:user._id}
                 }, 'maicon££santanaABwinfqubw123££££££€!!!', { expiresIn: '24h' });
@@ -36,7 +35,7 @@ exports.insertUser = function (req, res) {
         dateCreated: new Date(),
         dateModified: new Date(),
     });
-    user.findOne({_id:user._id}).then(resUser=>{
+    User.findOne({$or:[{email:user.email},{username:user.username}]}).then(resUser=>{
         if(!resUser){
             user.save(function (err, results) {
                 if(err) {

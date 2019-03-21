@@ -17,6 +17,8 @@ export class SignupComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   signup : User;
+  loading = false;
+  error = '';
   constructor(private router: Router, private userService : UserService,
     private authenticationService: AuthenticationService) {
     this.signup = new User();
@@ -36,8 +38,8 @@ export class SignupComponent implements OnInit {
             },
             error => {
               console.log(error);
-                // this.error = error;
-                // this.loading = false;
+                this.error = error;
+                this.loading = false;
             });
   }
 
