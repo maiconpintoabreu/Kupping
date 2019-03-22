@@ -34,9 +34,7 @@ export class AuthenticationService {
     login(username: string, password: string) {
         return this.http.post<any>( environment.backend+'auth/login', { username, password })
             .pipe(map(authResult => {
-                // login successful if there's a jwt token in the response
                 if (authResult && authResult.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(authResult));
                     this.currentAuthSubject.next(authResult);
                 }

@@ -49,7 +49,13 @@ exports.insertUser = function (req, res) {
                 }
             });
         }else{
-            res.status(403).json({error:"User already exists"});
+            if(resUser.email == user.email && resUser.username == user.username){
+                res.status(403).send("Email and Username already exists");
+            }else if(resUser.email == user.email){
+                res.status(403).send("Email already exists");
+            }else if(resUser.username == user.username){
+                res.status(403).send("Username already exists");
+            }
         }
     }).catch(errUser=>{
         res.status(500).json({error:errUser.message});
