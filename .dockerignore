@@ -1,2 +1,7 @@
 backend
 node_modules
+LICENSE
+README.md
+Makefile
+.editorconfig
+.gitignore

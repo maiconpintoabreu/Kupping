@@ -29,5 +29,7 @@ services:
             - "8080:80"
         volumes:
             - "./backend/.:/backend-kupping"
+        depends_on: 
+            - mongo
   
     

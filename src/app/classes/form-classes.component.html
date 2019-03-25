@@ -30,12 +30,33 @@
       <label for="place">Place</label>
       <input type="text" class="form-control" id="place"
               required 
-              ngModelChange="autoCompletePlace(model.place.description)"
               [(ngModel)]="model.place.description" name="place"
               #place="ngModel">
       <div [hidden]="place.valid || place.pristine"
             class="alert alert-danger">
         Place is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" class="form-control" id="city"
+              required 
+              [(ngModel)]="model.place.city" name="city"
+              #city="ngModel">
+      <div [hidden]="city.valid || city.pristine"
+          class="alert alert-danger">
+        Place is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input type="text" class="form-control" id="country"
+              required 
+              [(ngModel)]="model.place.country" name="country"
+              #country="ngModel">
+      <div [hidden]="country.valid || country.pristine"
+          class="alert alert-danger">
+        Country is required
       </div>
     </div>
     <table class="table table-striped">
@@ -52,7 +73,6 @@
           <th scope="row">{{ student.id }}</th>
           <td>{{ student.name }}</td>
           <td>{{ student.email }}</td>
-          <td>{{ student.bornday }}</td>
         </tr>
       </tbody>
     </table>

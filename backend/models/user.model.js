@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
+var Slack = require('slack-node');
+webhookUri = 'https://hooks.slack.com/services/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';
+
+let slack = new Slack();
+slack.setWebhook(webhookUri); 
 let UserSchema = new Schema({
     email: {type: String, required: true,unique: true,index: true},
     username: {type: String, required: true,unique: true,index: true},
@@ -27,6 +32,17 @@ UserSchema.pre('save', function(next) {
     });
 });
 
+UserSchema.post("save",(doc)=>{
+    let docWithoutPassword = {password:""};
+    docWithoutPassword = Object.assign(doc,docWithoutPassword);
+    slack.webhook({
+      channel: "#kupping-events",
+      username: "kuppingbot",
+      text: JSON.stringify(docWithoutPassword)
+    }, function(err, response) {
+      //console.log(response);
+    });
+});
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);

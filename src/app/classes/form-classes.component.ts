@@ -18,7 +18,7 @@ export class FormClassesComponent implements OnInit {
   isDetail: boolean = false;
   model: DanceClass;
   // bound:google.maps.LatLngBounds;
-  danceStyles: Array<DanceStyle>;
+  danceStyles: Array<DanceStyle>=[];
   // private service = new google.maps.places.AutocompleteService();
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +51,7 @@ export class FormClassesComponent implements OnInit {
       name: "",
       id: "",
       danceStyle: new DanceStyle(),
-      place: { description: "", lat: 0, lng: 0 },
+      place: { description: "",city:"",country:"", lat: 0, lng: 0 },
       students: null,
       time: "19:00"
     };
@@ -62,7 +62,7 @@ export class FormClassesComponent implements OnInit {
           name: "Class 1",
           id: "1",
           danceStyle: new DanceStyle(),
-          place: { description: "Dublin", lat: 0, lng: 0 },
+          place: { description: "Dublin", city: "Dublin" ,country: "Ireland", lat: 0, lng: 0 },
           students: null,
           time: "19:00"
         };

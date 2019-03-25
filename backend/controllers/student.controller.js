@@ -53,9 +53,10 @@ exports.updateStudent = function (req, res) {
                 Student.updateOne({"_id":req.params.id},student,function(err2){
                     if(err2){
                         res.status(404).send(JSON.stringify({"text":"Student Not Found"}));
+                    }else{
+                        res.status(200).send(JSON.stringify({"text":"Student Updated"}));
                     }
                 });
-                res.status(200).send(JSON.stringify({"text":"Student Updated"}));
             }
         }
      });
