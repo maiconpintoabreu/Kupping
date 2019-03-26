@@ -111,20 +111,20 @@ export class FormClassesComponent implements OnInit {
       );
     }
   }
-  autoCompletePlace(ngModel: NgModel): void {
-    if (ngModel != null && ngModel.toString().length > 4) {
-      var request = {
-        input: ngModel.toString()
-        // bounds:this.bound
-      };
-      // this.service.getPlacePredictions(request,this.callback);
-    }
-  }
-  callback(results, status): void {
-    // if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      console.log(place);
-    }
-  }
+  // autoCompletePlace(ngModel: NgModel): void {
+  //   if (ngModel != null && ngModel.toString().length > 4) {
+  //     var request = {
+  //       input: ngModel.toString()
+  //       // bounds:this.bound
+  //     };
+  //     // this.service.getPlacePredictions(request,this.callback);
+  //   }
+  // }
+  // callback(results, status): void {
+  //   // if (status == google.maps.places.PlacesServiceStatus.OK) {
+  //   for (var i = 0; i < results.length; i++) {
+  //     var place = results[i];
+  //     console.log(place);
+  //   }
+  // }
 }

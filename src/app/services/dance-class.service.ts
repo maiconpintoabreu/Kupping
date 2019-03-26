@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DanceClassService {
+export class DanceClassPublicService {
 
   private  URL:string = environment.backend+"public/danceclass";
   constructor(private http: HttpClient) { }

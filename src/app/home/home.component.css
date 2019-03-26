@@ -1,4 +1,16 @@
-.maps {
-    height: 100%;
+.selection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 80%;
+    width: 100%;
+}
+.reset {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 10%;
     width: 100%;
 }

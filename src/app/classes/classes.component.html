@@ -7,6 +7,8 @@
         <th>Name</th>
         <th>Dance Style</th>
         <th>Place</th>
+        <th>City</th>
+        <th>Country</th>
         <th>Students</th>
         <th></th>
       </tr>
@@ -17,6 +19,8 @@
         <td>{{ class.name }}</td>
         <td>{{ class.danceStyle.id }}</td>
         <td>{{ class.place.description }}</td>
+        <td>{{ class.place.city }}</td>
+        <td>{{ class.place.country }}</td>
         <td>{{ class.students?.length }}</td>
         <td>
           <a 
@@ -43,6 +47,8 @@
     <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ class.name }}</span></li>
     <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.id }}</span></li>
     <li class="list-group-item"><span class="header-grid">Place</span><span class="value-grid">{{ class.place.description }}</span></li>
+    <li class="list-group-item"><span class="header-grid">City</span><span class="value-grid">{{ class.place.city }}</span></li>
+    <li class="list-group-item"><span class="header-grid">Country</span><span class="value-grid">{{ class.place.country }}</span></li>
     <li class="list-group-item"><span class="header-grid">Students</span><span class="value-grid">{{ class.students?.length }}</span></li>
   </ul>
 </div>

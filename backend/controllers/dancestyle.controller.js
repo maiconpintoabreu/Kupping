@@ -4,6 +4,11 @@ exports.getPrivateDanceStyles = function (req, res) {
         res.status(200).send(danceStyle || []);
      });
 };
+exports.getDanceStyles = function (req, res) {
+    DanceStyle.find({}, function(err, danceStyle) {
+        res.status(200).send(danceStyle || []);
+     });
+};
 exports.start = function(){
     DanceStyle.find({},function(err,danceStyles){
         if(danceStyles.length < 1){

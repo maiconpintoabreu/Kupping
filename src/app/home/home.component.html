@@ -1,2 +1,29 @@
 <!-- <div #gmap class="maps"></div> -->
+<div class="style-selection selection" *ngIf="!styleSelected">
+    <a class="btn" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.id}}</a>
+</div>
+<div class="country-selection selection" *ngIf="styleSelected && !countrySelected">
+        <a class="btn" *ngFor="let country of countries" (click)="setCountrySelected(country)" >{{country}}</a>
+</div>
+<div class="city-selection selection" *ngIf="styleSelected && countrySelected && !citySelected">
+        <a class="btn" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</a>
+</div>
+<div class="class-selection selection" *ngIf="styleSelected && countrySelected && citySelected">
+        <div class="card" style="width: 18rem;"  *ngFor="let event of eventList">
+            <div class="card-body">
+                <h5 class="card-title">{{event.name}}</h5>
+                <div class="card-text">
+                    <ul class="list">
+                        <li>Place: {{event.place.description}}</li>
+                        <li>City: {{event.place.city}}</li>
+                        <li>Country: {{event.place.country}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a class="btn" ></a>
+</div>
+<div class="reset-action reset" *ngIf="styleSelected">
+    <a class="btn" (click)="reset()" >Reset</a>
+</div>
 <router-outlet class="router-outlet"></router-outlet>

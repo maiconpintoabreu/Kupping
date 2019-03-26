@@ -1,8 +1,9 @@
 const DanceClass = require('../models/danceclass.model');
 exports.getDanceClasses = function (req, res) {
-    DanceClass.find({user: req.client.id}, function(err, danceClasses) {
+    // TODO: add isPublic
+    DanceClass.find({}, function(err, danceClasses) {
         res.status(200).send(danceClasses || []);
-     });
+     }).populate("danceStyle");
 };
 exports.getPrivateDanceClasses = function (req, res) {
     DanceClass.find({user: req.client.id}, function(err, danceClasses) {

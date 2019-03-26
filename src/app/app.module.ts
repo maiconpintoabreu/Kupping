@@ -21,7 +21,9 @@ import { StudentService } from './services/private/student.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CloseMenu } from './directives/close-menu';
 import { DanceStyleService } from './services/private/dance-style.service';
-import { DanceClassService } from './services/dance-class.service';
+import { DanceStylePublicService } from './services/dance-style.service';
+import { DanceClassService } from './services/private/dance-class.service';
+import { DanceClassPublicService } from './services/dance-class.service';
 import { AuthenticationService } from './services/auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { JwtInterceptor } from './services/auth/jwt.interceptor';
@@ -59,7 +61,9 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
   providers: [
     StudentService,
     DanceStyleService,
+    DanceStylePublicService,
     DanceClassService,
+    DanceClassPublicService,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
