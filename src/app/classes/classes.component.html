@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let class of classes" [routerLink]="['./detail', class._id]">
-        <th scope="row">{{ class.id }}</th>
+        <th scope="row">{{ class._id }}</th>
         <td>{{ class.name }}</td>
         <td>{{ class.danceStyle.id }}</td>
         <td>{{ class.place.description }}</td>
@@ -24,7 +24,7 @@
         <td>{{ class.students?.length }}</td>
         <td>
           <a 
-            (click)="deleteClass(class.id);$event.stopPropagation()">
+            (click)="deleteClass(class._id);$event.stopPropagation()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </a>
         </td>
@@ -33,16 +33,16 @@
   </table>
 </div>
 <div class="hidden-sm hidden-md hidden-lg">
-  <ul class="list-group" *ngFor="let class of classes" [routerLink]="['./detail', class.id]" >
+  <ul class="list-group" *ngFor="let class of classes" [routerLink]="['./detail', class._id]" >
     <li class="list-group-item">
       <span class="badge">
         <a 
-          (click)="deleteClass(class.id);$event.stopPropagation()">
+          (click)="deleteClass(class._id);$event.stopPropagation()">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </a>
       </span>
       <span class="header-grid">#</span>
-      <span class="value-grid">{{ class.id }}</span>
+      <span class="value-grid">{{ class._id }}</span>
     </li>
     <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ class.name }}</span></li>
     <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.id }}</span></li>
