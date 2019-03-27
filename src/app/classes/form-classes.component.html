@@ -16,7 +16,8 @@
     <div class="form-group">
       <label for="danceStyle">Dance Style</label>
       <select class="form-control" id="danceStyle"
-              required [disabled]="isDetail"
+              required 
+              <!-- [disabled]="isDetail" -->
               [(ngModel)]="model.danceStyle.id" name="danceStyle"
               #danceStyle="ngModel">
         <option *ngFor="let danceStyle of danceStyles">{{danceStyle.id}}</option>

@@ -8,7 +8,7 @@ exports.getDanceClasses = function (req, res) {
 exports.getPrivateDanceClasses = function (req, res) {
     DanceClass.find({user: req.client.id}, function(err, danceClasses) {
         res.status(200).send(danceClasses || []);
-     });
+     }).populate("danceStyle");
 };
 exports.getPrivateDanceClass = function (req, res) {
     DanceClass.findOne({_id:req.params.id,user:req.client.id}, function(err, danceClass) {
