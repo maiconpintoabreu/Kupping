@@ -19,7 +19,7 @@ exports.insertDanceClass = function (req, res) {
     const danceClass = new DanceClass({
         user: req.body.user,
         name: req.body.name,
-        place: {description:req.body.place,city:req.body.city,country:req.body.country},
+        place: {description:req.body.place.description,city:req.body.place.city,country:req.body.place.country},
         danceStyle: req.body.danceStyle,
         user: req.client.id,
     });
@@ -49,7 +49,7 @@ exports.updateDanceClass = function (req, res) {
                 res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
             }else{
                 danceClass.name = req.body.name;
-                danceClass.place = {description:req.body.place,city:req.body.city,country:req.body.country};
+                danceClass.place = {description:req.body.place.description,city:req.body.place.city,country:req.body.place.country};
                 DanceClass.updateOne({"_id":req.params.id},danceClass,function(err2){
                     if(err2){
                         res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
