@@ -28,7 +28,7 @@ export class DanceClassService {
     const httpOptions = {
         headers: headers
     };
-    return this.http.post<DanceClass>(this.URL,JSON.stringify(model), httpOptions);
+    return this.http.post<DanceClass>(this.URL,model, httpOptions);
   }
   updateDanceClass(model:DanceClass) : Observable<DanceClass>{
     let headers = new HttpHeaders();
@@ -37,7 +37,7 @@ export class DanceClassService {
     const httpOptions = {
         headers: headers
     };
-    return this.http.put<DanceClass>(this.URL+"/"+model._id,JSON.stringify(model), httpOptions);
+    return this.http.put<DanceClass>(this.URL+"/"+model._id,model, httpOptions);
   }
   deleteDanceClass(id:string) : Observable<Object>{
     let headers = new HttpHeaders();

@@ -6,7 +6,7 @@ import { DanceStyle } from "../model/dancestyle";
 import { Student } from "../model/student";
 import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
-import { NgModel, FormGroup, FormControl } from "@angular/forms";
+import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class FormClassesComponent implements OnInit {
       city: new FormControl(''),
       country: new FormControl(''),
     }),
-    students: new FormControl(''),
+    students: new FormArray([]),
   });
   isDetail: boolean = false;
   model: DanceClass;
@@ -101,6 +101,7 @@ export class FormClassesComponent implements OnInit {
         }
       );
     } else {
+      delete(toSave._id);
       this.danceClassService.addDanceClass(toSave).subscribe(
         res => {
           alert("Created");

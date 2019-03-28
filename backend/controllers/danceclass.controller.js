@@ -17,13 +17,8 @@ exports.getPrivateDanceClass = function (req, res) {
 };
 exports.insertDanceClass = function (req, res) {
     console.log(req.body.danceStyle);
-    const danceClass = new DanceClass({
-        user: req.body.user,
-        name: req.body.name,
-        place: {description:req.body.place.description,city:req.body.place.city,country:req.body.place.country},
-        danceStyle: req.body.danceStyle,
-        user: req.client.id,
-    });
+    req.body.user = req.client.id;
+    const danceClass = new DanceClass(req.body);
     danceClass.save(function (err, results) {
         if(err) {
             console.log(err);
