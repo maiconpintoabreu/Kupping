@@ -1,6 +1,6 @@
 <!-- <div #gmap class="maps"></div> -->
 <div class="style-selection selection" *ngIf="!styleSelected">
-    <a class="btn" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.id}}</a>
+    <a class="btn" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.name}}</a>
 </div>
 <div class="country-selection selection" *ngIf="styleSelected && !countrySelected">
         <a class="btn" *ngFor="let country of countries" (click)="setCountrySelected(country)" >{{country}}</a>
