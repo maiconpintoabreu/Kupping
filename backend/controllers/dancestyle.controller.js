@@ -12,7 +12,7 @@ exports.getDanceStyles = function (req, res) {
 exports.start = function(){
     DanceStyle.find({},function(err,danceStyles){
         if(danceStyles.length < 1){
-            const danceStyle = new DanceStyle({id : "Forro"});
+            const danceStyle = new DanceStyle({name : "Forro"});
 
             danceStyle.save(function (err, results) {
                 if(err) {
@@ -23,7 +23,7 @@ exports.start = function(){
             });
         }
         if(danceStyles.length < 2){
-            const danceStyle = new DanceStyle({id : "Kizomba"});
+            const danceStyle = new DanceStyle({name : "Kizomba"});
 
             danceStyle.save(function (err, results) {
                 if(err) {

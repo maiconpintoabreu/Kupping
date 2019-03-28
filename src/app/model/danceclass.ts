@@ -3,7 +3,7 @@ import { DanceStyle } from "./dancestyle";
 import { Place } from "./place";
 
 export class DanceClass{
-    id: string;
+    _id: string;
     name: string;
     place: Place;
     country?: string;

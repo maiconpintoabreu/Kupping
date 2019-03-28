@@ -6,7 +6,7 @@ import { DanceStyle } from "../model/dancestyle";
 import { Student } from "../model/student";
 import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
-import { NgModel } from "@angular/forms";
+import { NgModel, FormGroup, FormControl } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
 
 @Component({
@@ -15,10 +15,21 @@ import { DanceStyleService } from "../services/private/dance-style.service";
   styleUrls: ["./classes.component.css"]
 })
 export class FormClassesComponent implements OnInit {
+  classForm:FormGroup = new FormGroup({
+    _id: new FormControl(''),
+    name: new FormControl(''),
+    danceStyleId: new FormControl(''),
+    place: new FormGroup({
+      description: new FormControl(''),
+      city: new FormControl(''),
+      country: new FormControl(''),
+    }),
+    students: new FormControl(''),
+  });
   isDetail: boolean = false;
   model: DanceClass;
   // bound:google.maps.LatLngBounds;
-  danceStyles: Array<DanceStyle>=[];
+  danceStyles: DanceStyle[] = [];
   // private service = new google.maps.places.AutocompleteService();
   constructor(
     private route: ActivatedRoute,
@@ -41,16 +52,11 @@ export class FormClassesComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (window.navigator.geolocation) {
-      window.navigator.geolocation.getCurrentPosition(position => {
-        // this.bound = new google.maps.LatLngBounds(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-      });
-    }
     this.initClass();
     this.model = {
       name: "",
-      id: "",
-      danceStyle: new DanceStyle(),
+      _id: "",
+      danceStyle: this.danceStyles[0],
       place: { description: "",city:"",country:"", lat: 0, lng: 0 },
       students: null,
       time: "19:00"
@@ -58,22 +64,14 @@ export class FormClassesComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
       if (this.isDetail) {
-        this.model = {
-          name: "Class 1",
-          id: "1",
-          danceStyle: new DanceStyle(),
-          place: { description: "Dublin", city: "Dublin" ,country: "Ireland", lat: 0, lng: 0 },
-          students: null,
-          time: "19:00"
-        };
         this.danceClassService.getDanceClass(params.get("id")).subscribe(
           res => {
-            console.log(res);
-            this.model = res;
-            this.model.id = res["_id"];
-            this.model.danceStyle = this.danceStyles.find(
-              x => x._id == "" + res.danceStyle
-            );
+            this.classForm.patchValue(res);
+            if(res.danceStyle){
+              this.classForm.controls["danceStyleId"].setValue(res.danceStyle._id);
+            }else{
+              this.classForm.controls["danceStyleId"].setValue(this.danceStyles[0]._id);
+            }
           },
           err => {
             console.log(err);
@@ -90,8 +88,11 @@ export class FormClassesComponent implements OnInit {
     this.location.back();
   }
   onSubmit(): void {
+    let toSave = this.classForm.value;
+    toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
+    delete(toSave.danceStyleId);
     if (this.isDetail) {
-      this.danceClassService.updateDanceClass(this.model).subscribe(
+      this.danceClassService.updateDanceClass(toSave).subscribe(
         res => {
           alert("Updated");
         },
@@ -100,7 +101,7 @@ export class FormClassesComponent implements OnInit {
         }
       );
     } else {
-      this.danceClassService.addDanceClass(this.model).subscribe(
+      this.danceClassService.addDanceClass(toSave).subscribe(
         res => {
           alert("Created");
           this.router.navigate(["/admin/classes"]);

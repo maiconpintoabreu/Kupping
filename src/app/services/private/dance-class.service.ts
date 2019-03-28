@@ -28,16 +28,16 @@ export class DanceClassService {
     const httpOptions = {
         headers: headers
     };
-    return this.http.post<DanceClass>(this.URL,model, httpOptions);
+    return this.http.post<DanceClass>(this.URL,JSON.stringify(model), httpOptions);
   }
   updateDanceClass(model:DanceClass) : Observable<DanceClass>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();
-    //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
+    headers = headers.append('Content-type','application/json');
     const httpOptions = {
         headers: headers
     };
-    return this.http.put<DanceClass>(this.URL+"/"+model.id,model, httpOptions);
+    return this.http.put<DanceClass>(this.URL+"/"+model._id,JSON.stringify(model), httpOptions);
   }
   deleteDanceClass(id:string) : Observable<Object>{
     let headers = new HttpHeaders();

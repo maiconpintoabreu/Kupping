@@ -17,8 +17,8 @@
       <tr *ngFor="let class of classes" [routerLink]="['./detail', class._id]">
         <th scope="row">{{ class._id }}</th>
         <td>{{ class.name }}</td>
-        <td>{{ class.danceStyle.id }}</td>
-        <td>{{ class.place.description }}</td>
+        <td>{{ class.danceStyle.name }}</td>
+        <td>{{ class.place.description+"/"+class.place.city+"/"+class.place.country }}</td>
         <td>{{ class.place.city }}</td>
         <td>{{ class.place.country }}</td>
         <td>{{ class.students?.length }}</td>
@@ -45,7 +45,7 @@
       <span class="value-grid">{{ class._id }}</span>
     </li>
     <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ class.name }}</span></li>
-    <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.id }}</span></li>
+    <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.name }}</span></li>
     <li class="list-group-item"><span class="header-grid">Place</span><span class="value-grid">{{ class.place.description }}</span></li>
     <li class="list-group-item"><span class="header-grid">City</span><span class="value-grid">{{ class.place.city }}</span></li>
     <li class="list-group-item"><span class="header-grid">Country</span><span class="value-grid">{{ class.place.country }}</span></li>
