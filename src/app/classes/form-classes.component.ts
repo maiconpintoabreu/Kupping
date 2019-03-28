@@ -19,6 +19,9 @@ export class FormClassesComponent implements OnInit {
     _id: new FormControl(''),
     name: new FormControl(''),
     danceStyleId: new FormControl(''),
+    date: new FormControl(''),
+    hour: new FormControl(''),
+    duration: new FormControl(''),
     place: new FormGroup({
       description: new FormControl(''),
       city: new FormControl(''),
