@@ -1,35 +1,57 @@
-<div class="" closeMenu>
-  <nav
-    id="menu"
-    *ngIf="publicMenu"
-    class="navbar navbar-default navbar-fixed-top"
-  >
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" routerLink="/home">
-          <img alt="Brand" src="assets/logo.png" alt="Kupping" />
-        </a>
+<div class="">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light" *ngIf="publicMenu">
+      <a class="navbar-brand" routerLink="/home">
+        <img alt="Brand" src="assets/logo.png" alt="Kupping" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav justify-content-end  nav-pills">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              title="New User"
+              routerLink="./home/signup"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Sign up
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              *ngIf="!currentAuth"
+              routerLink="./home/login"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Log In
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              *ngIf="currentAuth"
+              (click)="logout()"
+            >
+              Log Out
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="navbar-form form-inline navbar-btn navbar-right">
-        <button
-          type="button"
-          routerLinkActive="active"
-          title="New User"
-          class="btn btn-primary navbar-btn"
-          routerLink="/home/signup">Sign up</button>
-        <button
-          class="btn btn-primary navbar-btn"
-          *ngIf="!currentAuth"
-          routerLink="/home/login">Log In</button>
-
-        <button
-          class="btn btn-primary navbar-btn "
-          *ngIf="currentAuth"
-          (click)="logout()">Log Out</button>
-      </div>
-      <div class="navbar-form form-inline navbar-btn navbar-right"></div>
-    </div>
-  </nav>
+    </nav>
+  </div>
   <div class="router-outlet">
     <router-outlet class="router-outlet"></router-outlet>
   </div>

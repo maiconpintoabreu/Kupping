@@ -8,6 +8,7 @@ import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
 import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
+import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: "app-classes",
@@ -15,6 +16,11 @@ import { DanceStyleService } from "../services/private/dance-style.service";
   styleUrls: ["./classes.component.css"]
 })
 export class FormClassesComponent implements OnInit {
+  
+  hoveredDate: NgbDate;
+
+  fromDate: NgbDate;
+  toDate: NgbDate;
   classForm:FormGroup = new FormGroup({
     _id: new FormControl(''),
     name: new FormControl(''),
@@ -39,8 +45,11 @@ export class FormClassesComponent implements OnInit {
     private danceClassService: DanceClassService,
     private router: Router,
     private location: Location,
-    private danceStyleService: DanceStyleService
+    private danceStyleService: DanceStyleService,
+    private calendar: NgbCalendar,
   ) {
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.danceStyleService.getDanceStyles().subscribe(
       res => {
         this.danceStyles = res;
@@ -115,6 +124,28 @@ export class FormClassesComponent implements OnInit {
         }
       );
     }
+  }
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
   // autoCompletePlace(ngModel: NgModel): void {
   //   if (ngModel != null && ngModel.toString().length > 4) {

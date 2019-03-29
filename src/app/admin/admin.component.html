@@ -1,34 +1,26 @@
 <div class="container">
-  <nav  class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          <img alt="Brand" src="assets/logo.png" alt="Kupping" height="50">
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse" >
-          <ul class="nav navbar-nav">
-            <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-              <a routerLink="./" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-            </li>
-            <li role="presentation" routerLinkActive="active">
-              <a routerLink="./classes" routerLinkActive="active">Classes</a>
-            </li>
-            <li role="presentation" routerLinkActive="active">
-              <a routerLink="./students" routerLinkActive="active">Students</a>
-            </li>
-            <li role="presentation">
-              <a href="#" (click)="logout()">Logout</a>
-            </li>
-          </ul>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" routerLink="/home">
+      <img alt="Brand" src="assets/logo.png" alt="Kupping" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav justify-content-end">
+        <li class="nav-item" role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active">
+          <a class="nav-link" routerLink="./classes" routerLinkActive="active">Classes</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active">
+          <a class="nav-link" routerLink="./students" routerLinkActive="active">Students</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" href="#" (click)="logout()">Logout</a>
+        </li>
+      </ul>
     </div>
   </nav>
   <router-outlet></router-outlet>

@@ -19,7 +19,7 @@ import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
 import { StudentService } from './services/private/student.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CloseMenu } from './directives/close-menu';
+// import { CloseMenu } from './directives/close-menu';
 import { DanceStyleService } from './services/private/dance-style.service';
 import { DanceStylePublicService } from './services/dance-style.service';
 import { DanceClassService } from './services/private/dance-class.service';
@@ -28,6 +28,7 @@ import { AuthenticationService } from './services/auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     FormStudentsComponent,
     FormClassesComponent,
     CallbackComponent,
-    CloseMenu
+    //CloseMenu
   ],
   imports: [
     BrowserModule,
@@ -53,6 +54,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgbModule,
     //AgmCoreModule.forRoot({
     //  apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
     //  libraries: ["places"] 

@@ -1,7 +1,7 @@
 .fog {
     position: fixed;
     overflow: hidden;
-    margin-top: 50px;
+    margin-top: 70px;
     background-color: gray;
     opacity:0.9;
     height: 100vh;

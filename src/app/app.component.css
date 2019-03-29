@@ -1,17 +1,5 @@
-.navbar-brand{
-    padding: 0;
-}
-.router-outlet {
-    padding-top: 50px;
-    height: 100vh;
-    width: 100hv;
-}
 .navbar-brand>img {
     height: 70px;
-}
-.navbar-toggle {
-    background-color: blue;
-    background-image: none;
 }
 @media(max-width: 900px){
     .navbar-brand>img {
