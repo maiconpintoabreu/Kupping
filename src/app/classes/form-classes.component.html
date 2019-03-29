@@ -25,7 +25,7 @@
       <label for="duration">Duration</label>
       <input type="number" class="form-control" formControlName="duration" id="duration" required>
     </div>
-    <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+    <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" *ngIf="false">
     </ngb-datepicker>
 
     <ng-template #t let-date let-focused="focused">
