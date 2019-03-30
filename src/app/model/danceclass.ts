@@ -11,4 +11,6 @@ export class DanceClass{
     time: string;
     students: Student[];
     danceStyle: DanceStyle = new DanceStyle();
+    toDate?: number;
+    fromDate?: number;
 }

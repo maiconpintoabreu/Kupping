@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { DanceClass } from "../model/danceclass";
@@ -8,25 +8,33 @@ import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
 import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
-import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
+import { toDate } from '@angular/common/src/i18n/format_date';
 
 @Component({
   selector: "app-classes",
   templateUrl: "./form-classes.component.html",
-  styleUrls: ["./classes.component.css"]
+  styleUrls: ["./form-classes.component.css"]
 })
 export class FormClassesComponent implements OnInit {
-  
+  @ViewChild('dp') dp:NgbDatepicker;
   hoveredDate: NgbDate;
-
   fromDate: NgbDate;
   toDate: NgbDate;
+  meridian = false;
+  fromTime:FormControl = new FormControl({
+    hour: Number,
+    minute: Number,
+  });
+  toTime:FormControl = new FormControl({
+    hour: Number,
+    minute: Number,
+  });
   classForm:FormGroup = new FormGroup({
     _id: new FormControl(''),
     name: new FormControl(''),
     danceStyleId: new FormControl(''),
-    date: new FormControl(''),
-    hour: new FormControl(''),
     duration: new FormControl(''),
     place: new FormGroup({
       description: new FormControl(''),
@@ -48,14 +56,11 @@ export class FormClassesComponent implements OnInit {
     private danceStyleService: DanceStyleService,
     private calendar: NgbCalendar,
   ) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.fromDate = this.calendar.getToday();
+    this.toDate = this.calendar.getNext(calendar.getToday(), 'd', 10);
     this.danceStyleService.getDanceStyles().subscribe(
       res => {
         this.danceStyles = res;
-        if (this.model) {
-          this.model.danceStyle = this.danceStyles[0];
-        }
       },
       err => {
         alert("Solve this first!!!");
@@ -65,16 +70,10 @@ export class FormClassesComponent implements OnInit {
 
   ngOnInit() {
     this.initClass();
-    this.model = {
-      name: "",
-      _id: "",
-      danceStyle: this.danceStyles[0],
-      place: { description: "",city:"",country:"", lat: 0, lng: 0 },
-      students: null,
-      time: "19:00"
-    };
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
+      this.fromTime.patchValue({hour:16,minute:0});
+      this.toTime.patchValue({hour:0,minute:0});
       if (this.isDetail) {
         this.danceClassService.getDanceClass(params.get("id")).subscribe(
           res => {
@@ -83,6 +82,24 @@ export class FormClassesComponent implements OnInit {
               this.classForm.controls["danceStyleId"].setValue(res.danceStyle._id);
             }else{
               this.classForm.controls["danceStyleId"].setValue(this.danceStyles[0]._id);
+            }
+            if(res.fromDate){
+              const momentFromDate = moment(res.fromDate);
+              let fromDateRes = new NgbDate(momentFromDate.get('year'),momentFromDate.get('month'),momentFromDate.get('date'));
+              this.dp.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
+              this.onDateSelection(fromDateRes);
+              this.fromTime.patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
+            }else{
+              console.log("no from date");
+            }
+            if(res.toDate){
+              const momentToDate = moment(res.toDate);
+
+              let toDateRes = new NgbDate(momentToDate.get('year'),momentToDate.get('month'),momentToDate.get('date'));
+              this.onDateSelection(toDateRes);
+              this.toTime.patchValue({hour: momentToDate.get('hour'),minute:momentToDate.get('minute')});
+            }else{
+              console.log("no to date");
             }
           },
           err => {
@@ -99,30 +116,43 @@ export class FormClassesComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  toggleMeridian() {
+      this.meridian = !this.meridian;
+  }
   onSubmit(): void {
-    let toSave = this.classForm.value;
-    toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
-    delete(toSave.danceStyleId);
-    if (this.isDetail) {
-      this.danceClassService.updateDanceClass(toSave).subscribe(
-        res => {
-          alert("Updated");
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    } else {
-      delete(toSave._id);
-      this.danceClassService.addDanceClass(toSave).subscribe(
-        res => {
-          alert("Created");
-          this.router.navigate(["/admin/classes"]);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    const hourTo =  this.toTime.valid  ? this.toTime.value.hour : 0;
+    const minuteTo = this.toTime.valid  ? this.toTime.value.minute : 0;
+    const hourFrom =  this.fromTime.valid  ? this.fromTime.value.hour : 0;
+    const minuteFrom = this.fromTime.valid  ? this.fromTime.value.minute : 0;
+    let dateToFormated = new Date(this.toDate.year,this.toDate.month,this.toDate.day,hourTo,minuteTo);
+    let dateFromFormated = new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day,hourFrom,minuteFrom);
+    if(moment(dateFromFormated).isValid() && moment(dateToFormated).isValid()){
+      let toSave = this.classForm.value;
+      toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
+      delete(toSave.danceStyleId);
+      toSave.fromDate = moment(dateFromFormated).valueOf();
+      toSave.toDate = moment(dateToFormated).valueOf();
+      if (this.isDetail) {
+        this.danceClassService.updateDanceClass(toSave).subscribe(
+          res => {
+            alert("Updated");
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      } else {
+        delete(toSave._id);
+        this.danceClassService.addDanceClass(toSave).subscribe(
+          res => {
+            alert("Created");
+            this.router.navigate(["/admin/classes"]);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
     }
   }
   onDateSelection(date: NgbDate) {
