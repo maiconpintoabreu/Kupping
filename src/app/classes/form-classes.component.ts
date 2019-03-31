@@ -128,6 +128,7 @@ export class FormClassesComponent implements OnInit {
       let toSave = this.classForm.value;
       toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
       delete(toSave.danceStyleId);
+      delete(toSave.students);
       toSave.fromDate = moment(dateFromFormated).valueOf();
       toSave.toDate = moment(dateToFormated).valueOf();
       if (this.isDetail) {
@@ -157,7 +158,12 @@ export class FormClassesComponent implements OnInit {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && NgbDate.from(this.fromDate)) {
-      this.toDate = date;
+      if(date.before(this.fromDate)){
+        this.toDate = this.fromDate;
+        this.fromDate = date;
+      }else{
+        this.toDate = date;
+      }
     } else {
       this.toDate = null;
       this.fromDate = date;
@@ -165,30 +171,14 @@ export class FormClassesComponent implements OnInit {
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return this.fromDate && !this.toDate && this.hoveredDate && (date.after(this.fromDate) && date.before(this.hoveredDate)) || (date.before(this.fromDate) && date.after(this.hoveredDate));
   }
 
   isInside(date: NgbDate) {
-    return date.after(this.fromDate) && date.before(this.toDate);
+    return (date.after(this.fromDate) && date.before(this.toDate)) || (date.before(this.fromDate) && date.after(this.hoveredDate));
   }
 
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
-  // autoCompletePlace(ngModel: NgModel): void {
-  //   if (ngModel != null && ngModel.toString().length > 4) {
-  //     var request = {
-  //       input: ngModel.toString()
-  //       // bounds:this.bound
-  //     };
-  //     // this.service.getPlacePredictions(request,this.callback);
-  //   }
-  // }
-  // callback(results, status): void {
-  //   // if (status == google.maps.places.PlacesServiceStatus.OK) {
-  //   for (var i = 0; i < results.length; i++) {
-  //     var place = results[i];
-  //     console.log(place);
-  //   }
-  // }
 }

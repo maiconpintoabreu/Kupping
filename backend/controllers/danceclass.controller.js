@@ -71,6 +71,7 @@ exports.getPrivateDanceClass = function (req, res) {
 };
 exports.insertDanceClass = function (req, res) {
     req.body.user = req.client.id;
+    delete(req.body.students);
     const danceClass = new DanceClass(req.body);
     danceClass.save(function (err, results) {
         if(err) {
@@ -78,7 +79,7 @@ exports.insertDanceClass = function (req, res) {
             res.status(500).send(err);
         }
         res.status(200).send(results);
-      });
+    });
 };
 exports.deleteDanceClass = function (req, res) {
     DanceClass.deleteOne({_id:req.params.id}, function(err){
@@ -90,14 +91,15 @@ exports.deleteDanceClass = function (req, res) {
     });
 };
 exports.updateDanceClass = function (req, res) {
-    DanceClass.findById(req.params.id, function(err, danceClass) {
+    DanceClass.findOne({_id:req.params.id,user:req.client.id}, function(err, danceClass) {
         if(err){
             res.status(500).send(err.message);
         }else{
             if(!danceClass){
                 res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
             }else{
-                danceClass = req.body;
+                req.body.students = danceClass.students;
+                danceClass = new DanceClass(req.body);
                 DanceClass.updateOne({"_id":req.params.id},danceClass,function(err2){
                     if(err2){
                         res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
