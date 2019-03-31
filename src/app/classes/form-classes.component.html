@@ -64,12 +64,11 @@
           <th>#</th>
           <th>Name</th>
           <th>Email</th>
-          <th>Day of born</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of model.students" [routerLink]="['../../../students/detail/', student.id]">
-          <th scope="row">{{ student.id }}</th>
+        <tr *ngFor="let student of classForm.value.students" [routerLink]="['../../../students/detail/', student._id]">
+          <th scope="row">{{ student._id }}</th>
           <td>{{ student.name }}</td>
           <td>{{ student.email }}</td>
         </tr>

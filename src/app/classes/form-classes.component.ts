@@ -10,7 +10,6 @@ import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
 import { NgbDate, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { toDate } from '@angular/common/src/i18n/format_date';
 
 @Component({
   selector: "app-classes",
@@ -41,10 +40,13 @@ export class FormClassesComponent implements OnInit {
       city: new FormControl(''),
       country: new FormControl(''),
     }),
-    students: new FormArray([]),
+    students: new FormArray([
+      new FormControl(''),
+      new FormControl(''),
+      new FormControl(''),
+    ]),
   });
   isDetail: boolean = false;
-  model: DanceClass;
   // bound:google.maps.LatLngBounds;
   danceStyles: DanceStyle[] = [];
   // private service = new google.maps.places.AutocompleteService();
@@ -69,7 +71,6 @@ export class FormClassesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initClass();
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
       this.fromTime.patchValue({hour:16,minute:0});
@@ -109,9 +110,6 @@ export class FormClassesComponent implements OnInit {
       } else {
       }
     });
-  }
-  initClass(): void {
-    this.model = new DanceClass();
   }
   goBack(): void {
     this.location.back();
