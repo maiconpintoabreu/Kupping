@@ -29,6 +29,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     LoginComponent,
     SignupComponent,
+    BookingComponent,
     DashboardComponent,
     StudentsComponent,
     ClassesComponent,

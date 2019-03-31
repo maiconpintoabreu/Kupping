@@ -1,4 +1,5 @@
-const User = require('../models/user.model');
+const moduleModel = require("../models/module.model");
+const User = moduleModel.getUserModel();
 var jwt = require('jsonwebtoken');
 exports.getUsers = function (req, res) {
     User.find({}, function(err, Users) {
@@ -39,7 +40,7 @@ exports.insertUser = function (req, res) {
         if(!resUser){
             user.save(function (err, results) {
                 if(err) {
-                    console.log(err);
+                    console.error("Error",err);
                     res.status(500).send(err);
                 }else{
                     const token = jwt.sign({

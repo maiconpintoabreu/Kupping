@@ -29,7 +29,7 @@ export class StudentsComponent implements OnInit {
       this.getStudents();
     },
     err=>{
-      console.log(err);
+      console.error("Error:",err);
     });
   }
 }

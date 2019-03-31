@@ -9,7 +9,7 @@
         <a class="btn" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</a>
 </div>
 <div class="class-selection selection" *ngIf="styleSelected && countrySelected && citySelected">
-        <div class="card" style="width: 18rem;"  *ngFor="let event of eventList">
+        <div class="card" style="width: 18rem;"  *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
             <div class="card-body">
                 <h5 class="card-title">{{event.name}}</h5>
                 <div class="card-text">

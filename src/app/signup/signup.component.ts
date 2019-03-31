@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
               this.router.navigate(["/admin/"]);
             },
             error => {
-              console.log(error);
+              console.error("Error:",error);
                 this.error = error;
                 this.loading = false;
             });

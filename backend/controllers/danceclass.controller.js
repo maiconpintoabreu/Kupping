@@ -1,4 +1,58 @@
-const DanceClass = require('../models/danceclass.model');
+const moduleModel = require("../models/module.model");
+const DanceClass = moduleModel.getDanceClassModel();
+const Student = moduleModel.getStudentModel();
+exports.booking = (req,res)=>{
+    // TODO: add isPublic
+    DanceClass.findOne({_id:req.params.danceclassid}).then(danceClass=>{
+        if(danceClass){
+            Student.findOne({email:req.body.email,user:danceClass.user}).then(resStudent=>{
+                let studentToSave;
+                if(resStudent)
+                    studentToSave = danceClass.students.find(x=>x == ""+resStudent._id);
+                if(studentToSave){
+                    res.status(302).send("Email already Saved");
+                }else{
+                    studentToSave = new Student(req.body);
+                    studentToSave.user = danceClass.user;
+                    if(!resStudent){
+                        studentToSave.save(errSaveStudent=>{
+                            if(errSaveStudent){
+                                console.error("Error errSaveStudent",errSaveStudent.message);
+                                res.status(500).send("Booking Error");
+                            }else{
+                                danceClass.students.push(studentToSave._id);
+                                danceClass.save(errSaveDanceClass=>{
+                                    if(errSaveDanceClass){
+                                        console.error("Error errSaveDanceClass",errSaveDanceClass.message);
+                                        res.status(500).send("Booking Error");
+                                    }else{
+                                        res.status(200).send({result:"Success"});
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        danceClass.students.push(resStudent._id);
+                        danceClass.save(errSaveDanceClass=>{
+                            if(errSaveDanceClass){
+                                console.error("Error errSaveDanceClass",errSaveDanceClass.message);
+                                res.status(500).send("Booking Error");
+                            }else{
+                                res.status(200).send({result:"Success",recurrent:true});
+                            }
+                        });
+                    }
+                }
+                    
+            })
+        }else{
+            res.status(400).send("Dance Class not found");
+        }
+     }).catch(errDanceClass=>{
+        console.error("Error errDanceClass",errDanceClass.message);
+        res.status(500).send("Booking Error");
+     });
+};
 exports.getDanceClasses = function (req, res) {
     // TODO: add isPublic
     DanceClass.find({}, function(err, danceClasses) {
@@ -13,15 +67,14 @@ exports.getPrivateDanceClasses = function (req, res) {
 exports.getPrivateDanceClass = function (req, res) {
     DanceClass.findOne({_id:req.params.id,user:req.client.id}, function(err, danceClass) {
         res.status(200).send(danceClass || {});
-     }).populate("danceStyle");
+     }).populate("danceStyle").populate("students");
 };
 exports.insertDanceClass = function (req, res) {
-    console.log(req.body.danceStyle);
     req.body.user = req.client.id;
     const danceClass = new DanceClass(req.body);
     danceClass.save(function (err, results) {
         if(err) {
-            console.log(err);
+            console.error(err);
             res.status(500).send(err);
         }
         res.status(200).send(results);
@@ -37,7 +90,6 @@ exports.deleteDanceClass = function (req, res) {
     });
 };
 exports.updateDanceClass = function (req, res) {
-    console.log(req.body);
     DanceClass.findById(req.params.id, function(err, danceClass) {
         if(err){
             res.status(500).send(err.message);

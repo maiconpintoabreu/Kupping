@@ -1,6 +1,5 @@
 export class Student{
     _id:string;
     name:string;
-    email:string;
-    dateOfBirth?:string;
+    email?:string;
 }

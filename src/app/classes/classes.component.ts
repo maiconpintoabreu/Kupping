@@ -20,15 +20,13 @@ export class ClassesComponent implements OnInit {
     this.danceClassService.getDanceClasses().subscribe(res=>{
       this.classes = res;
     });
-    console.log("List Classes");
   }
   deleteClass(id: string) : void {
-    console.log("Delete: "+id);
     this.danceClassService.deleteDanceClass(id).subscribe(res=>{
       this.getClasses();
     },
     err=>{
-      console.log(err);
+      console.error("Error",err);
     });
   }
 }

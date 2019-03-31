@@ -6,6 +6,7 @@ const danceClassController = require('./controllers/danceclass.controller');
 const danceStyleController = require('./controllers/dancestyle.controller');
 
 router.get('/public/danceclass', danceClassController.getDanceClasses);
+router.post('/public/danceclass/:danceclassid/booking', danceClassController.booking);
 router.get('/public/dancestyle', danceStyleController.getDanceStyles);
 router.post('/public/user', checkLogin, userController.insertUser);
 
@@ -27,7 +28,6 @@ module.exports = router;
 function checkLogin(req,res,next) {
     if(req.headers.authorization){
         jwt.verify(req.headers.authorization.replace("Bearer ",""), 'maicon££santanaABwinfqubw123££££££€!!!', function(err, decoded) {
-            console.log(decoded);
             if(err){
                 res.status(401).send(err);
             }else{

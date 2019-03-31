@@ -23,10 +23,12 @@
         <td>{{ class.place.country }}</td>
         <td>{{ class.students?.length }}</td>
         <td>
-          <a 
-            (click)="deleteClass(class._id);$event.stopPropagation()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </a>
+          <span class="badge badge-primary badge-pill">
+            <a 
+              (click)="deleteClass(class._id);$event.stopPropagation()">
+              X
+            </a>
+        </span>
         </td>
       </tr>
     </tbody>

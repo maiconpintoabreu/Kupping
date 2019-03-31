@@ -11,6 +11,7 @@ import { AdminComponent } from './admin/admin.component';
 import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
 import { AuthGuard } from './services/guard/auth.guard';
+import { BookingComponent } from './booking/booking.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
       children: [
         { path: 'login', component: LoginComponent },
         { path: 'signup', component: SignupComponent },
+        { path: 'danceclass/:danceclassid/booking', component: BookingComponent },
       ]
     }
   ]

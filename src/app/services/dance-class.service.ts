@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DanceClass } from '../model/danceclass';
 import {environment} from '../../environments/environment';
+import { Booking } from '../model/booking';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,11 @@ export class DanceClassPublicService {
     };
     return this.http.get<DanceClass>(this.URL+"/"+id, httpOptions);
   }
+  booking(id: string, model: Booking) : Observable<String>{
+    let headers = new HttpHeaders();
+    const httpOptions = {
+        headers: headers
+    };
+    return this.http.post<String>(this.URL+"/"+id+"/booking",model, httpOptions);
+  } 
 }

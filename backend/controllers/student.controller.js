@@ -1,7 +1,7 @@
-const Student = require('../models/student.model');
+const moduleModel = require("../models/module.model");
+const Student = moduleModel.getStudentModel();
 exports.getStudentes = function (req, res) {
-    console.log(req.client.id)
-    Student.find({user:req.client.id}, function(err, studentes) {
+    Student.find({}, function(err, studentes) {
         if(err){
             res.status(500).send(err.message);
         }else{
@@ -26,7 +26,7 @@ exports.insertStudent = function (req, res) {
     });
     student.save(function (err, results) {
         if(err) {
-            console.log(err);
+            console.error("Error",err);
             res.status(500).send(err);
         }
         res.status(200).send(results);

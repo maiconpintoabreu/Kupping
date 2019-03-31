@@ -33,7 +33,7 @@ function reconnect (){
 
 connect();
 
-mongoose.connection.on('error', console.log)
+mongoose.connection.on('error', console.error)
     .on('disconnected', reconnect)
     .once('open', listen);
 

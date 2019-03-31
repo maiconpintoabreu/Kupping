@@ -90,7 +90,7 @@ export class FormClassesComponent implements OnInit {
               this.onDateSelection(fromDateRes);
               this.fromTime.patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
             }else{
-              console.log("no from date");
+              console.warn("no from date");
             }
             if(res.toDate){
               const momentToDate = moment(res.toDate);
@@ -99,11 +99,11 @@ export class FormClassesComponent implements OnInit {
               this.onDateSelection(toDateRes);
               this.toTime.patchValue({hour: momentToDate.get('hour'),minute:momentToDate.get('minute')});
             }else{
-              console.log("no to date");
+              console.warn("no to date");
             }
           },
           err => {
-            console.log(err);
+            console.error("Error:",err);
           }
         );
       } else {
@@ -138,7 +138,7 @@ export class FormClassesComponent implements OnInit {
             alert("Updated");
           },
           err => {
-            console.log(err);
+            console.error("Error:",err);
           }
         );
       } else {
@@ -149,7 +149,7 @@ export class FormClassesComponent implements OnInit {
             this.router.navigate(["/admin/classes"]);
           },
           err => {
-            console.log(err);
+            console.error("Error:",err);
           }
         );
       }

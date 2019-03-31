@@ -17,10 +17,12 @@
         <td>{{ student.email }}</td>
         <!-- <td>{{ student.dateOfBirth }}</td> -->
         <td>
-          <a 
-            (click)="deleteStudent(student._id);$event.stopPropagation()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </a>
+          <span class="badge badge-primary badge-pill">
+            <a 
+              (click)="deleteStudent(student._id);$event.stopPropagation()">
+              X
+            </a>
+          </span>
         </td>
       </tr>
     </tbody>

@@ -28,7 +28,7 @@ export class FormStudentsComponent implements OnInit {
         this.studentService.getStudent(params.get('id')).subscribe(res=>{
           this.model = res;
         },err=>{
-          console.log(err);
+          console.error("Error:",err);
         });
       }else{
         
@@ -46,14 +46,14 @@ export class FormStudentsComponent implements OnInit {
       this.studentService.updateStudent(this.model).subscribe(res=>{
         alert("Updated");
       },err=>{
-        console.log(err);
+        console.error("Error:",err);
       });
     }else{
       this.studentService.addStudent(this.model).subscribe(res=>{
         alert("Created");
         this.router.navigate(["/admin/students"]);
       },err=>{
-        console.log(err);
+        console.error("Error:",err);
       });
     }
   }

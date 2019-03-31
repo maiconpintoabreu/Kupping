@@ -1,4 +1,5 @@
-const DanceStyle = require('../models/dancestyle.model');
+const moduleModel = require("../models/module.model");
+const DanceStyle = moduleModel.getDanceStyleModel();
 exports.getPrivateDanceStyles = function (req, res) {
     DanceStyle.find({}, function(err, danceStyle) {
         res.status(200).send(danceStyle || []);
@@ -41,7 +42,7 @@ exports.start = function(){
 //     });
 //     danceStyle.save(function (err, results) {
 //         if(err) {
-//             console.log(err);
+//             console.error("Error:",err);
 //             res.status(500).send(err);
 //         }
 //         res.status(200).send(results);

@@ -4,6 +4,7 @@ import { DanceClass } from '../model/danceclass';
 import { Place } from '../model/place';
 import { DanceStyle } from '../model/dancestyle';
 import { DanceStylePublicService } from '../services/dance-style.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   countrySelected: string;
   citySelected: string;
   eventSelected: DanceClass;
-  constructor(private danceClassService: DanceClassPublicService,private danceStyleService: DanceStylePublicService) {
+  constructor(private router: Router,private danceClassService: DanceClassPublicService,private danceStyleService: DanceStylePublicService) {
 
   }
   
@@ -65,6 +66,9 @@ export class HomeComponent implements OnInit {
   // TODO: Make it better
   getEvents(){
     this.eventList = this.events.filter(x=>x.place.city == this.citySelected && x.place.country == this.countrySelected && x.danceStyle._id == this.styleSelected._id);
+  }
+  showBookingModel(id:string){
+    this.router.navigate(["./home/danceclass/"+id+"/booking"])
   }
   reset(){
     this.styleSelected = null;
