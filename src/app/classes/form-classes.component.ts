@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class FormClassesComponent implements OnInit {
   @ViewChild('dp') dp:NgbDatepicker;
+  @ViewChild('dpmobile') dpmobile:NgbDatepicker;
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
@@ -88,6 +89,7 @@ export class FormClassesComponent implements OnInit {
               const momentFromDate = moment(res.fromDate);
               let fromDateRes = new NgbDate(momentFromDate.get('year'),momentFromDate.get('month'),momentFromDate.get('date'));
               this.dp.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
+              this.dpmobile.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
               this.onDateSelection(fromDateRes);
               this.fromTime.patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
             }else{
