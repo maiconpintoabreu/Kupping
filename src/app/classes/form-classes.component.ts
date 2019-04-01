@@ -43,8 +43,6 @@ export class FormClassesComponent implements OnInit {
     }),
     students: new FormArray([
       new FormControl(''),
-      new FormControl(''),
-      new FormControl(''),
     ]),
   });
   isDetail: boolean = false;
