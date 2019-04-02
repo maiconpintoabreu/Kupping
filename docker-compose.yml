@@ -36,5 +36,3 @@ services:
             - "./backend/.:/backend-kupping"
         depends_on: 
             - mongo
-  
-    

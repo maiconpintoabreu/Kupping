@@ -1,0 +1,51 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "kupping-backend"
+  namespace: "default"
+  labels:
+    app: "kupping-backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "kupping-backend"
+  template:
+    metadata:
+      labels:
+        app: "kupping-backend"
+    spec:
+      containers:
+      - name: "backend"
+        image: "gcr.io/github.com/maiconpintoabreu/kupping/backend:latest"
+        env:
+        - name: "MONGO"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO"
+              name: "kupping-backend-config"
+        - name: "MONGO_PREFIX"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO_PREFIX"
+              name: "kupping-backend-config"
+        - name: "MONGO_USER"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO_USER"
+              name: "kupping-backend-config"
+        - name: "MONGO_PASSWORD"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO_PASSWORD"
+              name: "kupping-backend-config"
+        - name: "MONGO_PARAMS"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO_PARAMS"
+              name: "kupping-backend-config"
+        - name: "MONGO_DATABASE"
+          valueFrom:
+            configMapKeyRef:
+              key: "MONGO_DATABASE"
+              name: "kupping-backend-config"
