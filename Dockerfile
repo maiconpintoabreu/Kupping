@@ -10,6 +10,7 @@ RUN npm run ng build -- --prod --output-path=dist
 ### STAGE 2: Setup ###
 FROM nginx:1.14.1-alpine
 COPY nginx/default.conf /etc/nginx/conf.d/
+RUN sh -c envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
