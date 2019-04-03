@@ -22,7 +22,7 @@ const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "123asd123z";
 const MONGO_DATABASE = process.env.MONGO_DATABASE || "kupping";
 const MONGO_PARAMS = process.env.MONGO_PARAMS || "";
 const authValue = MONGO_USER+":"+MONGO_PASSWORD+"@"
-console.warn(MONGO_PREFIX+authValue+mongoUrl+MONGO_PORT+'/'+MONGO_DATABASE+MONGO_PARAMS);
+
 function connect () {
     return mongoose.connect(MONGO_PREFIX+authValue+mongoUrl+MONGO_PORT+'/'+MONGO_DATABASE+MONGO_PARAMS,{
     //return mongoose.connect('mongodb://localhost:27017/kupping',{

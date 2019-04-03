@@ -16,51 +16,52 @@ spec:
         app: "kupping-backend"
     spec:
       containers:
-      - name: "backend"
-        image: "gcr.io/kupping/github.com/maiconpintoabreu/kupping/backend:latest"
-        env:
-        - name: "PORT"
+      containers:
+      - env:
+        - name: PORT
           valueFrom:
             configMapKeyRef:
-              key: "PORT"
-              name: "kupping-backend-config"
-        - name: "docker"
+              key: PORT
+              name: kupping-backend-config
+        - name: docker
           valueFrom:
             configMapKeyRef:
-              key: "docker"
-              name: "kupping-backend-config"
-        - name: "MONGO"
+              key: docker
+              name: kupping-backend-config
+        - name: MONGO
           valueFrom:
             configMapKeyRef:
-              key: "MONGO"
-              name: "kupping-backend-config"
-        - name: "MONGO_PORT"
+              key: MONGO
+              name: kupping-backend-config
+        - name: MONGO_PORT
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_PORT"
-              name: "kupping-backend-config"
-        - name: "MONGO_PREFIX"
+              key: MONGO_PORT
+              name: kupping-backend-config
+        - name: MONGO_PREFIX
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_PREFIX"
-              name: "kupping-backend-config"
-        - name: "MONGO_USER"
+              key: MONGO_PREFIX
+              name: kupping-backend-config
+        - name: MONGO_USER
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_USER"
-              name: "kupping-backend-config"
-        - name: "MONGO_PASSWORD"
+              key: MONGO_USER
+              name: kupping-backend-config
+        - name: MONGO_PASSWORD
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_PASSWORD"
-              name: "kupping-backend-config"
-        - name: "MONGO_PARAMS"
+              key: MONGO_PASSWORD
+              name: kupping-backend-config
+        - name: MONGO_PARAMS
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_PARAMS"
-              name: "kupping-backend-config"
-        - name: "MONGO_DATABASE"
+              key: MONGO_PARAMS
+              name: kupping-backend-config
+        - name: MONGO_DATABASE
           valueFrom:
             configMapKeyRef:
-              key: "MONGO_DATABASE"
-              name: "kupping-backend-config"
+              key: MONGO_DATABASE
+              name: kupping-backend-config
+        image: gcr.io/kupping/github.com/maiconpintoabreu/kupping/backend
+        name: backend

@@ -2,16 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: kupping-backend
-  name: kupping-backend-service
+    app: kupping-frontend
+  name: kupping-frontend-service
   namespace: default
 spec:
-  clusterIP: 10.43.247.206
+  clusterIP: 10.43.252.235
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: kupping-backend
+    app: kupping-frontend
   sessionAffinity: None
   type: ClusterIP

@@ -2,16 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: kupping-backend
-  name: kupping-backend-service
+    app: ngrok-wernight
+  name: ngrok-wernight-service
   namespace: default
 spec:
-  clusterIP: 10.43.247.206
+  clusterIP: 10.43.244.184
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: kupping-backend
+    app: ngrok-wernight
   sessionAffinity: None
   type: ClusterIP
