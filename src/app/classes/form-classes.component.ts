@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { switchMap } from "rxjs/operators";
-import { DanceClass } from "../model/danceclass";
 import { DanceStyle } from "../model/dancestyle";
-import { Student } from "../model/student";
 import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
 import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
@@ -19,6 +16,12 @@ import * as moment from 'moment';
 export class FormClassesComponent implements OnInit {
   @ViewChild('dp') dp:NgbDatepicker;
   @ViewChild('dpmobile') dpmobile:NgbDatepicker;
+  countrySuggestions: string[] = [];
+  countrySuggestionsStorage: string[] = [];
+  emptyCountryStartWithStorage: string[] = [];
+  citySuggestions: string[] = [];
+  citySuggestionsStorage: string[] = [];
+  emptyCityStartWithStorage: string[] = [];
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
@@ -67,6 +70,66 @@ export class FormClassesComponent implements OnInit {
         alert("Solve this first!!!");
       }
     );
+  }
+  setCountry(name:string){
+    console.log(name);
+    (<FormGroup>this.classForm.controls["place"]).controls["country"].patchValue(name);
+    this.danceClassService.getCities(name,"").subscribe(res =>{
+      this.citySuggestionsStorage = res;
+    });
+  }
+  getCountry(event:any){
+    let countryName = this.classForm.value.place.country;
+    if(countryName){
+      if(this.emptyCountryStartWithStorage.length > 100){
+        //clean to avoid memory issue
+        this.emptyCountryStartWithStorage = [];
+      }
+      let cacheSuggestions = this.countrySuggestionsStorage.filter(x=>x.toLowerCase().startsWith(countryName.toLowerCase()));
+      if(cacheSuggestions.length > 0 || this.emptyCountryStartWithStorage.find(x=>countryName.toLowerCase().startsWith(x.toLowerCase()))){
+        this.countrySuggestions = cacheSuggestions;
+      }else{
+        this.danceClassService.getCountries(countryName).subscribe(res =>{
+          this.countrySuggestions = res;
+          if(countryName.length == 1)
+          this.countrySuggestionsStorage = this.countrySuggestionsStorage.concat(res);
+          if(res.length == 0){
+            this.emptyCountryStartWithStorage.push(countryName);
+          }
+        },err=>{
+          console.log(err);
+        })
+      }
+    }
+  }
+  setCity(name:string){
+    console.log(name);
+    (<FormGroup>this.classForm.controls["place"]).controls["city"].patchValue(name);
+  }
+  getCity(event:any){
+    let countryName = this.classForm.value.place.country;
+    let cityName = this.classForm.value.place.city;
+    if(countryName && cityName){
+      if(this.emptyCityStartWithStorage.length > 100){
+        //clean to avoid memory issue
+        this.emptyCityStartWithStorage = [];
+      }
+      let cacheSuggestions = this.citySuggestionsStorage.filter(x=>x.toLowerCase().startsWith(cityName.toLowerCase()));
+      if(cacheSuggestions.length > 0 || this.emptyCityStartWithStorage.find(x=>(countryName.toLowerCase()+cityName.toLowerCase()).startsWith(x.toLowerCase()))){
+        this.citySuggestions = cacheSuggestions;
+      }else{
+        this.danceClassService.getCities(countryName,cityName).subscribe(res =>{
+          this.citySuggestions = res;
+          if(cityName.length == 1)
+          this.citySuggestionsStorage = this.citySuggestionsStorage.concat(res);
+          if(res.length == 0){
+            this.emptyCityStartWithStorage.push(countryName.toLowerCase()+cityName.toLowerCase());
+          }
+        },err=>{
+          console.log(err);
+        })
+      }
+    }
   }
 
   ngOnInit() {

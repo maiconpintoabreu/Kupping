@@ -1,4 +1,5 @@
 const moduleModel = require("../models/module.model");
+const citiesbycountry = require("../models/citiesbycountry").cities;
 const DanceClass = moduleModel.getDanceClassModel();
 const Student = moduleModel.getStudentModel();
 exports.booking = (req,res)=>{
@@ -53,6 +54,17 @@ exports.booking = (req,res)=>{
         res.status(500).send("Booking Error");
      });
 };
+exports.autoCompleteCountry = (req,res)=>{
+    res.status(200).send(Object.keys(citiesbycountry).filter(x=>x.toLowerCase().startsWith(req.query.country.toLowerCase())));
+}
+exports.autoCompleteCity = (req,res)=>{
+    const cities = citiesbycountry[req.query.country];
+    if(cities){
+        res.status(200).send(cities.filter(x=>x.toLowerCase().startsWith(req.query.city.toLowerCase())));
+    }else{
+        res.status(200).send([]);
+    }
+}
 exports.getDanceClasses = function (req, res) {
     // TODO: add isPublic
     DanceClass.find({}, function(err, danceClasses) {

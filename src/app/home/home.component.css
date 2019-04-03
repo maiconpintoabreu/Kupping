@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    height: 80%;
+    height: 70vh;
     width: 100%;
 }
 .reset {
@@ -11,6 +11,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    height: 10%;
+    height: 10vh;
     width: 100%;
 }

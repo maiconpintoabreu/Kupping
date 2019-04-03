@@ -1,12 +1,12 @@
 <!-- <div #gmap class="maps"></div> -->
 <div class="style-selection selection" *ngIf="!styleSelected">
-    <a class="btn" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.name}}</a>
+    <button type="button" class="btn btn-outline-primary" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.name}}</button>
 </div>
 <div class="country-selection selection" *ngIf="styleSelected && !countrySelected">
-        <a class="btn" *ngFor="let country of countries" (click)="setCountrySelected(country)" >{{country}}</a>
+        <button type="button" class="btn btn-outline-primary" *ngFor="let country of countries" (click)="setCountrySelected(country)"  >{{country}}</button>
 </div>
 <div class="city-selection selection" *ngIf="styleSelected && countrySelected && !citySelected">
-        <a class="btn" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</a>
+    <button type="button" class="btn btn-outline-primary" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</button>
 </div>
 <div class="class-selection selection" *ngIf="styleSelected && countrySelected && citySelected">
         <div class="card" style="width: 18rem;"  *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
@@ -18,12 +18,12 @@
                         <li>City: {{event.place.city}}</li>
                         <li>Country: {{event.place.country}}</li>
                     </ul>
+                    <button type="button" class="btn btn-outline-primary" class="btn">Get your spot</button>
                 </div>
             </div>
         </div>
-        <a class="btn" ></a>
 </div>
 <div class="reset-action reset" *ngIf="styleSelected">
-    <a class="btn" (click)="reset()" >Reset</a>
+    <button type="button" class="btn btn-info" (click)="reset()">Reset</button>
 </div>
 <router-outlet class="router-outlet"></router-outlet>

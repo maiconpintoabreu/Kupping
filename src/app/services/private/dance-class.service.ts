@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { DanceClass } from '../../model/danceclass';
 import { environment } from '../../../environments/environment';
 
@@ -10,7 +10,24 @@ import { environment } from '../../../environments/environment';
 export class DanceClassService {
 
   private  URL:string = environment.backend+"private/danceclass";
+  private  URLAUTOCOMPLETE:string = environment.backend+"private/";
   constructor(private http: HttpClient) { }
+  getCountries(name:string) : Observable<string[]>{
+    let headers = new HttpHeaders();
+    const httpOptions = {
+        headers: headers,
+        params: new HttpParams().set('country', name)
+    };
+    return this.http.get<string[]>(this.URLAUTOCOMPLETE+"countries", httpOptions);
+  }
+  getCities(country:string,name:string) : Observable<string[]>{
+    let headers = new HttpHeaders();
+    const httpOptions = {
+        headers: headers,
+        params: new HttpParams().set('country', country).set('city', name)
+    };
+    return this.http.get<string[]>(this.URLAUTOCOMPLETE+"cities", httpOptions);
+  }
   
   getDanceClasses() : Observable<DanceClass[]>{
     let headers = new HttpHeaders();
