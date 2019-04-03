@@ -15,14 +15,14 @@ app.use(cors());
 app.use(bodyParser.json());
 const port = process.env.PORT || 8082;
 const mongoUrl = process.env.MONGO || "localhost";
-const MONGO_PORT = process.env.MONGO_PORT || ":2017";
+const MONGO_PORT = process.env.MONGO_PORT || "";
 const MONGO_PREFIX = process.env.MONGO_PREFIX || "mongodb://";
 const MONGO_USER = process.env.MONGO_USER || "kuppinguserusuario";
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "123asd123z";
 const MONGO_DATABASE = process.env.MONGO_DATABASE || "kupping";
 const MONGO_PARAMS = process.env.MONGO_PARAMS || "";
 const authValue = MONGO_USER+":"+MONGO_PASSWORD+"@"
-
+console.warn(MONGO_PREFIX+authValue+mongoUrl+MONGO_PORT+'/'+MONGO_DATABASE+MONGO_PARAMS);
 function connect () {
     return mongoose.connect(MONGO_PREFIX+authValue+mongoUrl+MONGO_PORT+'/'+MONGO_DATABASE+MONGO_PARAMS,{
     //return mongoose.connect('mongodb://localhost:27017/kupping',{
