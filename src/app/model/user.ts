@@ -3,4 +3,6 @@ export class User {
     email: string;
     password: string;
     company: string;
+    student: boolean;
+    organizer: boolean;
 }

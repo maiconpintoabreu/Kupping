@@ -18,7 +18,15 @@
                 <label for="password">Password</label>
                 <input id="password" name="username" type="password" class="form-control" [(ngModel)]="signup.password" placeholder="Password:">
             </div>
-            <div class="form-group">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="student"  [(ngModel)]="signup.student" name="student">
+                <label class="custom-control-label" for="student">Student</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="organizer" [(ngModel)]="signup.organizer" name="organizer">
+                <label class="custom-control-label" for="organizer">Organizer</label>
+            </div>
+            <div class="form-group" *ngIf="signup.organizer">
                 <label for="company">Company</label>
                 <input id="company" name="username" class="form-control" [(ngModel)]="signup.company" placeholder="Company:">
             </div>

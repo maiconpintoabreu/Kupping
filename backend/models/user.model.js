@@ -12,6 +12,8 @@ let UserSchema = new Schema({
     username: {type: String, required: true,unique: true,index: true},
     password: {type: String, required: true},
     company: {type: String, required: true},
+    student: {type: Boolean, required: true},
+    organizer: {type: Boolean, required: true},
     students: [{type: mongoose.Schema.Types.ObjectId, ref: 'Student'}],
     danceClass: [{type: mongoose.Schema.Types.ObjectId, ref: 'DanceClass', index: true}],
     dateCreated: {type: Date, required: true, default:new Date()},
