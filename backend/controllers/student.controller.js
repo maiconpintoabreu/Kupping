@@ -1,7 +1,7 @@
 const moduleModel = require("../models/module.model");
 const Student = moduleModel.getStudentModel();
 exports.getStudentes = function (req, res) {
-    Student.find({}, function(err, studentes) {
+    Student.find({user:req.client.id}, function(err, studentes) {
         if(err){
             res.status(500).send(err.message);
         }else{
