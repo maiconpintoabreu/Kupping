@@ -19,7 +19,7 @@ exports.login = function (req, res) {
             user.comparePassword(req.body.password, function(err, isMatch) {
                 if (err || !isMatch){ res.status(400).send("Username or Password Invalid");}else{
                 const token = jwt.sign({
-                    data: {id:user._id}
+                    data: {id:user._id,organizer:user.organizer,student:user.student}
                 }, 'maicon££santanaABwinfqubw123££££££€!!!', { expiresIn: '24h' });
                 res.status(200).json({token:token});
             }
@@ -46,7 +46,7 @@ exports.insertUser = function (req, res) {
                     res.status(500).send(err);
                 }else{
                     const token = jwt.sign({
-                        data: {id:results._id}
+                        data: {id:results._id,organizer:results.organizer,student:results.student}
                     }, 'maicon££santanaABwinfqubw123££££££€!!!', { expiresIn: '24h' });
                     res.status(200).json({token:token});
                 }

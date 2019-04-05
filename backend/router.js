@@ -10,20 +10,20 @@ router.post('/public/danceclass/:danceclassid/booking', danceClassController.boo
 router.get('/public/dancestyle', danceStyleController.getDanceStyles);
 router.post('/public/user', checkLogin, userController.insertUser);
 
-router.get('/private/danceclass', checkLogin, danceClassController.getPrivateDanceClasses);
-router.get('/private/danceclass/:id', checkLogin, danceClassController.getPrivateDanceClass);
-router.put('/private/danceclass/:id', checkLogin, danceClassController.updateDanceClass);
-router.delete('/private/danceclass/:id', checkLogin, danceClassController.deleteDanceClass);
-router.get('/private/dancestyle', checkLogin, danceStyleController.getPrivateDanceStyles);
-router.post('/private/danceclass', checkLogin, danceClassController.insertDanceClass);
-router.post('/private/student', checkLogin, studentControler.insertStudent);
-router.get('/private/student', checkLogin, studentControler.getStudentes);
-router.get('/private/student/:id', checkLogin, studentControler.getStudent);
-router.put('/private/student/:id', checkLogin, studentControler.updateStudent);
-router.delete('/private/student/:id', checkLogin, studentControler.deleteStudent);
+router.get('/private/danceclass', checkLogin,checkOrganizerAccess, danceClassController.getPrivateDanceClasses);
+router.get('/private/danceclass/:id', checkLogin,checkOrganizerAccess, danceClassController.getPrivateDanceClass);
+router.put('/private/danceclass/:id', checkLogin,checkOrganizerAccess, danceClassController.updateDanceClass);
+router.delete('/private/danceclass/:id', checkLogin,checkOrganizerAccess, danceClassController.deleteDanceClass);
+router.get('/private/dancestyle', checkLogin,checkOrganizerAccess, danceStyleController.getPrivateDanceStyles);
+router.post('/private/danceclass', checkLogin,checkOrganizerAccess, danceClassController.insertDanceClass);
+router.post('/private/student', checkLogin,checkOrganizerAccess, studentControler.insertStudent);
+router.get('/private/student', checkLogin,checkOrganizerAccess, studentControler.getStudentes);
+router.get('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.getStudent);
+router.put('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.updateStudent);
+router.delete('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.deleteStudent);
 
-router.get("/private/countries", checkLogin, danceClassController.autoCompleteCountry)
-router.get("/private/cities", checkLogin, danceClassController.autoCompleteCity)
+router.get("/private/countries", checkLogin,checkOrganizerAccess, danceClassController.autoCompleteCountry)
+router.get("/private/cities", checkLogin,checkOrganizerAccess, danceClassController.autoCompleteCity)
 danceStyleController.start();
 
 module.exports = router;
@@ -44,5 +44,16 @@ function checkLogin(req,res,next) {
         });
     }else{
         res.status(400).send("Token Required");
+    }
+}
+function checkOrganizerAccess(req,res,next) {
+    if(req.client){
+        if(req.client.organizer){
+            return next();
+        }else{
+            res.status(403).send("Only for Organizer account");
+        }
+    }else{
+        res.status(401).send("Token not valid");
     }
 }

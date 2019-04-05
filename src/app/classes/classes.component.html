@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-default" [routerLink]="['./new']">New Class</button>
+<button type="button" class="btn btn-primary mb-3" [routerLink]="['./new']">New Class</button>
 <div class="table-responsive d-none d-md-block">
   <table class="table table-striped">
     <thead>
@@ -35,7 +35,7 @@
   </table>
 </div>
 <div class="d-block d-md-none">
-  <ul class="list-group" *ngFor="let class of classes" [routerLink]="['./detail', class._id]" >
+  <ul class="list-group  mb-3" *ngFor="let class of classes" [routerLink]="['./detail', class._id]" >
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span class="header-grid">#</span>
       <span class="value-grid">{{ class._id }}</span>
