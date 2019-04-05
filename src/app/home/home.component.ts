@@ -53,19 +53,21 @@ export class HomeComponent implements OnInit {
   getCountries(){
     let eventsFiltered = this.events.filter(x=>x.danceStyle._id == this.styleSelected._id);
     eventsFiltered.forEach(element => {
-      this.countries.push(element.place.country);
+      if(!this.countries.find(x=>x.toLowerCase() == element.place.country.toLowerCase()))
+        this.countries.push(element.place.country);
     });
   }
   // TODO: Make it better
   getCities(){
-    let eventsFiltered = this.events.filter(x=>x.place.country == this.countrySelected && x.danceStyle._id == this.styleSelected._id);
+    let eventsFiltered = this.events.filter(x=>x.place.country.toLowerCase() == this.countrySelected.toLowerCase() && x.danceStyle._id == this.styleSelected._id);
     eventsFiltered.forEach(element => {
-      this.cities.push(element.place.city);
+      if(!this.cities.find(x=>x.toLowerCase() == element.place.city.toLowerCase()))
+        this.cities.push(element.place.city);
     });
   }
   // TODO: Make it better
   getEvents(){
-    this.eventList = this.events.filter(x=>x.place.city == this.citySelected && x.place.country == this.countrySelected && x.danceStyle._id == this.styleSelected._id);
+    this.eventList = this.events.filter(x=>x.place.city.toLowerCase() == this.citySelected.toLowerCase() && x.place.country.toLowerCase() == this.countrySelected.toLowerCase() && x.danceStyle._id == this.styleSelected._id);
   }
   showBookingModel(id:string){
     this.router.navigate(["./home/danceclass/"+id+"/booking"])

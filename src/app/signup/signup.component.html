@@ -18,11 +18,11 @@
                 <label for="password">Password</label>
                 <input id="password" name="username" type="password" class="form-control" [(ngModel)]="signup.password" placeholder="Password:">
             </div>
-            <div class="custom-control custom-switch">
+            <div class="form-group custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="student"  [(ngModel)]="signup.student" name="student">
                 <label class="custom-control-label" for="student">Student</label>
             </div>
-            <div class="custom-control custom-switch">
+            <div class="form-group custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="organizer" [(ngModel)]="signup.organizer" name="organizer">
                 <label class="custom-control-label" for="organizer">Organizer</label>
             </div>
@@ -31,7 +31,7 @@
                 <input id="company" name="username" class="form-control" [(ngModel)]="signup.company" placeholder="Company:">
             </div>
             <div class="form-group">
-                <button (click)="signupSubmit()" class="btn btn-default">Sign up</button>
+                <button (click)="signupSubmit()" class="btn btn-primary">Sign up</button>
                 <img *ngIf="loading" class="pl-2" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             </div>
             <div *ngIf="error" class="alert alert-danger">{{error}}</div>
