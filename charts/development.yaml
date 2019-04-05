@@ -1,0 +1,26 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "kupping-frontend"
+  namespace: "default"
+  labels:
+    app: "kupping-frontend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "kupping-frontend"
+  template:
+    metadata: 
+      labels:
+        app: "kupping-frontend"
+    spec:
+      containers:
+      - env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              key: BACKEND_URL
+              name: kupping-frontend-config
+        name: "frontend"
+        image: gcr.io/kupping/github.com/maiconpintoabreu/kupping/frontend

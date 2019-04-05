@@ -9,8 +9,9 @@ RUN npm run ng build -- --prod --output-path=dist
 
 ### STAGE 2: Setup ###
 FROM nginx:1.14.1-alpine
-COPY nginx/default.conf /etc/nginx/conf.d/
-RUN sh -c envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
+EXPOSE 80 443
 RUN rm -rf /usr/share/nginx/html/*
+COPY nginx/default.conf /tmp
+
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
-CMD ["nginx", "-g", "daemon off;"]
+CMD sh -c "envsubst '\$BACKEND_URL' < /tmp/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"

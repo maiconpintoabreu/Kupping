@@ -47,18 +47,27 @@
     </a>
     <div formGroupName="place">
       <h3>Address</h3>
-    
+      <div class="form-group autocomplete">
+        <label for="country">Country</label>
+        <input type="text" class="form-control" formControlName="country"  autocomplete="off" autocomplete="new-password" id="country" required (keyup)="getCountry($event)">
+        <div class="autocomplete-items">
+          <div *ngFor="let countrySuggestion of countrySuggestions" (click)="setCountry(countrySuggestion)">
+            {{ countrySuggestion }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group autocomplete">
+        <label for="city">City</label>
+        <input type="text" class="form-control" formControlName="city" id="city"  autocomplete="off" autocomplete="new-password" required (keyup)="getCity($event)">
+        <div class="autocomplete-items">
+          <div *ngFor="let citySuggestion of citySuggestions" (click)="setCity(citySuggestion)">
+            {{ citySuggestion }}
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <label for="description">Description</label>
         <input type="text" class="form-control" formControlName="description" id="description" required>
-      </div>
-      <div class="form-group">
-        <label for="city">City</label>
-        <input type="text" class="form-control" formControlName="city" id="city" required>
-      </div>
-      <div class="form-group">
-        <label for="country">Country</label>
-        <input type="text" class="form-control" formControlName="country" id="country" required>
       </div>
     </div>
 

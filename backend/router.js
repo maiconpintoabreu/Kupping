@@ -21,6 +21,9 @@ router.get('/private/student', checkLogin, studentControler.getStudentes);
 router.get('/private/student/:id', checkLogin, studentControler.getStudent);
 router.put('/private/student/:id', checkLogin, studentControler.updateStudent);
 router.delete('/private/student/:id', checkLogin, studentControler.deleteStudent);
+
+router.get("/private/countries", checkLogin, danceClassController.autoCompleteCountry)
+router.get("/private/cities", checkLogin, danceClassController.autoCompleteCity)
 danceStyleController.start();
 
 module.exports = router;

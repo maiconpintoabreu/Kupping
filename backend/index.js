@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 const port = process.env.PORT || 8082;
 const mongoUrl = process.env.MONGO || "localhost";
-const MONGO_PORT = process.env.MONGO_PORT || ":2017";
+const MONGO_PORT = process.env.MONGO_PORT || "";
 const MONGO_PREFIX = process.env.MONGO_PREFIX || "mongodb://";
 const MONGO_USER = process.env.MONGO_USER || "kuppinguserusuario";
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "123asd123z";

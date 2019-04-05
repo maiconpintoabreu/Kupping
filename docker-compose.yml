@@ -8,7 +8,7 @@ services:
         depends_on: 
             - backend
         environment:
-            BACKEND_URL: "http://backend"
+            BACKEND_URL: "http://backend/"
     mongo:
         image: mongo:4.0.1
         environment:
@@ -36,5 +36,3 @@ services:
             - "./backend/.:/backend-kupping"
         depends_on: 
             - mongo
-  
-    

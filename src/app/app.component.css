@@ -2,6 +2,9 @@
     height: 70px;
 }
 @media(max-width: 900px){
+    .navbar{
+        z-index: 1;
+    }
     .navbar-brand>img {
         height: 60px;
     }

@@ -29,7 +29,9 @@ export class SignupComponent implements OnInit {
   }
   signupSubmit() {
     //create signup method
-
+    if(!this.signup.organizer){
+      this.signup.company = "studentonly";
+    }
     this.authenticationService.signup(this.signup)
         .pipe(first())
         .subscribe(

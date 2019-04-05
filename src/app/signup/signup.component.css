@@ -28,8 +28,9 @@
 }
 @media(max-width: 900px){
     .model-on-map {
-        top: 60%;
-        height: 20em;
+        top: 55vh;
+        height: 65vh;
         width: 20em;
+        overflow-y: auto;
     }
 }

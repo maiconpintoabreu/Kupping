@@ -33,6 +33,8 @@ exports.insertUser = function (req, res) {
         username: req.body.username,
         password: req.body.password,
         company: req.body.company,
+        student: req.body.student || false,
+        organizer: req.body.organizer || false,
         dateCreated: new Date(),
         dateModified: new Date(),
     });
