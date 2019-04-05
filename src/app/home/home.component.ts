@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit { 
   events: DanceClass[] = [];
   styles: DanceStyle[] = [];
-  countries: string[] = [];
-  cities: string[] = [];
+  countries: string[] = ["All"];
+  cities: string[] = ["All"];
   eventList: DanceClass[] = [];
   styleSelected: DanceStyle;
   countrySelected: string;
@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit {
       console.error("Error:",err);
     })
     this.danceStyleService.getDanceStyles().subscribe(res=>{
-      this.styles = res;
+      this.styles.push({_id:null,name:"All"});
+      this.styles = this.styles.concat(res);
     },err=>{
       console.error("Error:",err);
     })
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
   // TODO: Make it better
   getCountries(){
-    let eventsFiltered = this.events.filter(x=>x.danceStyle._id == this.styleSelected._id);
+    let eventsFiltered = this.events.filter(x=>x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id);
     eventsFiltered.forEach(element => {
       if(!this.countries.find(x=>x.toLowerCase() == element.place.country.toLowerCase()))
         this.countries.push(element.place.country);
@@ -59,7 +60,10 @@ export class HomeComponent implements OnInit {
   }
   // TODO: Make it better
   getCities(){
-    let eventsFiltered = this.events.filter(x=>x.place.country.toLowerCase() == this.countrySelected.toLowerCase() && x.danceStyle._id == this.styleSelected._id);
+    let eventsFiltered = this.events.filter(x=>
+      (x.place.country.toLowerCase() == this.countrySelected.toLowerCase() || this.countrySelected === "All") 
+      && (x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id)
+    );
     eventsFiltered.forEach(element => {
       if(!this.cities.find(x=>x.toLowerCase() == element.place.city.toLowerCase()))
         this.cities.push(element.place.city);
@@ -67,7 +71,10 @@ export class HomeComponent implements OnInit {
   }
   // TODO: Make it better
   getEvents(){
-    this.eventList = this.events.filter(x=>x.place.city.toLowerCase() == this.citySelected.toLowerCase() && x.place.country.toLowerCase() == this.countrySelected.toLowerCase() && x.danceStyle._id == this.styleSelected._id);
+    this.eventList = this.events.filter(x=>
+      (x.place.city.toLowerCase() == this.citySelected.toLowerCase()  || this.citySelected === "All")
+      && (x.place.country.toLowerCase() == this.countrySelected.toLowerCase() || this.countrySelected === "All") 
+      && (x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id));
   }
   showBookingModel(id:string){
     this.router.navigate(["./home/danceclass/"+id+"/booking"])
@@ -77,8 +84,8 @@ export class HomeComponent implements OnInit {
     this.countrySelected = null;
     this.citySelected = null;
     this.eventSelected = null;
-    this.countries= [];
-    this.cities = [];
+    this.countries= ["All"];
+    this.cities = ["All"];
     this.eventList = [];
   }
 }

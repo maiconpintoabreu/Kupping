@@ -1,15 +1,25 @@
 <!-- <div #gmap class="maps"></div> -->
 <div class="style-selection selection" *ngIf="!styleSelected">
-    <button type="button" class="btn btn-outline-primary" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.name}}</button>
+    <label>Select a style of dance</label>
+    <div clas="content">
+        <button type="button" class="btn btn-outline-primary m-2" *ngFor="let style of styles" (click)="setStyleSelected(style)" >{{style.name}}</button>
+    </div>
 </div>
 <div class="country-selection selection" *ngIf="styleSelected && !countrySelected">
-        <button type="button" class="btn btn-outline-primary" *ngFor="let country of countries" (click)="setCountrySelected(country)"  >{{country}}</button>
+    <label>Select a country</label>
+    <div clas="content">
+        <button type="button" class="btn btn-outline-primary m-2" *ngFor="let country of countries" (click)="setCountrySelected(country)"  >{{country}}</button>
+    </div>
 </div>
 <div class="city-selection selection" *ngIf="styleSelected && countrySelected && !citySelected">
-    <button type="button" class="btn btn-outline-primary" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</button>
+    <label>Select a city</label>
+    <div clas="content">
+        <button type="button" class="btn btn-outline-primary m-2" *ngFor="let city of cities" (click)="setCitySelected(city)" >{{city}}</button>
+    </div>
 </div>
 <div class="class-selection selection" *ngIf="styleSelected && countrySelected && citySelected">
-        <div class="card" style="width: 18rem;"  *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
+    <div class="content">
+        <div class="card m-2" *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
             <div class="card-body">
                 <h5 class="card-title">{{event.name}}</h5>
                 <div class="card-text">
@@ -17,13 +27,15 @@
                         <li>Place: {{event.place.description}}</li>
                         <li>City: {{event.place.city}}</li>
                         <li>Country: {{event.place.country}}</li>
+                        <li>Style: {{event.danceStyle.name}}</li>
                     </ul>
-                    <button type="button" class="btn btn-outline-primary" class="btn">Get your spot</button>
+                    <button type="button" class="btn btn-primary">Get your spot</button>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 <div class="reset-action reset" *ngIf="styleSelected">
-    <button type="button" class="btn btn-info" (click)="reset()">Reset</button>
+    <button type="button" class="btn btn-info" (click)="reset()">Reset Search</button>
 </div>
 <router-outlet class="router-outlet"></router-outlet>

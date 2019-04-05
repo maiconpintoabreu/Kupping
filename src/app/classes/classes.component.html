@@ -6,7 +6,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Dance Style</th>
-        <th>Place</th>
+        <th>Address</th>
         <th>City</th>
         <th>Country</th>
         <th>Students</th>
@@ -18,7 +18,7 @@
         <th scope="row">{{ class._id }}</th>
         <td>{{ class.name }}</td>
         <td>{{ class.danceStyle.name }}</td>
-        <td>{{ class.place.description+"/"+class.place.city+"/"+class.place.country }}</td>
+        <td>{{ class.place.description }}</td>
         <td>{{ class.place.city }}</td>
         <td>{{ class.place.country }}</td>
         <td>{{ class.students?.length }}</td>
