@@ -3,10 +3,11 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { DanceStyle } from "../model/dancestyle";
 import { DanceClassService } from "../services/private/dance-class.service";
 import { Location } from "@angular/common";
-import { NgModel, FormGroup, FormControl, FormArray } from "@angular/forms";
+import { NgModel, FormGroup, FormControl, FormArray, ValidatorFn, ValidationErrors } from "@angular/forms";
 import { DanceStyleService } from "../services/private/dance-style.service";
 import { NgbDate, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { Student } from '../model/student';
 
 @Component({
   selector: "app-classes",
@@ -26,14 +27,25 @@ export class FormClassesComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
   meridian = false;
-  fromTime:FormControl = new FormControl({
-    hour: Number,
-    minute: Number,
-  });
-  toTime:FormControl = new FormControl({
-    hour: Number,
-    minute: Number,
-  });
+  students: Student[] = [];
+  timeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const toTime = control.get("timeGroup").get('toTime');
+    const fromTime = control.get("timeGroup").get('fromTime');
+    if(!toTime && !fromTime){
+      return null;
+    }
+    if (!toTime.valid || !fromTime.valid) {
+      return null;
+    }
+    if(this.fromDate && (this.fromDate.equals(this.toDate) || !this.toDate))
+    if (fromTime.value.hour > toTime.value.hour) {
+      return {tooEarly: true};
+    }else if(fromTime.value.hour == toTime.value.hour && fromTime.value.minute > toTime.value.minute){
+      return {tooEarly: true};
+    }
+  
+    return null;
+  };
   classForm:FormGroup = new FormGroup({
     _id: new FormControl(''),
     name: new FormControl(''),
@@ -44,10 +56,18 @@ export class FormClassesComponent implements OnInit {
       city: new FormControl(''),
       country: new FormControl(''),
     }),
-    students: new FormArray([
-      new FormControl(''),
-    ]),
-  });
+
+    timeGroup: new FormGroup({
+      fromTime : new FormControl({
+        hour: Number,
+        minute: Number,
+      }),
+      toTime: new FormControl({
+        hour: Number,
+        minute: Number,
+      })
+    }),
+  },{validators:this.timeValidator});
   isDetail: boolean = false;
   // bound:google.maps.LatLngBounds;
   danceStyles: DanceStyle[] = [];
@@ -135,12 +155,13 @@ export class FormClassesComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.isDetail = params.has("id");
-      this.fromTime.patchValue({hour:16,minute:0});
-      this.toTime.patchValue({hour:0,minute:0});
+      this.classForm.get("timeGroup").get("fromTime").patchValue({hour:0,minute:0});
+      this.classForm.get("timeGroup").get("toTime").patchValue({hour:0,minute:0});
       if (this.isDetail) {
         this.danceClassService.getDanceClass(params.get("id")).subscribe(
           res => {
             this.classForm.patchValue(res);
+            this.students = res.students;
             if(res.danceStyle){
               this.classForm.controls["danceStyleId"].setValue(res.danceStyle._id);
             }else{
@@ -152,7 +173,7 @@ export class FormClassesComponent implements OnInit {
               this.dp.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
               this.dpmobile.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
               this.onDateSelection(fromDateRes);
-              this.fromTime.patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
+              this.classForm.get("timeGroup").get("fromTime").patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
             }else{
               console.warn("no from date");
             }
@@ -161,7 +182,7 @@ export class FormClassesComponent implements OnInit {
 
               let toDateRes = new NgbDate(momentToDate.get('year'),momentToDate.get('month'),momentToDate.get('date'));
               this.onDateSelection(toDateRes);
-              this.toTime.patchValue({hour: momentToDate.get('hour'),minute:momentToDate.get('minute')});
+              this.classForm.get("timeGroup").get("toTime").patchValue({hour: momentToDate.get('hour'),minute:momentToDate.get('minute')});
             }else{
               console.warn("no to date");
             }
@@ -181,12 +202,19 @@ export class FormClassesComponent implements OnInit {
       this.meridian = !this.meridian;
   }
   onSubmit(): void {
-    const hourTo =  this.toTime.valid  ? this.toTime.value.hour : 0;
-    const minuteTo = this.toTime.valid  ? this.toTime.value.minute : 0;
-    const hourFrom =  this.fromTime.valid  ? this.fromTime.value.hour : 0;
-    const minuteFrom = this.fromTime.valid  ? this.fromTime.value.minute : 0;
-    let dateToFormated = new Date(this.toDate.year,this.toDate.month,this.toDate.day,hourTo,minuteTo);
+    let toTime = this.classForm.get("timeGroup").get("toTime");
+    let fromTime = this.classForm.get("timeGroup").get("fromTime");
+    const hourTo =  toTime.valid  ? toTime.value.hour : 0;
+    const minuteTo = toTime.valid  ? toTime.value.minute : 0;
+    const hourFrom =  fromTime.valid  ? fromTime.value.hour : 0;
+    const minuteFrom = fromTime.valid  ? fromTime.value.minute : 0;
     let dateFromFormated = new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day,hourFrom,minuteFrom);
+    let dateToFormated:any;
+    if(!this.toDate){
+      dateToFormated = new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day,hourTo,minuteTo);
+    }else{
+      dateToFormated = new Date(this.toDate.year,this.toDate.month,this.toDate.day,hourTo,minuteTo);
+    }
     if(moment(dateFromFormated).isValid() && moment(dateToFormated).isValid()){
       let toSave = this.classForm.value;
       toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);

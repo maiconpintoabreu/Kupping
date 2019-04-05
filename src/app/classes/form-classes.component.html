@@ -33,15 +33,17 @@
         </span>
       </ng-template>
     </div>
-  </div>
+    </div>
+    <div formGroupName="timeGroup">
       <div class="form-group">
         <label for="fromTime  ">From</label>
-        <ngb-timepicker id="fromTime" [formControl]="fromTime" [meridian]="meridian"></ngb-timepicker>
+        <ngb-timepicker id="fromTime" formControlName="fromTime" [meridian]="meridian"></ngb-timepicker>
       </div>
       <div class="form-group">
           <label for="toTime">To</label>
-        <ngb-timepicker id="toTime" [formControl]="toTime" [meridian]="meridian"></ngb-timepicker>
+        <ngb-timepicker id="toTime" formControlName="toTime" [meridian]="meridian"></ngb-timepicker>
       </div>
+    </div>
     <a class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
       Meridian - {{meridian ? "ON" : "OFF"}}
     </a>
@@ -71,7 +73,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="students.length > 0">
       <table class="table table-striped d-none d-md-block">
         <thead>
           <tr>
@@ -81,7 +83,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let student of classForm.value.students" [routerLink]="['../../../students/detail/', student._id]">
+          <tr *ngFor="let student of students" [routerLink]="['../../../students/detail/', student._id]">
             <th scope="row">{{ student._id }}</th>
             <td>{{ student.name }}</td>
             <td>{{ student.email }}</td>
@@ -89,7 +91,7 @@
         </tbody>
       </table>
       <div class="d-block d-md-none">
-        <ul class="list-group" *ngFor="let student of classForm.value.students" [routerLink]="['../../../students/detail/', student._id]" >
+        <ul class="list-group" *ngFor="let student of students" [routerLink]="['../../../students/detail/', student._id]" >
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <span class="header-grid">#</span>
             <span class="value-grid">{{ student._id }}</span>
@@ -100,6 +102,9 @@
       </div>
     </div>
     <div class="form-group">
+      <div class="small form-text text-danger" *ngIf="!classForm.valid && classForm.errors">
+        <div *ngIf="classForm.errors['tooEarly']">Event finishing before starts</div>
+      </div>
       <button type="submit" class="btn btn-success" [disabled]="!classForm.valid">Submit</button>
       <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
     </div>
