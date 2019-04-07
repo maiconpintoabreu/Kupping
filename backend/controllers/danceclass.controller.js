@@ -1,7 +1,62 @@
 const moduleModel = require("../models/module.model");
 const citiesbycountry = require("../models/citiesbycountry").cities;
 const DanceClass = moduleModel.getDanceClassModel();
+const DanceClassPast = moduleModel.getDanceClassPastModel();
 const Student = moduleModel.getStudentModel();
+const moment = require('moment');
+
+//TODO:Create a external service for it
+const CRON_INTERVAL = 3600000; // 1hour
+week_of_month = (date) => {
+
+    prefixes = [1,2,3,4,5];
+
+return prefixes[0 | moment(date).date() / 7] 
+
+}
+cronDanceClassRepeat = ()=>{
+    console.info("Cron:","Checking for events with repeat");
+    DanceClass.find({toDate:{$lt:moment().valueOf()},$or:[{"repeat":"monthly"},{"repeat":"weekly"}]}).then(resDanceClass=>{
+        resDanceClass.forEach(element => {
+            pastObject = element.toObject();
+            pastObject.idRef = pastObject._id;
+            pastObject._id = undefined;
+            let past = new DanceClassPast(pastObject);
+            const countWeeksToDate = week_of_month(moment(element.toDate).endOf("month"));
+            const countWeeksFromDate = week_of_month(moment(element.fromDate).endOf("month"));
+
+            if(element.repeat === "monthly"){
+                element.toDate = moment(element.toDate).add(countWeeksToDate,"weeks").valueOf();
+                element.fromDate = moment(element.fromDate).add(countWeeksFromDate,"weeks").valueOf();
+            }else if(element.repeat === "weekly"){
+                element.toDate = moment(element.toDate).add(1,"weeks").valueOf();
+                element.fromDate = moment(element.fromDate).add(1,"weeks").valueOf();
+            }
+            element.students = [];
+            DanceClassPast.create(past).then(resPast=>{
+                element.save(err=>{
+                    if(err) console.error("Error current:",err);  
+                })
+            }).catch(errpast=>{    
+                if(errpast) 
+                if(errpast.code != 11000 ){
+                    console.error("Error past:",errpast);
+                }else{
+                    element.save(err=>{
+                        if(err) console.error("Error current:",err);  
+                    })
+                }
+            })
+        });
+        console.log("Test:",resDanceClass.length);
+    }).catch(errDanceClass=>{
+        console.error("Error:",errDanceClass);
+    });
+    setTimeout(() => {
+        cronDanceClassRepeat();
+    }, CRON_INTERVAL);
+};
+cronDanceClassRepeat();
 exports.booking = (req,res)=>{
     // TODO: add isPublic
     DanceClass.findOne({_id:req.params.danceclassid}).then(danceClass=>{
@@ -84,14 +139,18 @@ exports.getPrivateDanceClass = function (req, res) {
 exports.insertDanceClass = function (req, res) {
     req.body.user = req.client.id;
     delete(req.body.students);
-    const danceClass = new DanceClass(req.body);
-    danceClass.save(function (err, results) {
-        if(err) {
-            console.error(err);
-            res.status(500).send(err);
-        }
-        res.status(200).send(results);
-    });
+    if(!req.body.repeat || req.body.repeat === "" || req.body.repeat === "monthly" || req.body.repeat === "weekly" ){
+        const danceClass = new DanceClass(req.body);
+        danceClass.save(function (err, results) {
+            if(err) {
+                console.error(err);
+                res.status(500).send(err);
+            }
+            res.status(200).send(results);
+        });
+    }else{
+        res.status(400).send({text:"Invalid Repeat expected '' or monthly or weekly"});
+    }
 };
 exports.deleteDanceClass = function (req, res) {
     DanceClass.deleteOne({_id:req.params.id}, function(err){
@@ -110,15 +169,19 @@ exports.updateDanceClass = function (req, res) {
             if(!danceClass){
                 res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
             }else{
-                req.body.students = danceClass.students;
-                danceClass = new DanceClass(req.body);
-                DanceClass.updateOne({"_id":req.params.id},danceClass,function(err2){
-                    if(err2){
-                        res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
-                    }else{
-                        res.status(200).send(JSON.stringify({"text":"DanceClass Updated"}));
-                    }
-                });
+                if(!req.body.repeat || req.body.repeat === "" || req.body.repeat === "monthly" || req.body.repeat === "weekly" ){
+                    req.body.students = danceClass.students;
+                    danceClass = new DanceClass(req.body);
+                    DanceClass.updateOne({"_id":req.params.id},danceClass,function(err2){
+                        if(err2){
+                            res.status(404).send(JSON.stringify({"text":"DanceClass Not Found"}));
+                        }else{
+                            res.status(200).send(JSON.stringify({"text":"DanceClass Updated"}));
+                        }
+                    });
+                }else{
+                    res.status(400).send({text:"Invalid Repeat expected '' or monthly or weekly"});
+                }
             }
         }
      });

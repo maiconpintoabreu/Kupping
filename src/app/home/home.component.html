@@ -21,15 +21,30 @@
     <div class="content">
         <div class="card m-2" *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
             <div class="card-body">
-                <h5 class="card-title">{{event.name}}</h5>
+                <h5 class="card-title text-center">{{event.name}}</h5>
                 <div class="card-text">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="fromDate">{{event.fromDateFormated}}</div>
+                            <div class="fromTime">{{event.fromTimeFormated}}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="toDate">{{event.toDateFormated}}</div>
+                            <div class="toTime">{{event.toTimeFormated}}</div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="event.repeat">
+                        Recurrence: {{event.repeat}} 
+                    </div>
                     <ul class="list">
                         <li>Place: {{event.place.description}}</li>
                         <li>City: {{event.place.city}}</li>
                         <li>Country: {{event.place.country}}</li>
                         <li>Style: {{event.danceStyle.name}}</li>
                     </ul>
-                    <button type="button" class="btn btn-primary">Get your spot</button>
+                    <div class="row">
+                        <button type="button" class="btn btn-primary m-auto">Get your spot</button>
+                    </div>
                 </div>
             </div>
         </div>

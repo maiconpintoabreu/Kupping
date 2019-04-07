@@ -19,7 +19,7 @@
     width: 100%;
 }
 .card {
-    min-width: 16rem;
+    min-width: 18rem;
 }
 .reset {
     display: flex;

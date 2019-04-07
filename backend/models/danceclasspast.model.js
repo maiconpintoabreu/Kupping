@@ -8,7 +8,8 @@ slack.setWebhook(webhookUri);
 
 const Schema = mongoose.Schema;
 let DanceClassSchema = new Schema({
-    name: {type: String, required: true,index: true},
+    idRef: {type: mongoose.Schema.Types.ObjectId,required: true,index: true},
+    name: {type: String, required: true},
     fromDate: {type: Number, required: true},
     fromDateMonth: {type: Number, required: true},
     fromDateWeek: {type: Number, required: true},
@@ -18,19 +19,20 @@ let DanceClassSchema = new Schema({
     toDateWeek: {type: Number, required: true},
     toDateDay: {type: Number, required: true},
     place: { type: Place, ref: 'Place' },
-    repeat: { type:String,index:true},
+    repeat: { type:String},
     students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
     danceStyle: { type: mongoose.Schema.Types.ObjectId, ref: 'DanceStyle' },
     dateCreated: {type: Date, required: true, default:new Date()},
     dateModified: {type: Date, required: true, default:new Date()},
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
-DanceClassSchema.index({user: 1, name: 1}, {unique: true});
+DanceClassSchema.index({user: 1, toDate: 1,fromDate: 1}, {unique: true});
 DanceClassSchema.post("save",(doc)=>{
+    slackObj = {model:"Dance Class Past",data:doc};
     slack.webhook({
       channel: "#kupping-events",
       username: "kuppingbot",
-      text: JSON.stringify(doc)
+      text: JSON.stringify(slackObj)
     }, function(err, response) {
       //console.log(response);
     });
@@ -38,4 +40,4 @@ DanceClassSchema.post("save",(doc)=>{
       //TODO: add document in some service to renew after "toDate"
     }
 });
-module.exports =  mongoose.model("DanceClass",DanceClassSchema);
+module.exports =  mongoose.model("DanceClassPast",DanceClassSchema);

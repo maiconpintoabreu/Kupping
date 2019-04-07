@@ -56,7 +56,7 @@ export class FormClassesComponent implements OnInit {
       city: new FormControl(''),
       country: new FormControl(''),
     }),
-
+    repeat: new FormControl(''),
     timeGroup: new FormGroup({
       fromTime : new FormControl({
         hour: Number,
@@ -169,9 +169,9 @@ export class FormClassesComponent implements OnInit {
             }
             if(res.fromDate){
               const momentFromDate = moment(res.fromDate);
-              let fromDateRes = new NgbDate(momentFromDate.get('year'),momentFromDate.get('month'),momentFromDate.get('date'));
-              this.dp.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
-              this.dpmobile.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')});
+              let fromDateRes = new NgbDate(momentFromDate.get('year'),momentFromDate.get('month')+1,momentFromDate.get('date'));
+              this.dp.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')+1});
+              this.dpmobile.navigateTo({year: momentFromDate.get('year'), month: momentFromDate.get('month')+1});
               this.onDateSelection(fromDateRes);
               this.classForm.get("timeGroup").get("fromTime").patchValue({hour: momentFromDate.get('hour'),minute:momentFromDate.get('minute')});
             }else{
@@ -180,7 +180,7 @@ export class FormClassesComponent implements OnInit {
             if(res.toDate){
               const momentToDate = moment(res.toDate);
 
-              let toDateRes = new NgbDate(momentToDate.get('year'),momentToDate.get('month'),momentToDate.get('date'));
+              let toDateRes = new NgbDate(momentToDate.get('year'),momentToDate.get('month')+1,momentToDate.get('date'));
               this.onDateSelection(toDateRes);
               this.classForm.get("timeGroup").get("toTime").patchValue({hour: momentToDate.get('hour'),minute:momentToDate.get('minute')});
             }else{
@@ -208,20 +208,28 @@ export class FormClassesComponent implements OnInit {
     const minuteTo = toTime.valid  ? toTime.value.minute : 0;
     const hourFrom =  fromTime.valid  ? fromTime.value.hour : 0;
     const minuteFrom = fromTime.valid  ? fromTime.value.minute : 0;
-    let dateFromFormated = new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day,hourFrom,minuteFrom);
+    let dateFromFormated = new Date(this.fromDate.year,this.fromDate.month-1,this.fromDate.day,hourFrom,minuteFrom);
     let dateToFormated:any;
     if(!this.toDate){
-      dateToFormated = new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day,hourTo,minuteTo);
+      dateToFormated = new Date(this.fromDate.year,this.fromDate.month-1,this.fromDate.day,hourTo,minuteTo);
     }else{
-      dateToFormated = new Date(this.toDate.year,this.toDate.month,this.toDate.day,hourTo,minuteTo);
+      dateToFormated = new Date(this.toDate.year,this.toDate.month-1,this.toDate.day,hourTo,minuteTo);
     }
-    if(moment(dateFromFormated).isValid() && moment(dateToFormated).isValid()){
+    let momentDateTo = moment(dateToFormated);
+    let momentDateFrom = moment(dateFromFormated);
+    if(momentDateFrom.isValid() && momentDateTo.isValid()){
       let toSave = this.classForm.value;
       toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
       delete(toSave.danceStyleId);
       delete(toSave.students);
-      toSave.fromDate = moment(dateFromFormated).valueOf();
-      toSave.toDate = moment(dateToFormated).valueOf();
+      toSave.fromDate = momentDateFrom.valueOf();
+      toSave.fromDateMonth = momentDateFrom.startOf('month').valueOf();
+      toSave.fromDateWeek = momentDateFrom.startOf('week').valueOf();
+      toSave.fromDateDay = momentDateFrom.startOf('day').valueOf();
+      toSave.toDate = momentDateTo.valueOf();
+      toSave.toDateMonth = momentDateTo.startOf('month').valueOf();
+      toSave.toDateWeek = momentDateTo.startOf('week').valueOf();
+      toSave.toDateDay = momentDateTo.startOf('day').valueOf();
       if (this.isDetail) {
         this.danceClassService.updateDanceClass(toSave).subscribe(
           res => {

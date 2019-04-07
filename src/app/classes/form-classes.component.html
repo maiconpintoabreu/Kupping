@@ -44,9 +44,25 @@
         <ngb-timepicker id="toTime" formControlName="toTime" [meridian]="meridian"></ngb-timepicker>
       </div>
     </div>
-    <a class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
-      Meridian - {{meridian ? "ON" : "OFF"}}
-    </a>
+    <div class="form-group">
+      <a class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
+        Meridian - {{meridian ? "ON" : "OFF"}}
+      </a>
+    </div>
+    <div class="form-group">
+      <label for="repeat">Repeat</label><br />
+      <div class="btn-group btn-group-toggle" ngbRadioGroup formControlName="repeat" id="repeat">
+        <label ngbButtonLabel class="btn-outline-primary btn-sm">
+          <input ngbButton type="radio" value="">No Repeat
+        </label>
+        <label ngbButtonLabel class="btn-outline-primary btn-sm">
+          <input ngbButton type="radio" value="monthly">Monthly
+        </label>
+        <label ngbButtonLabel class="btn-outline-primary btn-sm">
+          <input ngbButton type="radio" value="weekly">Weekly
+        </label>
+      </div>
+    </div>
     <div formGroupName="place">
       <h3>Address</h3>
       <div class="form-group autocomplete">
