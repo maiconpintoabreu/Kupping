@@ -44,6 +44,9 @@
         <ngb-timepicker id="toTime" formControlName="toTime" [meridian]="meridian"></ngb-timepicker>
       </div>
     </div>
+    <div class="small form-text text-danger" *ngIf="!classForm.valid && classForm.errors">
+      <div *ngIf="classForm.errors['tooEarly']">Event finishing before starts</div>
+    </div>
     <div class="form-group">
       <a class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
         Meridian - {{meridian ? "ON" : "OFF"}}
@@ -85,7 +88,7 @@
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" class="form-control" formControlName="description" id="description" required>
+        <input type="text" class="form-control" max="88" maxlength="88" formControlName="description" id="description" required>
       </div>
     </div>
 
@@ -118,9 +121,6 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="small form-text text-danger" *ngIf="!classForm.valid && classForm.errors">
-        <div *ngIf="classForm.errors['tooEarly']">Event finishing before starts</div>
-      </div>
       <button type="submit" class="btn btn-success" [disabled]="!classForm.valid">Submit</button>
       <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
     </div>

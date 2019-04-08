@@ -19,29 +19,29 @@
 </div>
 <div class="class-selection selection" *ngIf="styleSelected && countrySelected && citySelected">
     <div class="content">
-        <div class="card m-2" *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
+        <div class="card bg-light m-2" *ngFor="let event of eventList" (click)="showBookingModel(event._id)">
+            <div class="card-header text-center font-weight-bolder">{{event.name}}</div>
             <div class="card-body">
-                <h5 class="card-title text-center">{{event.name}}</h5>
                 <div class="card-text">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col">
                             <div class="fromDate">{{event.fromDateFormated}}</div>
-                            <div class="fromTime">{{event.fromTimeFormated}}</div>
+                            <div class="fromTime small">Starting at {{event.fromTimeFormated}}</div>
                         </div>
-                        <div class="col-6">
+                        <div class="col">
                             <div class="toDate">{{event.toDateFormated}}</div>
-                            <div class="toTime">{{event.toTimeFormated}}</div>
+                            <div class="toTime small">Finishing at {{event.toTimeFormated}}</div>
                         </div>
                     </div>
-                    <div class="row" *ngIf="event.repeat">
-                        Recurrence: {{event.repeat}} 
+                    <div class="row pl-3 pr-3 font-weight-bold" *ngIf="event.repeat">
+                        {{event.repeat}} 
                     </div>
-                    <ul class="list">
-                        <li>Place: {{event.place.description}}</li>
-                        <li>City: {{event.place.city}}</li>
-                        <li>Country: {{event.place.country}}</li>
-                        <li>Style: {{event.danceStyle.name}}</li>
-                    </ul>
+                    <div class="row pl-3 pr-3">
+                        Address: {{event.place.description}}, {{event.place.city}}, {{event.place.country}}
+                    </div>
+                    <div class="row pl-3 pr-3">
+                        Style: {{event.danceStyle.name}}
+                    </div>
                     <div class="row">
                         <button type="button" class="btn btn-primary m-auto">Get your spot</button>
                     </div>

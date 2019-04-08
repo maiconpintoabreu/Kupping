@@ -20,6 +20,15 @@
 }
 .card {
     min-width: 18rem;
+    max-width: 18rem;
+    min-height: 20rem;
+    text-transform: capitalize;
+}
+.card .card-text {
+    height: 14rem;
+    justify-content: space-between;
+    display: flex;
+    flex-flow: column;
 }
 .reset {
     display: flex;
