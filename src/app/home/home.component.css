@@ -18,9 +18,10 @@
     max-width: 100%;
     width: 100%;
 }
-.card {
+.selection .content .card { 
     min-width: 18rem;
     max-width: 18rem;
+<<<<<<< HEAD
     min-height: 20rem;
     text-transform: capitalize;
 }
@@ -29,6 +30,8 @@
     justify-content: space-between;
     display: flex;
     flex-flow: column;
+=======
+>>>>>>> 63ce83c70f7922691b33ac690cab911b3535acea
 }
 .reset {
     display: flex;

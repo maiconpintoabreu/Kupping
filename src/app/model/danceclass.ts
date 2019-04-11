@@ -6,6 +6,7 @@ export class DanceClass{
     _id: string;
     name: string;
     place: Place;
+    about?:string;
     country?: string;
     city?: string;
     time: string;

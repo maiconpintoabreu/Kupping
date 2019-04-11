@@ -30,6 +30,7 @@ import { JwtInterceptor } from './services/auth/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookingComponent } from './booking/booking.component';
+import { textLimitPipe } from './directives/text.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BookingComponent } from './booking/booking.component';
     FormStudentsComponent,
     FormClassesComponent,
     CallbackComponent,
+    textLimitPipe
     //CloseMenu
   ],
   imports: [

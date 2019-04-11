@@ -9,6 +9,7 @@ slack.setWebhook(webhookUri);
 const Schema = mongoose.Schema;
 let DanceClassSchema = new Schema({
     name: {type: String, required: true,index: true},
+    about: {type: String,index: true},
     fromDate: {type: Number, required: true},
     fromDateMonth: {type: Number, required: true},
     fromDateWeek: {type: Number, required: true},
