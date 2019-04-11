@@ -6,7 +6,6 @@ metadata:
   name: kupping-frontend-service
   namespace: default
 spec:
-  clusterIP: 10.15.240.13
   ports:
   - port: 80
     protocol: TCP

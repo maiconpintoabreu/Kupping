@@ -25,7 +25,6 @@
     text-transform: capitalize;
 }
 .card .card-text {
-    height: 14rem;
     justify-content: space-between;
     display: flex;
     flex-flow: column;

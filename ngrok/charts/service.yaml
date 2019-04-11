@@ -6,7 +6,6 @@ metadata:
   name: ngrok-wernight-service
   namespace: default
 spec:
-  clusterIP: 10.15.240.12
   ports:
   - port: 80
     protocol: TCP
