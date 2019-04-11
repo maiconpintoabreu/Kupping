@@ -18,8 +18,9 @@
     max-width: 100%;
     width: 100%;
 }
-.card {
+.selection .content .card { 
     min-width: 18rem;
+    max-width: 18rem;
 }
 .reset {
     display: flex;

@@ -49,6 +49,7 @@ export class FormClassesComponent implements OnInit {
   classForm:FormGroup = new FormGroup({
     _id: new FormControl(''),
     name: new FormControl(''),
+    about: new FormControl(''),
     danceStyleId: new FormControl(''),
     duration: new FormControl(''),
     place: new FormGroup({
