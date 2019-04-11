@@ -10,6 +10,7 @@
           <li class="list-group-item"><span class="header-grid">Address</span><span class="value-grid">{{ danceclass.place?.description }}</span></li>
           <li class="list-group-item"><span class="header-grid">More Info</span><span class="value-grid">{{ danceclass.about }}</span></li>
         </ul>
+        <h4 class="text-center">Pre-Book it now</h4>
         <form  [formGroup]="bookingForm" (ngSubmit)="bookingSubmit()">
             <div class="form-group">
                 <label for="name">Name</label>
