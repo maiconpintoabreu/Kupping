@@ -5,6 +5,7 @@ import { slideInDownAnimation } from '../animations';
 import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/auth/auth.service';
 import { first } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -17,18 +18,27 @@ export class SignupComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   signup : User;
+
+  signupForm:FormGroup = new FormGroup({
+    username: new FormControl('',[Validators.minLength(2)]),
+    email: new FormControl('',[Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)]),
+    password: new FormControl('',[Validators.minLength(4)]),
+    company: new FormControl('',[Validators.minLength(4)]),
+    student: new FormControl(false),
+    organizer: new FormControl(false),
+  });
   loading = false;
   error = '';
   constructor(private router: Router, private userService : UserService,
     private authenticationService: AuthenticationService) {
     this.signup = new User();
   }
-
   ngOnInit() {
 
   }
   signupSubmit() {
-    //create signup method
+    this.signup = this.signupForm.value;
+
     if(!this.signup.organizer){
       this.signup.company = "studentonly";
     }
@@ -39,6 +49,7 @@ export class SignupComponent implements OnInit {
               this.router.navigate(["/admin/"]);
             },
             error => {
+              this.signupForm.setErrors({"responseError":error});
               console.error("Error:",error);
                 this.error = error;
                 this.loading = false;

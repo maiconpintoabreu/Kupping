@@ -6,6 +6,7 @@ const danceClassController = require('./controllers/danceclass.controller');
 const danceStyleController = require('./controllers/dancestyle.controller');
 
 router.get('/public/danceclass', danceClassController.getDanceClasses);
+router.get('/public/danceclass/:id', danceClassController.getDanceClass);
 router.post('/public/danceclass/:danceclassid/booking', danceClassController.booking);
 router.get('/public/dancestyle', danceStyleController.getDanceStyles);
 router.post('/public/user', checkLogin, userController.insertUser);

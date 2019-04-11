@@ -126,6 +126,13 @@ exports.getDanceClasses = function (req, res) {
         res.status(200).send(danceClasses || []);
      }).populate("danceStyle");
 };
+exports.getDanceClass = function (req, res) {
+    DanceClass.findOne({_id:req.params.id}, function(err, danceClass) {
+        //filter by public fields
+        danceClass.students = null;
+        res.status(200).send(danceClass || {});
+     }).populate("danceStyle");
+};
 exports.getPrivateDanceClasses = function (req, res) {
     DanceClass.find({user: req.client.id}, function(err, danceClasses) {
         res.status(200).send(danceClasses || []);

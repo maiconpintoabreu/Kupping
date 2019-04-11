@@ -24,11 +24,14 @@
     padding: 2em;
     background-color: white;
     border-radius: 4%;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 @media(max-width: 900px){
     .model-on-map {
-        top: 60%;
-        height: 20em;
-        width: 20em;
+        top: 50%;
+        height: 80vh;
+        width: 90vw;
+        overflow-y: auto;
     }
 }
