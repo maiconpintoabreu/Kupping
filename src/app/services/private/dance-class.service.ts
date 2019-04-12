@@ -38,6 +38,15 @@ export class DanceClassService {
     };
     return this.http.get<DanceClass[]>(this.URL, httpOptions);
   }
+  getDanceClassesByStudents() : Observable<DanceClass[]>{
+    let headers = new HttpHeaders();
+    //var token = this.authService.getToken();
+    //headers = headers.append('Authorization',token.token_type+" "+token.access_token);
+    const httpOptions = {
+        headers: headers
+    };
+    return this.http.get<DanceClass[]>(this.URL+"bystudent", httpOptions);
+  }
   addDanceClass(model:DanceClass) : Observable<DanceClass>{
     let headers = new HttpHeaders();
     //var token = this.authService.getToken();

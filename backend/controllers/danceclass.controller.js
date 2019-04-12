@@ -138,6 +138,18 @@ exports.getPrivateDanceClasses = function (req, res) {
         res.status(200).send(danceClasses || []);
      }).populate("danceStyle");
 };
+exports.getPrivateDanceClassesByStudent = function (req, res) {
+    Student.find({email:req.client.email}, function(errStudent,students){
+        let studentParams = [];
+        students.forEach(element=>{
+            studentParams.push({"students":element._id});
+        })
+        DanceClass.find({$or:studentParams}, function(err, danceClasses) {
+            if(danceClasses) danceClasses.students = [];
+            res.status(200).send(danceClasses || []);
+        }).populate("danceStyle");
+    })
+}
 exports.getPrivateDanceClass = function (req, res) {
     DanceClass.findOne({_id:req.params.id,user:req.client.id}, function(err, danceClass) {
         res.status(200).send(danceClass || {});

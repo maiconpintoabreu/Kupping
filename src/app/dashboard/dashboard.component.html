@@ -9,69 +9,41 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-student" role="tabpanel" aria-labelledby="list-student-list">
             <div class="card-columns">
-                <div class="card">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  </div>
+                <div class="card m-2 text-white bg-dark" *ngFor="let event of studentClasses" (click)="showBookingModel(event._id)">
+                    <div class="card-header large text-center font-weight-bold text-capitalize">
+                        {{event.name |  textLimit:["20","..."]}}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row border-bottom pb-2">
+                                <div class="col-6">
+                                    <div class="fromDate">{{event.fromDateFormated}}</div>
+                                    <div class="fromTime small">Starting at {{event.fromTimeFormated}}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="toDate">{{event.toDateFormated}}</div>
+                                    <div class="toTime small">Finishing at {{event.toTimeFormated}}</div>
+                                </div>
+                            </div>
+                            <div class="row m-1 pt-1" *ngIf="event.repeat">
+                                Recurrence: {{event.repeat}} 
+                            </div>
+                            <div class="row m-1">
+                                Place: {{event.place.description }}
+                            </div>
+                            <div class="row m-1">
+                                City: {{event.place.city |  textLimit:["18","..."]}}
+                            </div>
+                            <div class="row m-1">
+                                Country: {{event.place.country |  textLimit:["18","..."]}}
+                            </div>
+                            <div class="row m-1">
+                                Style: {{event.danceStyle.name |  textLimit:["18","..."]}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card p-3">
-                  <blockquote class="blockquote mb-0 card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                      <small class="text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="card bg-primary text-white text-center p-3">
-                  <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                    <footer class="blockquote-footer">
-                      <small>
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card text-center">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                </div>
-                <div class="card p-3 text-right">
-                  <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                      <small class="text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="list-organizer" role="tabpanel" aria-labelledby="list-organizer-list">List of classes that you are organizing  </div>
     </div>
