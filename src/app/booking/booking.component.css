@@ -20,8 +20,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30em;
-    padding: 2em;
     background-color: white;
     border-radius: 4%;
     max-height: 80vh;
@@ -29,7 +27,6 @@
 }
 @media(max-width: 900px){
     .model-on-map {
-        top: 50%;
         height: 80vh;
         width: 90vw;
         overflow-y: auto;

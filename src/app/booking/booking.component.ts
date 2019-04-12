@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { DanceClassPublicService } from '../services/dance-class.service';
 import { Booking } from '../model/booking';
 import { DanceClass } from '../model/danceclass';
+import { Location } from "@angular/common";
 import { FormGroup, FormControl, EmailValidator, Validators } from '@angular/forms';
 
 @Component({
@@ -30,8 +31,14 @@ export class BookingComponent implements OnInit {
   success = '';
   constructor(private router: Router, 
     private danceClassService: DanceClassPublicService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private _location: Location
+    ) {
     this.booking = new Booking();
+  }
+
+  goBack() {
+    this._location.back();
   }
 
   ngOnInit() {
@@ -52,7 +59,7 @@ export class BookingComponent implements OnInit {
           data => {
             this.bookingForm.setErrors({});
             this.success = "Well done";
-            setTimeout(()=>{this.router.navigate(["/home"]);},1500);
+            setTimeout(()=>{this.goBack();},1500);
           },
           error => {
             this.bookingForm.setErrors({"responseError":error});
