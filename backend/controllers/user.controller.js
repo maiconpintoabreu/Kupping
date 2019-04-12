@@ -27,6 +27,9 @@ exports.login = function (req, res) {
         }
      });
 };
+exports.getUserById = function(id) {
+    return User.findOne({_id:id});
+}
 exports.insertUser = function (req, res) {
     const user = new User({
         email: req.body.email,

@@ -36,8 +36,16 @@ function checkLogin(req,res,next) {
                 res.status(401).send(err);
             }else{
                 if(decoded.data.id){
-                    req.client = decoded.data;
-                    return next();
+                    userController.getUserById(decoded.data.id).then(resUser=>{
+                        if(resUser){
+                            req.client = resUser;
+                            return next();
+                        }else{
+                            res.status(401).send("Token not valid");
+                        }
+                    }).catch(errUser=>{
+                        res.status(401).send("Token not valid");
+                    });
                 }else{
                     res.status(401).send("Token not valid");
                 }
