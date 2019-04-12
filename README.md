@@ -1,7 +1,7 @@
 # Kupping
 
 ### [Live in Kubernetes](https://kupping.ngrok.io)
-
+##### [Step by Step how to deploy on Google Cloud GKE](GCLOUD.md)
 ## Frontend (Angular 7)
 ### Build Process Docker
 ```docker build .```
