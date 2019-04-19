@@ -11,10 +11,10 @@
         <li class="nav-item" role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
         </li>
-        <li class="nav-item" role="presentation" routerLinkActive="active">
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="organizer">
           <a class="nav-link" routerLink="./classes" routerLinkActive="active">Classes</a>
         </li>
-        <li class="nav-item" role="presentation" routerLinkActive="active">
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="organizer">
           <a class="nav-link" routerLink="./students" routerLinkActive="active">Students</a>
         </li>
         <li class="nav-item" role="presentation">
