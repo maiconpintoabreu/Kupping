@@ -12,6 +12,7 @@ import { FormStudentsComponent } from './students/form-students.component';
 import { FormClassesComponent } from './classes/form-classes.component';
 import { AuthGuard } from './services/guard/auth.guard';
 import { BookingComponent } from './booking/booking.component';
+import { SendComponent } from './classes/send.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -45,7 +46,11 @@ export const adminRoutes: Routes = [
           { path: 'students', component: StudentsComponent },
           { path: 'students/detail/:id', component: FormStudentsComponent },
           { path: 'students/new', component: FormStudentsComponent },
-          { path: 'classes/detail/:id', component: FormClassesComponent },
+          { path: 'classes/detail/:id', component: FormClassesComponent, 
+            children: [
+              { path: 'send', component: SendComponent }
+            ]
+          },
           { path: 'classes/new', component: FormClassesComponent }
         ]
       }

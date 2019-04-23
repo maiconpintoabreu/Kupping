@@ -95,7 +95,11 @@
         <input type="text" class="form-control" max="88" maxlength="88" formControlName="description" id="description" required>
       </div>
     </div>
-
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" [disabled]="!classForm.valid">Submit</button>
+      <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
+    </div>
+    <label class="alert" *ngIf="isDetail">Below this part make sure that you saved all your changes.</label>
     <div class="form-group" *ngIf="students.length > 0">
       <table class="table table-striped d-none d-md-block">
         <thead>
@@ -106,18 +110,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let student of students" [routerLink]="['../../../students/detail/', student._id]">
-            <th scope="row">{{ student._id }}</th>
-            <td>{{ student.name }}</td>
-            <td>{{ student.email }}</td>
+          <tr *ngFor="let student of students">
+            <th scope="row">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+              </div>
+            </th>
+            <td (click)="toggleStudentSelected(student._id)">{{ student.name }}</td>
+            <td (click)="toggleStudentSelected(student._id)">{{ student.email }}</td>
           </tr>
         </tbody>
       </table>
-      <div class="d-block d-md-none">
-        <ul class="list-group" *ngFor="let student of students" [routerLink]="['../../../students/detail/', student._id]" >
+      <!--//[routerLink]="['../../../students/detail/', student._id]" -->
+      <div class="d-block d-md-none"> 
+        <ul class="list-group" *ngFor="let student of students" (click)="toggleStudentSelected(student._id)">
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="header-grid">#</span>
-            <span class="value-grid">{{ student._id }}</span>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+              </div>
           </li>
           <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ student.name }}</span></li>
           <li class="list-group-item"><span class="header-grid">Email</span><span class="value-grid">{{ student.email }}</span></li>
@@ -125,8 +137,9 @@
       </div>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-success" [disabled]="!classForm.valid">Submit</button>
+      <button type="button" class="btn btn-success" [disabled]="!classForm.valid" [routerLink]="['send']">Send Ticket</button>
       <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
     </div>
   </form>
 </div>
+<router-outlet class="router-outlet"></router-outlet>

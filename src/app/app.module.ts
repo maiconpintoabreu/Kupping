@@ -31,6 +31,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookingComponent } from './booking/booking.component';
 import { textLimitPipe } from './directives/text.pipe';
+import { SendComponent } from './classes/send.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { textLimitPipe } from './directives/text.pipe';
     DashboardComponent,
     StudentsComponent,
     ClassesComponent,
+    SendComponent,
     DanceStyleComponent,
     DashboardItemComponent,
     AdminComponent,

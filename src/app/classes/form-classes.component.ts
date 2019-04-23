@@ -70,6 +70,7 @@ export class FormClassesComponent implements OnInit {
     }),
   },{validators:this.timeValidator});
   isDetail: boolean = false;
+  studentSelected = {};
   // bound:google.maps.LatLngBounds;
   danceStyles: DanceStyle[] = [];
   // private service = new google.maps.places.AutocompleteService();
@@ -91,6 +92,10 @@ export class FormClassesComponent implements OnInit {
         alert("Solve this first!!!");
       }
     );
+  }
+  toggleStudentSelected(studentId:string){
+    let student = this.students.find(x=>x._id == studentId);
+    student.selected = !student.selected;
   }
   setCountry(name:string){
     console.log(name);
@@ -162,6 +167,9 @@ export class FormClassesComponent implements OnInit {
         this.danceClassService.getDanceClass(params.get("id")).subscribe(
           res => {
             this.classForm.patchValue(res);
+            res.students.forEach(element=>{
+              this.studentSelected[element._id] = false;
+            })
             this.students = res.students;
             if(res.danceStyle){
               this.classForm.controls["danceStyleId"].setValue(res.danceStyle._id);
