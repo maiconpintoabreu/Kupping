@@ -32,6 +32,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookingComponent } from './booking/booking.component';
 import { textLimitPipe } from './directives/text.pipe';
 import { SendComponent } from './classes/send.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { SendComponent } from './classes/send.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgbModule,
+    QRCodeModule,
     //AgmCoreModule.forRoot({
     //  apiKey: 'AIzaSyDZ3J5mDE4rBJiiqi0ZNiM8RKWIv76Uu4o',
     //  libraries: ["places"] 

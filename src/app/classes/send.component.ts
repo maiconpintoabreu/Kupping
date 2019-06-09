@@ -1,9 +1,10 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../model/user';
 import { Routes, Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { slideInDownAnimation } from '../animations';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Student } from '../model/student';
 
 @Component({
   selector: 'app-send',
@@ -17,6 +18,10 @@ export class SendComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   isValid: Boolean;
   classId: String;
+  @Input() students: Student[] = [];
+  active: boolean;
+  qr:any;
+  @Output() isActive = new EventEmitter<boolean>();
   sendForm:FormGroup = new FormGroup({
     username: new FormControl('',[Validators.minLength(2)]),
     email: new FormControl('',[Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)]),
@@ -42,8 +47,16 @@ export class SendComponent implements OnInit {
     this.loading = true;
     setTimeout(()=>{
       this.loading = false;
+      console.log(this.qr);
+      //this.close();
     },1000);
 
   }
-
+  @Input("active")
+  set setActive(active: boolean) {
+    this.active = active;
+  }
+  close(){
+    this.isActive.emit(false);
+  }
 }

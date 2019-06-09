@@ -137,9 +137,9 @@
       </div>
     </div>
     <div class="form-group">
-      <button type="button" class="btn btn-success" [disabled]="!classForm.valid" [routerLink]="['send']">Send Ticket</button>
+      <button type="button" class="btn btn-success" (click)="sendTicket()">Send Ticket</button>
       <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
     </div>
   </form>
 </div>
-<router-outlet class="router-outlet"></router-outlet>
+<app-send class="app-send" [students]="students" [active]="sendActive" (isActive)="setActive($event)"></app-send>

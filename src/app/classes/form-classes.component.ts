@@ -28,6 +28,7 @@ export class FormClassesComponent implements OnInit {
   toDate: NgbDate;
   meridian = false;
   students: Student[] = [];
+  sendActive: Boolean = false;
   timeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const toTime = control.get("timeGroup").get('toTime');
     const fromTime = control.get("timeGroup").get('fromTime');
@@ -288,5 +289,11 @@ export class FormClassesComponent implements OnInit {
 
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
+  }
+  sendTicket(){
+    this.sendActive = true;
+  }
+  setActive(e:Boolean){
+    this.sendActive = e;
   }
 }
