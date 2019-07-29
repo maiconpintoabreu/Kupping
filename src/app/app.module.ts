@@ -32,6 +32,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookingComponent } from './booking/booking.component';
 import { textLimitPipe } from './directives/text.pipe';
 import { SendComponent } from './classes/send.component';
+import { TicketService } from './services/private/ticket.service';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { SendComponent } from './classes/send.component';
     DanceStyleService,
     DanceStylePublicService,
     DanceClassService,
+    TicketService,
     DanceClassPublicService,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

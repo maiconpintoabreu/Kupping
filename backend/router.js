@@ -1,9 +1,10 @@
 var jwt = require('jsonwebtoken');
 const router = require("express").Router();
 const userController = require('./controllers/user.controller');
-const studentControler = require('./controllers/student.controller');
+const studentController = require('./controllers/student.controller');
 const danceClassController = require('./controllers/danceclass.controller');
 const danceStyleController = require('./controllers/dancestyle.controller');
+const ticketController = require('./controllers/ticket.controller');
 
 router.get('/public/danceclass', danceClassController.getDanceClasses);
 router.get('/public/danceclass/:id', danceClassController.getDanceClass);
@@ -18,11 +19,12 @@ router.put('/private/danceclass/:id', checkLogin,checkOrganizerAccess, danceClas
 router.delete('/private/danceclass/:id', checkLogin,checkOrganizerAccess, danceClassController.deleteDanceClass);
 router.get('/private/dancestyle', checkLogin,checkOrganizerAccess, danceStyleController.getPrivateDanceStyles);
 router.post('/private/danceclass', checkLogin,checkOrganizerAccess, danceClassController.insertDanceClass);
-router.post('/private/student', checkLogin,checkOrganizerAccess, studentControler.insertStudent);
-router.get('/private/student', checkLogin,checkOrganizerAccess, studentControler.getStudentes);
-router.get('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.getStudent);
-router.put('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.updateStudent);
-router.delete('/private/student/:id', checkLogin,checkOrganizerAccess, studentControler.deleteStudent);
+router.post('/private/student', checkLogin,checkOrganizerAccess, studentController.insertStudent);
+router.post('/private/danceclass/:id/ticket/send', checkLogin,checkOrganizerAccess, ticketController.send);
+router.get('/private/student', checkLogin,checkOrganizerAccess, studentController.getStudentes);
+router.get('/private/student/:id', checkLogin,checkOrganizerAccess, studentController.getStudent);
+router.put('/private/student/:id', checkLogin,checkOrganizerAccess, studentController.updateStudent);
+router.delete('/private/student/:id', checkLogin,checkOrganizerAccess, studentController.deleteStudent);
 
 router.get("/private/countries", checkLogin,checkOrganizerAccess, danceClassController.autoCompleteCountry)
 router.get("/private/cities", checkLogin,checkOrganizerAccess, danceClassController.autoCompleteCity)

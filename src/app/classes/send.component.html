@@ -16,6 +16,42 @@
             </div>
             <div class="form-group">
                 <div class="">this function still in test please use with caution.</div>
+                <div class="form-group" *ngIf="students.length > 0">
+                  <table class="table table-striped d-none d-md-block">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let student of students">
+                        <th scope="row">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                            <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+                          </div>
+                        </th>
+                        <td (click)="toggleStudentSelected(student._id)">{{ student.name }}</td>
+                        <td (click)="toggleStudentSelected(student._id)">{{ student.email }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!--//[routerLink]="['../../../students/detail/', student._id]" -->
+                  <div class="d-block d-md-none"> 
+                    <ul class="list-group" *ngFor="let student of students" (click)="toggleStudentSelected(student._id)">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                            <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+                          </div>
+                      </li>
+                      <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ student.name }}</span></li>
+                      <li class="list-group-item"><span class="header-grid">Email</span><span class="value-grid">{{ student.email }}</span></li>
+                    </ul>
+                  </div>
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" [disabled]="!sendForm.valid">Send</button>
