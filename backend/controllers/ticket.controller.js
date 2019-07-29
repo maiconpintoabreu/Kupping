@@ -5,6 +5,7 @@ const {google} = require('googleapis');
 const fs = require('fs');
 const readline = require('readline');
 var qr = require('qr-image');
+const MailComposer = require('nodemailer/lib/mail-composer');
 
 const SCOPES = ["https://mail.google.com/",
 "https://www.googleapis.com/auth/gmail.modify",
@@ -65,34 +66,57 @@ exports.send = (req,res)=>{
                             const gmail = google.gmail({version: 'v1', auth});
                             let resultEmail = [];
                             students.forEach(student=>{
-                                var qr_svg = qr.image(student._id.toString(), { type: 'svg' });
-                                qr_svg.pipe(require('fs').createWriteStream('check.svg'));
-                                 
                                 var svg_string = qr.imageSync(student._id.toString(), { type: 'svg' });
-                                const email = "From: maiconpintoabreu@gmail.com\r\n" +
-                                "To: "+student.email+"\r\n" +
-                                "Subject: Ticket for "+danceClass.name+"\r\n" +
-                                "Content-Type: text/html; charset=UTF-8\r\n"+
-                                
-                                "Hello "+student.name+",\r\nShow this ticket on the event\r\n\r\n" +
-                                "<img src='"+encodeURIComponent(svg_string)+"' alt='ticket' />";
-                                var base64EncodedEmail = Buffer.from(email).toString('base64');
-                                var request = gmail.users.messages.send({
-                                'userId': "me",
-                                'resource': {
-                                    'raw': base64EncodedEmail
-                                }
-                                },(errEmail)=>{
-                                    if(!errEmail){
-                                        resultEmail.push({email:student.email,success:true});
-                                        if(resultEmail.length == students.length)
-                                            res.status(200).json(resultEmail);
-                                    }else{
-                                        resultEmail.push({email:student.email,success:false});
-                                        console.error("errEmail",errEmail);
-                                        if(resultEmail.length == students.length)
-                                            res.status(200).json(resultEmail);
+                                console.log(svg_string);
+
+                                var email_lines = [];
+
+                                let mail = new MailComposer({
+                                    from:'"Kupping" <maiconpintoabreu@gmail.com>',
+                                    to: student.email,
+                                    text: "Hello "+student.name+",\r\nShow this ticket on the event:\r\n",
+                                    html: "<img src='ticket.svg' alt='ticket'>",
+                                    subject: "Test email gmail-nodemailer-composer",
+                                    textEncoding: "base64",
+                                    attachments: [
+                                    {   // encoded string as an attachment
+                                        filename: 'ticket.svg',
+                                        content: Buffer.from(svg_string).toString('base64'),
+                                        encoding: 'base64'
                                     }
+                                    ]
+                                });
+
+                                mail.compile().build( (error, msg) => {
+                                    if (error) return console.log('Error compiling email ' + error);
+
+                                    const encodedMessage = Buffer.from(msg)
+                                    .toString('base64')
+                                    .replace(/\+/g, '-')
+                                    .replace(/\//g, '_')
+                                    .replace(/=+$/, '');
+
+                                    const gmail = google.gmail({version: 'v1', auth});
+                                    gmail.users.messages.send({
+                                    userId: 'me',
+                                    resource: {
+                                        raw: encodedMessage,
+                                    }
+                                    }, (err, result) => {
+
+                                        if(!err){
+                                            resultEmail.push({email:student.email,success:true});
+                                            console.log("NODEMAILER - Sending email reply from server:", result.data);
+                                            if(resultEmail.length == students.length)
+                                                res.status(200).json(resultEmail);
+                                        }else{
+                                            resultEmail.push({email:student.email,success:false});
+                                            console.error("errEmail",err);
+                                            if(resultEmail.length == students.length)
+                                                res.status(200).json(resultEmail);
+                                        }
+                                    });
+
                                 });
                             })
                         });
