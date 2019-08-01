@@ -11,6 +11,7 @@ deploy:
     manifests:
     - backend/charts/configmap.yaml
     - backend/charts/deployment.yaml
+    - backend/charts/pvc.yaml
     # - backend/charts/horizontal-pod-autoscaler.yaml
     - backend/charts/service.yaml
     - charts/configmap.yaml
