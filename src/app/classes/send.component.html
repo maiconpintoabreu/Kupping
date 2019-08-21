@@ -1,0 +1,63 @@
+<div class="fog" [routerLink]="'..'">
+</div>
+<div class="model-on-map">
+    <div class="container-fuild">
+        <form [formGroup]="sendForm" (ngSubmit)="sendSubmit()">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Send Ticket
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option2" autocomplete="off" disabled> Request Payment (Soon)
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option3" autocomplete="off" disabled> Send Information
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="">this function still in test please use with caution.</div>
+                <div class="form-group" *ngIf="students.length > 0">
+                  <table class="table table-striped d-none d-md-block">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let student of students">
+                        <th scope="row">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                            <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+                          </div>
+                        </th>
+                        <td (click)="toggleStudentSelected(student._id)">{{ student.name }}</td>
+                        <td (click)="toggleStudentSelected(student._id)">{{ student.email }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!--//[routerLink]="['../../../students/detail/', student._id]" -->
+                  <div class="d-block d-md-none"> 
+                    <ul class="list-group" *ngFor="let student of students" (click)="toggleStudentSelected(student._id)">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="studentSelected{{ student._id }}" [checked]="student.selected" (click)="toggleStudentSelected(student._id)">
+                            <label class="custom-control-label" for="studentSelected{{ student._id }}"></label>
+                          </div>
+                      </li>
+                      <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ student.name }}</span></li>
+                      <li class="list-group-item"><span class="header-grid">Email</span><span class="value-grid">{{ student.email }}</span></li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" [disabled]="!sendForm.valid">Send</button>
+                <img *ngIf="loading" class="pl-2" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+            <div *ngIf="sendForm.errors" class="alert alert-danger">{{sendForm.errors['responseError']}}</div>
+        </form>
+    </div>
+</div>
