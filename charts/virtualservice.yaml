@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kupping-frontend
+  namespace: default
+spec:
+  gateways:
+  - k3s-gateway
+  hosts:
+  - 'kupping.maicondev.com'
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - 'kupping.maicondev.com'
+    route:
+    - destination:
+        host: kupping-frontend-service
+        port:
+          number: 443

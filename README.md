@@ -11,5 +11,3 @@
 ```npm install && ng serve```
 #### Build 
 ```npm install && ng build --prod```
-
-## [Backend (Nodejs)](https://github.com/maiconpintoabreu/Kupping-Backend)

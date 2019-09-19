@@ -17,6 +17,4 @@ spec:
     targetPort: 443
   selector:
     app: kupping-frontend
-  sessionAffinity: None
-  loadBalancerIP: 35.210.151.209
-  type: LoadBalancer
+  type: ClusterIP

@@ -16,11 +16,18 @@ spec:
         app: "kupping-frontend"
     spec:
       containers:
-      - env:
+      - name: "frontend"
+        image: eu.gcr.io/k3s-tests/kupping/frontend
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
         - name: BACKEND_URL
           valueFrom:
             configMapKeyRef:
               key: BACKEND_URL
               name: kupping-frontend-config
-        name: "frontend"
-        image: gcr.io/kupping/github.com/maiconpintoabreu/kupping/frontend
