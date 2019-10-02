@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  backend: "/rest/",
+  backend: "https://kuppingbackend.maicondev.com/",
   AuthConfig : {
     clientID:"maiconspas",
     domain: 'localhost',
-    callbackURL: "/rest/" + "callback"
+    callbackURL: "https://kuppingbackend.maicondev.com/" + "callback"
   }
 };
