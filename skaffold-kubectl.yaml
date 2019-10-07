@@ -1,0 +1,16 @@
+apiVersion: skaffold/v1beta7
+kind: Config
+build:
+  artifacts:
+  - image: eu.gcr.io/k3s-tests/kupping/frontend
+    context: .
+deploy:
+  kubectl:
+    manifests:
+    - charts/configmap.yaml
+    - charts/development.yaml
+    - charts/service.yaml
+    - charts/virtualservice.yaml
+    # - ngrok/charts/configmap.yaml
+    # - ngrok/charts/development.yaml
+    # - ngrok/charts/service.yaml
