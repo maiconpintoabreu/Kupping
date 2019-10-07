@@ -10,7 +10,7 @@ import { Booking } from '../model/booking';
 })
 export class DanceClassPublicService {
 
-  private  URL:string = environment.backend+"public/danceclass";
+  private  URL:string = environment.backend+"public/event";
   constructor(private http: HttpClient) { }
   
   getDanceClasses() : Observable<DanceClass[]>{

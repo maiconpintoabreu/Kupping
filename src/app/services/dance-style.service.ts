@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 })
 export class DanceStylePublicService {
 
-  private  URL:string = environment.backend+"public/dancestyle";
+  private  URL:string = environment.backend+"public/style";
   constructor(private http: HttpClient) { }
   
   getDanceStyles() : Observable<DanceStyle[]>{

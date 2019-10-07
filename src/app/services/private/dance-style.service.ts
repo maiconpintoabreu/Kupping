@@ -10,7 +10,7 @@ import { DanceStyle } from 'src/app/model/dancestyle';
 })
 export class DanceStyleService {
 
-  private  URL:string = environment.backend+"private/dancestyle";
+  private  URL:string = environment.backend+"private/style";
   constructor(private http: HttpClient) { }
   
   getDanceStyles() : Observable<DanceStyle[]>{

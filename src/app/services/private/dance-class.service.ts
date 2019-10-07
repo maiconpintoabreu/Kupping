@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class DanceClassService {
 
-  private  URL:string = environment.backend+"private/danceclass";
+  private  URL:string = environment.backend+"private/event";
   private  URLAUTOCOMPLETE:string = environment.backend+"private/";
   constructor(private http: HttpClient) { }
   getCountries(name:string) : Observable<string[]>{
