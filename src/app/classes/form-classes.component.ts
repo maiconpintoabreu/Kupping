@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { DanceStyle } from "../model/dancestyle";
-import { DanceClassService } from "../services/private/dance-class.service";
+import { Style } from "../model/style";
+import { EventService } from "../services/private/event.service";
 import { Location } from "@angular/common";
 import { NgModel, FormGroup, FormControl, FormArray, ValidatorFn, ValidationErrors } from "@angular/forms";
-import { DanceStyleService } from "../services/private/dance-style.service";
+import { StyleService } from "../services/private/style.service";
 import { NgbDate, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { Student } from '../model/student';
@@ -50,7 +50,7 @@ export class FormClassesComponent implements OnInit {
     _id: new FormControl(''),
     name: new FormControl(''),
     about: new FormControl(''),
-    danceStyleId: new FormControl(''),
+    styleId: new FormControl(''),
     duration: new FormControl(''),
     place: new FormGroup({
       description: new FormControl(''),
@@ -72,21 +72,21 @@ export class FormClassesComponent implements OnInit {
   isDetail: boolean = false;
   studentSelected = {};
   // bound:google.maps.LatLngBounds;
-  danceStyles: DanceStyle[] = [];
+  styles: Style[] = [];
   // private service = new google.maps.places.AutocompleteService();
   constructor(
     private route: ActivatedRoute,
-    private danceClassService: DanceClassService,
+    private danceClassService: EventService,
     private router: Router,
     private location: Location,
-    private danceStyleService: DanceStyleService,
+    private styleService: StyleService,
     private calendar: NgbCalendar,
   ) {
     this.fromDate = this.calendar.getToday();
     this.toDate = this.calendar.getNext(calendar.getToday(), 'd', 10);
-    this.danceStyleService.getDanceStyles().subscribe(
+    this.styleService.getStyles().subscribe(
       res => {
-        this.danceStyles = res;
+        this.styles = res;
       },
       err => {
         alert("Solve this first!!!");
@@ -171,10 +171,10 @@ export class FormClassesComponent implements OnInit {
               this.studentSelected[element._id] = false;
             })
             this.students = res.students;
-            if(res.danceStyle){
-              this.classForm.controls["danceStyleId"].setValue(res.danceStyle._id);
+            if(res.style){
+              this.classForm.controls["styleId"].setValue(res.style._id);
             }else{
-              this.classForm.controls["danceStyleId"].setValue(this.danceStyles[0]._id);
+              this.classForm.controls["styleId"].setValue(this.styles[0]._id);
             }
             if(res.fromDate){
               const momentFromDate = moment(res.fromDate);
@@ -228,8 +228,8 @@ export class FormClassesComponent implements OnInit {
     let momentDateFrom = moment(dateFromFormated);
     if(momentDateFrom.isValid() && momentDateTo.isValid()){
       let toSave = this.classForm.value;
-      toSave.danceStyle = this.danceStyles.find(x=>x._id == toSave.danceStyleId);
-      delete(toSave.danceStyleId);
+      toSave.style = this.styles.find(x=>x._id == toSave.styleId);
+      delete(toSave.styleId);
       delete(toSave.students);
       toSave.fromDate = momentDateFrom.valueOf();
       toSave.fromDateMonth = momentDateFrom.startOf('month').valueOf();

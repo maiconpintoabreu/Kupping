@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DanceClass } from '../model/danceclass';
-import { DanceClassService } from '../services/private/dance-class.service';
+import { Event } from '../model/event';
+import { EventService } from '../services/private/event.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import * as jwt_decode from "jwt-decode";
@@ -12,11 +12,11 @@ import { AuthenticationService } from '../services/auth/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  studentClasses: DanceClass[] = [];
-  classes: DanceClass[] = [];
+  studentClasses: Event[] = [];
+  classes: Event[] = [];
   organizer: Boolean;
   student: Boolean;
-  constructor(private danceClassService:DanceClassService, private authenticationService:AuthenticationService) { }
+  constructor(private danceClassService:EventService, private authenticationService:AuthenticationService) { }
 
   ngOnInit() {
     let currentAuth = this.authenticationService.currentAuthValue;

@@ -11,7 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentsComponent } from './students/students.component';
 import { ClassesComponent } from './classes/classes.component';
-import { DanceStyleComponent } from './dance-style/dance-style.component';
+import { StyleComponent } from './style/style.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
 //import { AgmCoreModule } from '@agm/core';
 import { AdminComponent } from './admin/admin.component';
@@ -20,9 +20,9 @@ import { FormClassesComponent } from './classes/form-classes.component';
 import { StudentService } from './services/private/student.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { CloseMenu } from './directives/close-menu';
-import { DanceStyleService } from './services/private/dance-style.service';
-import { DanceStylePublicService } from './services/dance-style.service';
-import { DanceClassService } from './services/private/dance-class.service';
+import { StyleService } from './services/private/style.service';
+import { StylePublicService } from './services/style.service';
+import { EventService } from './services/private/event.service';
 import { DanceClassPublicService } from './services/dance-class.service';
 import { AuthenticationService } from './services/auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
@@ -47,7 +47,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
     StudentsComponent,
     ClassesComponent,
     SendComponent,
-    DanceStyleComponent,
+    StyleComponent,
     DashboardItemComponent,
     AdminComponent,
     FormStudentsComponent,
@@ -71,9 +71,9 @@ import { PrivacyComponent } from './privacy/privacy.component';
   ],
   providers: [
     StudentService,
-    DanceStyleService,
-    DanceStylePublicService,
-    DanceClassService,
+    StyleService,
+    StylePublicService,
+    EventService,
     TicketService,
     DanceClassPublicService,
     AuthenticationService,

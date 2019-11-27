@@ -8,9 +8,9 @@
       <input type="text" class="form-control" formControlName="name" id="name" required>
     </div>
     <div class="form-group">
-      <label for="danceStyleId">Dance Style</label>
-      <select class="form-control" formControlName="danceStyleId" id="danceStyleId" required>
-        <option *ngFor="let danceStyle of danceStyles" [value]="danceStyle._id">{{danceStyle.name}}</option>
+      <label for="danceStyleId">Style</label>
+      <select class="form-control" formControlName="styleId" id="styleId" required>
+        <option *ngFor="let style of styles" [value]="style._id">{{style.name}}</option>
       </select>
     </div>
     <div class="form-group">

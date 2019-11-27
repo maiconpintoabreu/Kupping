@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-3 col-md-4">
+    <div class="col-12 col-md-4">
         <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action" id="list-student-list" data-toggle="list"
                 href="#list-student" role="tab" aria-controls="student"
@@ -9,7 +9,7 @@
                 [ngClass]="{disabled:!organizer,active:!student && organizer}">Organizer</a>
         </div>
     </div>
-    <div class="col-9 col-md-8">
+    <div class="col-12 col-md-8">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show " [ngClass]="{active:student}" id="list-student" role="tabpanel"
                 aria-labelledby="list-student-list">
@@ -44,48 +44,46 @@
                                     Country: {{event.place.country |  textLimit:["18","..."]}}
                                 </div>
                                 <div class="row m-1">
-                                    Style: {{event.danceStyle.name |  textLimit:["18","..."]}}
+                                    Style: {{event.style.name |  textLimit:["18","..."]}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade show" id="list-organizer" role="tabpanel" aria-labelledby="list-organizer-list"
+            <div class="tab-pane fade card-columns" id="list-organizer" role="tabpanel" aria-labelledby="list-organizer-list"
                 [ngClass]="{active:organizer && !student}">
                 <div class="info" *ngIf="!classes.length">You did not create any event yet!</div>
-                <div class="card-columns">
-                    <div class="card m-2 text-white bg-dark" *ngFor="let event of classes">
-                        <div class="card-header large text-center font-weight-bold text-capitalize">
-                            {{event.name |  textLimit:["20","..."]}}
-                        </div>
-                        <div class="card-body">
-                            <div class="card-text">
-                                <div class="row border-bottom pb-2">
-                                    <div class="col-6">
-                                        <div class="fromDate">{{event.fromDateFormated}}</div>
-                                        <div class="fromTime small">Starting at {{event.fromTimeFormated}}</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="toDate">{{event.toDateFormated}}</div>
-                                        <div class="toTime small">Finishing at {{event.toTimeFormated}}</div>
-                                    </div>
+                <div class="card m-2 text-white bg-dark" *ngFor="let event of classes">
+                    <div class="card-header large text-center font-weight-bold text-capitalize">
+                        {{event.name |  textLimit:["20","..."]}}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row border-bottom pb-2">
+                                <div class="col-6">
+                                    <div class="fromDate">{{event.fromDateFormated}}</div>
+                                    <div class="fromTime small">Starting at {{event.fromTimeFormated}}</div>
                                 </div>
-                                <div class="row m-1 pt-1" *ngIf="event.repeat">
-                                    Recurrence: {{event.repeat}}
+                                <div class="col">
+                                    <div class="toDate">{{event.toDateFormated}}</div>
+                                    <div class="toTime small">Finishing at {{event.toTimeFormated}}</div>
                                 </div>
-                                <div class="row m-1">
-                                    Place: {{event.place.description }}
-                                </div>
-                                <div class="row m-1">
-                                    City: {{event.place.city |  textLimit:["18","..."]}}
-                                </div>
-                                <div class="row m-1">
-                                    Country: {{event.place.country |  textLimit:["18","..."]}}
-                                </div>
-                                <div class="row m-1">
-                                    Style: {{event.danceStyle.name |  textLimit:["18","..."]}}
-                                </div>
+                            </div>
+                            <div class="row m-1 pt-1" *ngIf="event.repeat">
+                                Recurrence: {{event.repeat}}
+                            </div>
+                            <div class="row m-1">
+                                Place: {{event.place.description }}
+                            </div>
+                            <div class="row m-1">
+                                City: {{event.place.city |  textLimit:["18","..."]}}
+                            </div>
+                            <div class="row m-1">
+                                Country: {{event.place.country |  textLimit:["18","..."]}}
+                            </div>
+                            <div class="row m-1">
+                                Style: {{event.style.name |  textLimit:["18","..."]}}
                             </div>
                         </div>
                     </div>

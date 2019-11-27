@@ -5,7 +5,7 @@ import { slideInDownAnimation } from '../animations';
 import { first } from 'rxjs/operators';
 import { DanceClassPublicService } from '../services/dance-class.service';
 import { Booking } from '../model/booking';
-import { DanceClass } from '../model/danceclass';
+import { Event } from '../model/event';
 import { Location } from "@angular/common";
 import { FormGroup, FormControl, EmailValidator, Validators } from '@angular/forms';
 
@@ -24,7 +24,7 @@ export class BookingComponent implements OnInit {
     name: new FormControl('',[Validators.minLength(2)]),
     email: new FormControl('',[Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)])
   });
-  danceclass: DanceClass;
+  danceclass: Event;
   danceClassId : string;
   loading = false;
   error = '';

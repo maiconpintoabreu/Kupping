@@ -4,7 +4,7 @@ import { Routes, Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { slideInDownAnimation } from '../animations';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DanceClassService } from "../services/private/dance-class.service";
+import { EventService } from "../services/private/event.service";
 import { Student } from '../model/student';
 import { TicketService } from '../services/private/ticket.service';
 
@@ -33,7 +33,7 @@ export class SendComponent implements OnInit {
   loading = false;
   error = '';
   constructor(private router: Router, private userService : UserService,
-    private route: ActivatedRoute, private danceClassService: DanceClassService, private ticketService:  TicketService) {
+    private route: ActivatedRoute, private danceClassService: EventService, private ticketService:  TicketService) {
   }
   ngOnInit() {
     this.route.parent.paramMap.subscribe(

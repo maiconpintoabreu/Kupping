@@ -1,8 +1,8 @@
 import { Student } from "./student";
-import { DanceStyle } from "./dancestyle";
+import { Style } from "./style";
 import { Place } from "./place";
 
-export class DanceClass{
+export class Event{
     _id: string;
     name: string;
     place: Place;
@@ -11,7 +11,7 @@ export class DanceClass{
     city?: string;
     time: string;
     students: Student[];
-    danceStyle: DanceStyle = new DanceStyle();
+    style: Style = new Style();
     toDate?: number;
     toDateFormated?: string;
     toTimeFormated?: string;

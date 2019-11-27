@@ -5,7 +5,7 @@
       <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Dance Style</th>
+        <th>Style</th>
         <th>Address</th>
         <th>City</th>
         <th>Country</th>
@@ -17,13 +17,13 @@
       <tr *ngFor="let class of classes" [routerLink]="['./detail', class._id]">
         <th scope="row">{{ class._id }}</th>
         <td>{{ class.name }}</td>
-        <td>{{ class.danceStyle.name }}</td>
-        <td>{{ class.place?.address }}</td>
+        <td>{{ class.style.name }}</td>
+        <td>{{ class.place?.description }}</td>
         <td>{{ class.place?.city }}</td>
         <td>{{ class.place?.country }}</td>
         <td>{{ class.students?.length }}</td>
         <td>
-          <span class="badge badge-primary badge-pill">
+          <span class="badge badge-danger badge-pill">
             <a 
               (click)="deleteClass(class._id);$event.stopPropagation()">
               X
@@ -39,7 +39,7 @@
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span class="header-grid">#</span>
       <span class="value-grid">{{ class._id }}</span>
-      <span class="badge badge-primary badge-pill">
+      <span class="badge badge-danger badge-pill">
         <a 
           (click)="deleteClass(class._id);$event.stopPropagation()">
           X
@@ -47,10 +47,10 @@
     </span>
     </li>
     <li class="list-group-item"><span class="header-grid">Name</span><span class="value-grid">{{ class.name }}</span></li>
-    <li class="list-group-item"><span class="header-grid">Dance Style</span><span class="value-grid">{{ class.danceStyle.name }}</span></li>
+    <li class="list-group-item"><span class="header-grid">Style</span><span class="value-grid">{{ class.style.name }}</span></li>
     <li class="list-group-item"><span class="header-grid">Country</span><span class="value-grid">{{ class.place?.country }}</span></li>
     <li class="list-group-item"><span class="header-grid">City</span><span class="value-grid">{{ class.place?.city }}</span></li>
-    <li class="list-group-item"><span class="header-grid">Address</span><span class="value-grid">{{ class.place?.address }}</span></li>
+    <li class="list-group-item"><span class="header-grid">Address</span><span class="value-grid">{{ class.place?.description }}</span></li>
     <li class="list-group-item"><span class="header-grid">Students</span><span class="value-grid">{{ class.students?.length }}</span></li>
   </ul>
 </div>

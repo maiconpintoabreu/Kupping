@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DanceClass } from '../model/danceclass';
-import { DanceClassService } from '../services/private/dance-class.service';
+import { Event } from '../model/event';
+import { EventService } from '../services/private/event.service';
 
 @Component({
   selector: 'app-classes',
@@ -9,8 +9,8 @@ import { DanceClassService } from '../services/private/dance-class.service';
 })
 export class ClassesComponent implements OnInit {
 
-  classes: DanceClass[];
-  constructor(private danceClassService: DanceClassService) { }
+  classes: Event[];
+  constructor(private danceClassService: EventService) { }
 
   ngOnInit() {
     this.getClasses();

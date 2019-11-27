@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DanceClassPublicService } from '../services/dance-class.service';
-import { DanceClass } from '../model/danceclass';
+import { Event } from '../model/event';
 import { Place } from '../model/place';
-import { DanceStyle } from '../model/dancestyle';
-import { DanceStylePublicService } from '../services/dance-style.service';
+import { Style } from '../model/style';
+import { StylePublicService } from '../services/style.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -14,24 +14,24 @@ import * as moment from 'moment';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit { 
-  events: DanceClass[] = [];
-  styles: DanceStyle[] = [];
+  events: Event[] = [];
+  styles: Style[] = [];
   countries: string[] = ["All"];
   cities: string[] = ["All"];
-  eventList: DanceClass[] = [];
-  styleSelected: DanceStyle;
+  eventList: Event[] = [];
+  styleSelected: Style;
   countrySelected: string;
   citySelected: string;
-  eventSelected: DanceClass;
+  eventSelected: Event;
   queryParams: Params = {};
-  constructor(private route: ActivatedRoute,private router: Router,private danceClassService: DanceClassPublicService,private danceStyleService: DanceStylePublicService) {
+  constructor(private route: ActivatedRoute,private router: Router,private danceClassService: DanceClassPublicService,private danceStyleService: StylePublicService) {
 
   }
   
   ngOnInit() {
-    this.danceStyleService.getDanceStyles().subscribe(resDanceStyle=>{
+    this.danceStyleService.getStyles().subscribe(resStyle=>{
       this.styles.push({_id:null,name:"All"});
-      this.styles = this.styles.concat(resDanceStyle);
+      this.styles = this.styles.concat(resStyle);
       this.danceClassService.getDanceClasses().pipe(map(x=>{
         x.forEach(element=>{
           element.toDateFormated = moment(element.toDate).format("Do MMM YYYY")
@@ -66,11 +66,11 @@ export class HomeComponent implements OnInit {
       },errDanceClass=>{
         console.error("Error:",errDanceClass);
       })
-    },errDanceStyle=>{
-      console.error("Error:",errDanceStyle);
+    },errStyle=>{
+      console.error("Error:",errStyle);
     })
   }
-  setStyleSelected(style:DanceStyle){
+  setStyleSelected(style:Style){
     this.styleSelected = style;
     this.getCountries();
     this.queryParams = {stylename:style.name};
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
   // TODO: Make it better
   getCountries(){
-    let eventsFiltered = this.events.filter(x=>x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id);
+    let eventsFiltered = this.events.filter(x=>x.style && (x.style._id == this.styleSelected._id || !this.styleSelected._id));
     eventsFiltered.forEach(element => {
       if(!this.countries.find(x=>x.toLowerCase() == element.place.country.toLowerCase()))
         this.countries.push(element.place.country);
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
   getCities(){
     let eventsFiltered = this.events.filter(x=>
       (x.place.country.toLowerCase() == this.countrySelected.toLowerCase() || this.countrySelected === "All") 
-      && (x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id)
+      && (x.style && (x.style._id == this.styleSelected._id || !this.styleSelected._id))
     );
     eventsFiltered.forEach(element => {
       if(!this.cities.find(x=>x.toLowerCase() == element.place.city.toLowerCase()))
@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
     this.eventList = this.events.filter(x=>
       (x.place.city.toLowerCase() == this.citySelected.toLowerCase()  || this.citySelected === "All")
       && (x.place.country.toLowerCase() == this.countrySelected.toLowerCase() || this.countrySelected === "All") 
-      && (x.danceStyle._id == this.styleSelected._id || !this.styleSelected._id));
+      && (x.style && (x.style._id == this.styleSelected._id || !this.styleSelected._id)));
   }
   showBookingModel(id:string){
     this.router.navigate(["./home/danceclass/"+id+"/booking"])
